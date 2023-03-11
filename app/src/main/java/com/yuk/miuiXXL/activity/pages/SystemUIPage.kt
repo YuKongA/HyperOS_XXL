@@ -49,6 +49,11 @@ class SystemUIPage : BasePage() {
                 textId = R.string.systemui_wave_charge_animation, tipsId = R.string.systemui_wave_charge_animation_summary
             ), SwitchV("systemui_wave_charge_animation", false)
         )
+        TextSummaryWithSwitch(
+            TextSummaryV(
+                textId = R.string.systemui_use_new_hd, tipsId = R.string.systemui_use_new_summary
+            ), SwitchV("systemui_use_new_hd", false)
+        )
     }
 
 }

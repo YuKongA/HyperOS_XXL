@@ -81,6 +81,10 @@ class MiuiHomePage : BasePage() {
             TextSummaryV(textId = R.string.miuihome_anim_ratio_binding, tipsId = R.string.miuihome_anim_ratio_binding_summary),
             SwitchV("miuihome_anim_ratio_binding", dataBindingSend = animRatioBinding.bindingSend)
         )
+        TextSummaryWithSwitch(
+            TextSummaryV(textId = R.string.miuihome_show_real_memory, tipsId = R.string.miuihome_show_real_memory_summary),
+            SwitchV("miuihome_show_real_memory", false)
+        )
         TextSummaryWithSeekBar(
             TextSummaryV(textId = R.string.miuihome_anim_ratio, tipsId = R.string.miuihome_anim_ratio_summary),
             SeekBarWithTextV("miuihome_anim_ratio", 0, 300, 100),

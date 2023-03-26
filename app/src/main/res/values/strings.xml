@@ -97,6 +97,8 @@
     <string name="miuihome_complete_blur_fix_summary">Complements blur when swiping up from the App, which may cause visual flicker</string>
     <string name="miuihome_minus_one_overlap_mode">Overlap Mode App Vault</string>
     <string name="miuihome_minus_one_overlap_mode_summary">Used in conjunction with minus one screen blur, and the system launcher need to be checked</string>
+    <string name="miuihome_show_real_memory">Show Real Memory Info</string>
+    <string name="miuihome_show_real_memory_summary">Hacking fake MIUI memory display, need to turn on "Show memory status" in Home screen Settings</string>
 
     <string name="thememanager">Theme Manager</string>
     <string name="thememanager_fuck_validate_theme">Theme cracking</string>

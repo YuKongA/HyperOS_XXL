@@ -116,6 +116,6 @@ fun getVersionName(): String {
 dependencies {
     compileOnly("de.robv.android.xposed:api:82")
     implementation(project(":blockmiui"))
-    implementation("com.github.kyuubiran:EzXHelper:1.0.3")
+    implementation("com.github.kyuubiran:EzXHelper:2.0.4")
     implementation("org.luckypray:DexKit:1.1.8")
 }

@@ -8,7 +8,6 @@ import java.lang.reflect.Method
 
 class AntiDefraudAppManager : IXposedHookLoadPackage {
 
-    @Throws(NoSuchMethodException::class)
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         System.loadLibrary("dexkit")
         DexKitBridge.create(lpparam.appInfo.sourceDir)?.use { bridge ->

@@ -16,15 +16,16 @@ import java.lang.reflect.Method
 
 class FuckValidateTheme2 : IXposedHookLoadPackage {
 
-    @Throws(NoSuchMethodException::class)
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if (!getBoolean("thememanager_fuck_validate_theme", false)) return
         System.loadLibrary("dexkit")
         DexKitBridge.create(lpparam.appInfo.sourceDir)?.use { bridge ->
 
             val map = mapOf(
-                "DrmResult" to setOf("theme", "ThemeManagerTag", "/system"),
-                "LargeIcon" to setOf("apply failed", "/data/system/theme/large_icons/", "default_large_icon_product_id"),
+                "DrmResult" to setOf("theme", "ThemeManagerTag", "/system", "check rights isLegal:"),
+                "LargeIcon" to setOf(
+                    "apply failed", "/data/system/theme/large_icons/", "default_large_icon_product_id", "largeicons", "relativePackageList is empty"
+                ),
             )
 
             val resultMap = bridge.batchFindMethodsUsingStrings {

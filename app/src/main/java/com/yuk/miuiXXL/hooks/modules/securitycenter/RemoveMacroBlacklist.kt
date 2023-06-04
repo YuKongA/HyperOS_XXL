@@ -11,7 +11,6 @@ import java.lang.reflect.Method
 
 class RemoveMacroBlacklist : IXposedHookLoadPackage {
 
-    @Throws(NoSuchMethodException::class)
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if (!getBoolean("securitycenter_remove_macro_blacklist", false)) return
         System.loadLibrary("dexkit")

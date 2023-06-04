@@ -32,3 +32,5 @@
 -dontobfuscate
 -allowaccessmodification
 -overloadaggressively
+
+-keepattributes RuntimeVisibleAnnotations

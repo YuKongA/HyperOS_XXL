@@ -26,7 +26,6 @@ object FuckValidateTheme1 : BaseHook() {
             findAllMethods("com.android.thememanager.basemodule.views.DiscountPriceView") {
                 parameterCount == 2 && parameterTypes[0] == Int::class.javaPrimitiveType && parameterTypes[1] == Int::class.javaPrimitiveType
             }.hookBefore {
-                it.args[0] = 0
                 it.args[1] = 0
             }
         } catch (t: Throwable) {

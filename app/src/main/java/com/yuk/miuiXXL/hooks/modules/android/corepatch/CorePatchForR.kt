@@ -135,9 +135,7 @@ open class CorePatchForR : XposedHelper(), IXposedHookLoadPackage, IXposedHookZy
                         try {
                             if (prefs().getBoolean("UsePreSig", false)) {
                                 val pkgM = AndroidAppHelper.currentApplication().packageManager
-                                if (pkgM == null) {
-                                    Log.ex(BuildConfig.APPLICATION_ID + " Cannot get the Package Manager... Are you using MiUI?")
-                                } else {
+                                if (pkgM != null) {
                                     val pI: PackageInfo? = if (parseErr != null) {
                                         pkgM.getPackageArchiveInfo((methodHookParam.args[1] as String), 0)
                                     } else {

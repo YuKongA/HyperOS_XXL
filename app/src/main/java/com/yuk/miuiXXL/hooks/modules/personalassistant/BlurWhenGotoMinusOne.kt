@@ -1,5 +1,6 @@
 package com.yuk.miuiXXL.hooks.modules.personalassistant
 
+import android.content.res.Configuration
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.callMethod
 import com.yuk.miuiXXL.utils.findClass
@@ -20,7 +21,16 @@ object BlurWhenGotoMinusOne : BaseHook() {
         deviceAdapter.hookBeforeAllMethods("create") {
             it.result = foldableDeviceAdapter.new(it.args[0])
         }
-        foldableDeviceAdapter.hookBeforeMethod("onOpened") {
+        try {
+            foldableDeviceAdapter.hookBeforeMethod("onEnter", Boolean::class.java) {
+                it.thisObject.setObjectField("mScreenSize", 3)
+            }
+        } catch (e: ClassNotFoundException) {
+            foldableDeviceAdapter.hookBeforeMethod("onOpened") {
+                it.thisObject.setObjectField("mScreenSize", 3)
+            }
+        }
+        foldableDeviceAdapter.hookBeforeMethod("onConfigurationChanged", Configuration::class.java) {
             it.thisObject.setObjectField("mScreenSize", 3)
         }
         foldableDeviceAdapter.replaceMethod("onScroll", Float::class.java) {

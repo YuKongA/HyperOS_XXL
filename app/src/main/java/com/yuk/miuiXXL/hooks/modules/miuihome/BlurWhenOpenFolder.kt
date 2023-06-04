@@ -6,7 +6,6 @@ import android.view.View
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.callMethod
 import com.yuk.miuiXXL.utils.callStaticMethod
-import com.yuk.miuiXXL.utils.callStaticMethodOrNull
 import com.yuk.miuiXXL.utils.findClass
 import com.yuk.miuiXXL.utils.getBoolean
 import com.yuk.miuiXXL.utils.getObjectField
@@ -25,14 +24,14 @@ object BlurWhenOpenFolder : BaseHook() {
         val navStubViewClass = "com.miui.home.recents.NavStubView".findClass()
         val cancelShortcutMenuReasonClass = "com.miui.home.launcher.shortcuts.CancelShortcutMenuReason".findClass()
 
-        val isUserBlurWhenOpenFolder = blurUtilsClass.callStaticMethodOrNull("isUserBlurWhenOpenFolder")
-        if (isUserBlurWhenOpenFolder != null) {
-            blurUtilsClass.hookAfterMethod("isUserBlurWhenOpenFolder") {
+        try {
+            launcherClass.hookBeforeMethod("isShouldBlur") {
                 it.result = false
             }
             blurUtilsClass.hookBeforeMethod("fastBlurWhenOpenOrCloseFolder", launcherClass, Boolean::class.java) {
                 it.result = null
             }
+        } catch (_: Exception) {
         }
         var isShouldBlur = false
 

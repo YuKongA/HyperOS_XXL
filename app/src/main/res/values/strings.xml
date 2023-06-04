@@ -74,7 +74,7 @@
     <string name="miuihome_unlock_animation">Optimize unlock animation</string>
     <string name="miuihome_unlock_animation_summary">Optimize the transition effect from lock screen to desktop when unlocking</string>
     <string name="miuihome_blur_when_open_folder">Folder View Blur</string>
-    <string name="miuihome_blur_when_open_folder_summary">Enable Blur When Open Folder</string>
+    <string name="miuihome_blur_when_open_folder_summary">Enable Blur When Open Folder. If officially supported by itself, turn it on and replace it with the module implementation.</string>
     <string name="miuihome_always_show_statusbar_clock">Always show status bar clock</string>
     <string name="miuihome_always_show_statusbar_clock_summary">Do not remove the status bar clock when there is any clock widget on the launcher</string>
     <string name="miuihome_task_view_card_size_binding">Customize task view card size</string>

@@ -1,7 +1,8 @@
 package com.yuk.miuiXXL.hooks.modules.miuihome
 
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookReturnConstant
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.getBoolean
 
@@ -9,19 +10,16 @@ object AlwaysShowStatusBarClock : BaseHook() {
     override fun init() {
 
         if (!getBoolean("miuihome_always_show_statusbar_clock", false)) return
+        val workspaceClass = loadClass("com.miui.home.launcher.Workspace")
         try {
-            findMethod("com.miui.home.launcher.Workspace") {
-                name == "isScreenHasClockGadget"
-            }
+            workspaceClass.methodFinder().filterByName("isScreenHasClockGadget").first()
         } catch (e: Exception) {
-            findMethod("com.miui.home.launcher.Workspace") {
-                name == "isScreenHasClockWidget"
-            }
+            workspaceClass.methodFinder().filterByName("isScreenHasClockWidget").first()
         } catch (e: Exception) {
-            findMethod("com.miui.home.launcher.Workspace") {
-                name == "isClockWidget"
-            }
-        }.hookReturnConstant(false)
+            workspaceClass.methodFinder().filterByName("isClockWidget").first()
+        }.createHook {
+            returnConstant(false)
+        }
     }
 
 }

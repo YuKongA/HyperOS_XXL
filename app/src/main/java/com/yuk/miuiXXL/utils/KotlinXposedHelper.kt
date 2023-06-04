@@ -4,8 +4,8 @@ package com.yuk.miuiXXL.utils
 
 import android.annotation.SuppressLint
 import android.content.res.XResources
-import com.github.kyuubiran.ezxhelper.init.InitFields.ezXClassLoader
-import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.ClassLoaderProvider
+import com.github.kyuubiran.ezxhelper.Log
 import dalvik.system.BaseDexClassLoader
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodHook.MethodHookParam
@@ -328,9 +328,9 @@ fun Class<*>.callStaticMethodOrNull(
     callStaticMethod(this, methodName, parameterTypes, *args)
 }
 
-fun String.findClass(): Class<*> = findClass(this, ezXClassLoader)
+fun String.findClass(): Class<*> = findClass(this, ClassLoaderProvider.classLoader)
 
-fun String.findClassOrNull(): Class<*>? = findClassIfExists(this, ezXClassLoader)
+fun String.findClassOrNull(): Class<*>? = findClassIfExists(this, ClassLoaderProvider.classLoader)
 
 fun Class<*>.new(vararg args: Any?): Any = newInstance(this, *args)
 

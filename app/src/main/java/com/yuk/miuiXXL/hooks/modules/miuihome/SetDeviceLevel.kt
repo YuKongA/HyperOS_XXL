@@ -1,30 +1,29 @@
 package com.yuk.miuiXXL.hooks.modules.miuihome
 
-import com.github.kyuubiran.ezxhelper.utils.Log
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookAfter
-import com.github.kyuubiran.ezxhelper.utils.hookReturnConstant
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.Log
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.atLeastAndroidT
 import com.yuk.miuiXXL.utils.findClass
 import com.yuk.miuiXXL.utils.getBoolean
 import com.yuk.miuiXXL.utils.hookBeforeMethod
 import com.yuk.miuiXXL.utils.replaceMethod
-import de.robv.android.xposed.XposedBridge
 
 object SetDeviceLevel : BaseHook() {
     override fun init() {
 
         if (!getBoolean("miuihome_highend_device", false)) return
         try {
-            findMethod("com.miui.home.launcher.common.CpuLevelUtils") {
-                name == "getQualcommCpuLevel" && parameterCount == 1
-            }
+            loadClass("com.miui.home.launcher.common.CpuLevelUtils").methodFinder().filterByName("getQualcommCpuLevel").filterByParamCount(1)
         } catch (e: Exception) {
-            findMethod("miuix.animation.utils.DeviceUtils") {
-                name == "getQualcommCpuLevel" && parameterCount == 1
+            loadClass("miuix.animation.utils.DeviceUtils").methodFinder().filterByName("getQualcommCpuLevel").filterByParamCount(1)
+        }.first().createHook {
+            before {
+                it.result = 2
             }
-        }.hookReturnConstant(2)
+        }
         try {
             "com.miui.home.launcher.common.DeviceLevelUtils".hookBeforeMethod("getDeviceLevel") {
                 it.result = 2
@@ -109,9 +108,12 @@ object SetDeviceLevel : BaseHook() {
             Log.ex(e)
         }
         try {
-            if (atLeastAndroidT()) findMethod("com.miui.home.launcher.graphics.MonochromeUtils") {
-                name == "isSupportMonochrome"
-            }.hookReturnConstant(true)
+            if (atLeastAndroidT()) loadClass("com.miui.home.launcher.graphics.MonochromeUtils").methodFinder().filterByName("isSupportMonochrome").first()
+                .createHook {
+                    before {
+                        it.result = true
+                    }
+                }
         } catch (e: Throwable) {
             Log.ex(e)
         }

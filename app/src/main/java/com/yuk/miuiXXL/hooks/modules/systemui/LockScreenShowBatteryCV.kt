@@ -5,11 +5,12 @@ import android.app.AndroidAppHelper
 import android.content.Context
 import android.os.BatteryManager
 import android.widget.TextView
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookAfter
-import com.github.kyuubiran.ezxhelper.utils.hookAllConstructorAfter
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
+import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.findClass
 import com.yuk.miuiXXL.utils.getBoolean
 import java.io.BufferedReader
 import java.io.File
@@ -22,14 +23,16 @@ object LockScreenShowBatteryCV : BaseHook() {
     override fun init() {
 
         if (!getBoolean("systemui_lockscreen_show_current", false)) return
-        findMethod("com.android.keyguard.charge.ChargeUtils") {
-            name == "getChargingHintText" && parameterCount == 3
-        }.hookAfter {
-            it.result = it.result as String + "\n" + getCV()
+        loadClass("com.android.keyguard.charge.ChargeUtils").methodFinder().filterByName("getChargingHintText").filterByParamCount(3).first().createHook {
+            after {
+                it.result = it.result as String + "\n" + getCV()
+            }
         }
 
-        "com.android.systemui.statusbar.phone.KeyguardIndicationTextView".findClass().hookAllConstructorAfter {
-            (it.thisObject as TextView).isSingleLine = false
+        loadClass("com.android.systemui.statusbar.phone.KeyguardIndicationTextView").constructors.createHooks {
+            after {
+                (it.thisObject as TextView).isSingleLine = false
+            }
         }
     }
 

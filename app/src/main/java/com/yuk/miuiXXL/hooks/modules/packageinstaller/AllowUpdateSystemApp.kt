@@ -1,9 +1,9 @@
 package com.yuk.miuiXXL.hooks.modules.packageinstaller
 
 import android.content.pm.ApplicationInfo
-import com.github.kyuubiran.ezxhelper.utils.Log
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookBefore
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.Log
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.findClassOrNull
 import com.yuk.miuiXXL.utils.getBoolean
@@ -18,11 +18,12 @@ object AllowUpdateSystemApp : BaseHook() {
             try {
                 val classIfExists = "j2.${letter}".findClassOrNull()
                 classIfExists?.let {
-                    findMethod(it) {
-                        parameterCount == 1 && parameterTypes[0] == ApplicationInfo::class.java && returnType == Boolean::class.java
-                    }.hookBefore { hookParam ->
-                        hookParam.result = false
-                    }
+                    it.methodFinder().filterByParamCount(1).filterByParamTypes(ApplicationInfo::class.java).filterByReturnType(Boolean::class.java).first()
+                        .createHook {
+                            before { hookParam ->
+                                hookParam.result = false
+                            }
+                        }
                 }
             } catch (t: Throwable) {
                 letter++

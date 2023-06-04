@@ -11,8 +11,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import cn.fkj233.ui.activity.dp2px
-import com.github.kyuubiran.ezxhelper.init.InitFields.moduleRes
-import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
+import com.github.kyuubiran.ezxhelper.Log
 import com.yuk.miuiXXL.R
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.callMethod
@@ -77,9 +77,10 @@ object ShowMoreApkInfo : BaseHook() {
                     linearLayout2.orientation = LinearLayout.VERTICAL
                     linearLayout2.gravity = Gravity.CENTER
                     linearLayout2.setPadding(dp2px(mContext, 18f), dp2px(mContext, 15f), dp2px(mContext, 18f), dp2px(mContext, 15f))
-                    linearLayout2.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT).also {
-                        it.setMargins(0, dp2px(mContext, 13f), 0, 0)
-                    }
+                    linearLayout2.layoutParams =
+                        LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT).also {
+                            it.setMargins(0, dp2px(mContext, 13f), 0, 0)
+                        }
                     linearLayout2.background =
                         moduleRes.getDrawable(if (isDarkMode) R.drawable.ic_packageinstaller_background_dark else R.drawable.ic_packageinstaller_background_light)
                     val mAppPackageNameView = TextView(mContext)

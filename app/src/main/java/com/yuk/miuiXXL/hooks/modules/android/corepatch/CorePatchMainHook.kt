@@ -1,7 +1,7 @@
 package com.yuk.miuiXXL.hooks.modules.android.corepatch
 
 import android.os.Build
-import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.Log
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.IXposedHookZygoteInit.StartupParam

@@ -1,8 +1,8 @@
 package com.yuk.miuiXXL.hooks
 
-import com.github.kyuubiran.ezxhelper.init.EzXHelperInit
-import com.github.kyuubiran.ezxhelper.utils.Log
-import com.github.kyuubiran.ezxhelper.utils.Log.logexIfThrow
+import com.github.kyuubiran.ezxhelper.EzXHelper
+import com.github.kyuubiran.ezxhelper.Log
+import com.github.kyuubiran.ezxhelper.LogExtensions.logexIfThrow
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.hooks.modules.android.FuckValidateTheme3
 import com.yuk.miuiXXL.hooks.modules.android.MaxWallpaperScale
@@ -78,7 +78,7 @@ private val PACKAGE_NAME_HOOKED = setOf(
 class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
 
     override fun initZygote(startupParam: IXposedHookZygoteInit.StartupParam) {
-        EzXHelperInit.initZygote(startupParam)
+        EzXHelper.initZygote(startupParam)
         CorePatchMainHook().initZygote(startupParam)
         initHooks(FuckValidateTheme3)
     }
@@ -86,9 +86,9 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if (lpparam.packageName in PACKAGE_NAME_HOOKED) {
             // Init EzXHelper
-            EzXHelperInit.initHandleLoadPackage(lpparam)
-            EzXHelperInit.setLogTag(TAG)
-            EzXHelperInit.setToastTag(TAG)
+            EzXHelper.initHandleLoadPackage(lpparam)
+            EzXHelper.setLogTag(TAG)
+            EzXHelper.setToastTag(TAG)
             // Init hooks
             when (lpparam.packageName) {
                 "android" -> {

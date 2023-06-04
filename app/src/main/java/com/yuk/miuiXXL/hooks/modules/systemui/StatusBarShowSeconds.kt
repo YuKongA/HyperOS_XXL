@@ -5,10 +5,10 @@ import android.content.Context
 import android.os.Handler
 import android.provider.Settings
 import android.widget.TextView
-import com.github.kyuubiran.ezxhelper.utils.findConstructor
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookAfter
-import com.github.kyuubiran.ezxhelper.utils.paramCount
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.getBoolean
 import java.lang.reflect.Method
@@ -26,55 +26,55 @@ object StatusBarShowSeconds : BaseHook() {
         try {
             var c: Context? = null
             try {
-                findConstructor("com.android.systemui.statusbar.views.MiuiClock") {
-                    paramCount == 3
-                }.hookAfter {
-                    try {
-                        c = it.args[0] as Context
-                        val textV = it.thisObject as TextView?
-                        if (textV != null) {
-                            val d: Method = textV.javaClass.getDeclaredMethod("updateTime")
-                            val r = Runnable {
-                                d.isAccessible = true
-                                d.invoke(textV)
-                            }
+                loadClass("com.android.systemui.statusbar.views.MiuiClock").constructorFinder().filterByParamCount(3).first().createHook {
+                    after {
+                        try {
+                            c = it.args[0] as Context
+                            val textV = it.thisObject as TextView?
+                            if (textV != null) {
+                                val d: Method = textV.javaClass.getDeclaredMethod("updateTime")
+                                val r = Runnable {
+                                    d.isAccessible = true
+                                    d.invoke(textV)
+                                }
 
-                            class T : TimerTask() {
-                                override fun run() {
-                                    Handler(textV.context.mainLooper).post(r)
+                                class T : TimerTask() {
+                                    override fun run() {
+                                        Handler(textV.context.mainLooper).post(r)
+                                    }
+                                }
+                                if (textV.resources.getResourceEntryName(textV.id) == "clock") {
+                                    Timer().scheduleAtFixedRate(T(), 1000 - System.currentTimeMillis() % 1000, 1000)
                                 }
                             }
-                            if (textV.resources.getResourceEntryName(textV.id) == "clock") {
-                                Timer().scheduleAtFixedRate(T(), 1000 - System.currentTimeMillis() % 1000, 1000)
-                            }
+                        } catch (_: Exception) {
                         }
-                    } catch (_: Exception) {
                     }
                 }
             } catch (_: Exception) {
             }
             try {
-                findMethod("com.android.systemui.statusbar.views.MiuiClock") {
-                    name == "updateTime"
-                }.hookAfter {
-                    try {
-                        val textV = it.thisObject as TextView?
-                        if (textV != null && c != null) {
-                            val t = Settings.System.getString(c!!.contentResolver, Settings.System.TIME_12_24)
-                            if (textV.resources.getResourceEntryName(textV.id) == "clock") {
-                                if (t == "24") {
-                                    textV.text = SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().time)
-                                } else {
-                                    var string = ""
-                                    if (Locale.getDefault().country == "US") {
-                                        string = textV.text.toString().substring(textV.text.toString().length - 3, textV.text.toString().length)
+                loadClass("com.android.systemui.statusbar.views.MiuiClock").methodFinder().filterByName("updateTime").first().createHook {
+                    after {
+                        try {
+                            val textV = it.thisObject as TextView?
+                            if (textV != null && c != null) {
+                                val t = Settings.System.getString(c!!.contentResolver, Settings.System.TIME_12_24)
+                                if (textV.resources.getResourceEntryName(textV.id) == "clock") {
+                                    if (t == "24") {
+                                        textV.text = SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().time)
+                                    } else {
+                                        var string = ""
+                                        if (Locale.getDefault().country == "US") {
+                                            string = textV.text.toString().substring(textV.text.toString().length - 3, textV.text.toString().length)
+                                        }
+                                        val text = textV.text.toString().replace("AM", "").replace("PM", "").replace(" ", "")
+                                        textV.text = text + SimpleDateFormat(":ss").format(Calendar.getInstance().time) + string
                                     }
-                                    val text = textV.text.toString().replace("AM", "").replace("PM", "").replace(" ", "")
-                                    textV.text = text + SimpleDateFormat(":ss").format(Calendar.getInstance().time) + string
                                 }
                             }
+                        } catch (_: Exception) {
                         }
-                    } catch (_: Exception) {
                     }
                 }
             } catch (_: Exception) {

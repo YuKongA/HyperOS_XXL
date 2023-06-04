@@ -2,8 +2,8 @@ package com.yuk.miuiXXL.hooks.modules.miuihome
 
 import android.app.Activity
 import android.view.MotionEvent
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookBefore
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.callStaticMethod
 import com.yuk.miuiXXL.utils.findClass
@@ -18,10 +18,8 @@ object UseCompleteBlur : BaseHook() {
         val blurUtilsClass = "com.miui.home.launcher.common.BlurUtils".findClass()
         val navStubViewClass = "com.miui.home.recents.NavStubView".findClass()
 
-        findMethod(blurUtilsClass) {
-            name == "getBlurType"
-        }.hookBefore {
-            it.result = 2
+        blurUtilsClass.methodFinder().filterByName("getBlurType").first().createHook {
+            returnConstant(2)
         }
 
         if (getBoolean("miuihome_complete_blur_fix", false)) {

@@ -1,8 +1,9 @@
 package com.yuk.miuiXXL.hooks.modules.mediaeditor
 
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookBefore
-import com.github.kyuubiran.ezxhelper.utils.loadClassOrNull
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClassOrNull
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.getBoolean
 
@@ -10,45 +11,40 @@ object RemoveCropRestriction : BaseHook() {
     override fun init() {
 
         if (!getBoolean("mediaeditor_remove_crop_restriction", false)) return
-        val resizeDetectorClass = loadClassOrNull("com.miui.gallery.editor.photo.core.imports.obsoletes.Crop\$ResizeDetector")
-        if (resizeDetectorClass != null) {
-            findMethod("com.miui.gallery.editor.photo.core.imports.obsoletes.Crop\$ResizeDetector") {
-                name == "calculateMinSize"
-            }.hookBefore {
-                it.result = 0
+        val resizeDetectorCropClass = loadClassOrNull("com.miui.gallery.editor.photo.core.imports.obsoletes.Crop\$ResizeDetector")
+        val resizeDetectorScreenCropViewClass = loadClassOrNull("com.miui.gallery.editor.photo.screen.crop.ScreenCropView\$ResizeDetector")
+
+        if (resizeDetectorCropClass != null) {
+            resizeDetectorCropClass.methodFinder().filterByName("calculateMinSize").first().createHook {
+                returnConstant(0)
             }
         } else {
-            var resizeDetector = 'a'
+            var resizeDetectorCrop = 'a'
             for (i in 0..25) {
                 try {
-                    findMethod("com.miui.gallery.editor.photo.screen.crop.ScreenCropView\$${resizeDetector}") {
-                        returnType == Int::class.javaPrimitiveType && parameterCount == 0
-                    }.hookBefore {
-                        it.result = 0
-                    }
+                    loadClass("com.miui.gallery.editor.photo.core.imports.obsoletes.Crop\$${resizeDetectorCrop}").methodFinder().filterByReturnType(Int::class.java)
+                        .filterByParamCount(0).first().createHook {
+                            returnConstant(0)
+                        }
                 } catch (t: Throwable) {
-                    resizeDetector++
+                    resizeDetectorCrop++
                 }
             }
         }
-        val resizeDetectorClass1 = loadClassOrNull("com.miui.gallery.editor.photo.screen.crop.ScreenCropView\$ResizeDetector")
-        if (resizeDetectorClass1 != null) {
-            findMethod("com.miui.gallery.editor.photo.screen.crop.ScreenCropView\$ResizeDetector") {
-                name == "calculateMinSize"
-            }.hookBefore {
-                it.result = 0
+        if (resizeDetectorScreenCropViewClass != null) {
+            resizeDetectorScreenCropViewClass.methodFinder().filterByName("calculateMinSize").first().createHook {
+                returnConstant(0)
             }
         } else {
-            var resizeDetector1 = 'a'
+            var resizeDetectorScreenCropView = 'a'
             for (i in 0..25) {
                 try {
-                    findMethod("com.miui.gallery.editor.photo.core.imports.obsoletes.Crop\$${resizeDetector1}") {
-                        returnType == Int::class.javaPrimitiveType && parameterCount == 0
-                    }.hookBefore {
-                        it.result = 0
-                    }
-                } catch (_: Throwable) {
-                    resizeDetector1++
+                    loadClass("com.miui.gallery.editor.photo.screen.crop.ScreenCropView\$${resizeDetectorScreenCropView}").methodFinder().filterByReturnType(Int::class.java)
+                        .filterByParamCount(0).first().createHook {
+                            returnConstant(0)
+                        }
+                } catch (t: Throwable) {
+                    resizeDetectorScreenCropView++
                 }
             }
         }

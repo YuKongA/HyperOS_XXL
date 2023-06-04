@@ -1,6 +1,6 @@
 package com.yuk.miuiXXL.hooks.modules.guardprovider
 
-import com.yuk.miuiXXL.utils.replaceMethod
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import io.luckypray.dexkit.DexKitBridge
@@ -24,8 +24,10 @@ class AntiDefraudAppManager : IXposedHookLoadPackage {
             assert(antiDefraudAppManager.size == 1)
             val antiDefraudAppManagerDescriptor = antiDefraudAppManager.first()
             val antiDefraudAppManagerMethod: Method = antiDefraudAppManagerDescriptor.getMethodInstance(lpparam.classLoader)
-            antiDefraudAppManagerMethod.replaceMethod {
-                return@replaceMethod null
+            antiDefraudAppManagerMethod.createHook {
+                replace {
+                    return@replace null
+                }
             }
         }
     }

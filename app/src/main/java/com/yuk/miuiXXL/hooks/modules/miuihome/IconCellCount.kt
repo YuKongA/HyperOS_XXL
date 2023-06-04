@@ -1,7 +1,6 @@
 package com.yuk.miuiXXL.hooks.modules.miuihome
 
 import android.content.Context
-import com.github.kyuubiran.ezxhelper.utils.unhookAll
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.callMethod
 import com.yuk.miuiXXL.utils.callStaticMethod
@@ -57,7 +56,7 @@ object IconCellCount : BaseHook() {
             }
         }
         screenUtilsClass.hookAfterAllMethods("getScreenCellsSizeOptions") {
-            hook?.unhookAll()
+            hook?.forEach { it.unhook() }
         }
     }
 

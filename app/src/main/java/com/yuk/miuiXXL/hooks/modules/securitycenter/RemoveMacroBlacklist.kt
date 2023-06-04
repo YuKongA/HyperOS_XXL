@@ -1,8 +1,7 @@
 package com.yuk.miuiXXL.hooks.modules.securitycenter
 
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookBefore
-import com.github.kyuubiran.ezxhelper.utils.hookReturnConstant
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.utils.getBoolean
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.callbacks.XC_LoadPackage
@@ -37,17 +36,21 @@ class RemoveMacroBlacklist : IXposedHookLoadPackage {
             assert(macro.size == 1)
             val macroDescriptor = macro.first()
             val macroClass: Class<*> = macroDescriptor.getClassInstance(lpparam.classLoader)
-            findMethod(macroClass) {
-                returnType == Boolean::class.java && parameterCount == 1
-            }.hookReturnConstant(false)
+            macroClass.methodFinder().filterByReturnType(Boolean::class.java).filterByParamCount(1).first().createHook {
+                before {
+                    it.result = false
+                }
+            }
 
             val macro1 = resultClassMap["Macro1"]!!
             assert(macro1.size == 1)
             val macro1Descriptor = macro1.first()
             val macro1Class: Class<*> = macro1Descriptor.getClassInstance(lpparam.classLoader)
-            findMethod(macro1Class) {
-                returnType == Boolean::class.java && parameterCount == 2
-            }.hookReturnConstant(true)
+            macro1Class.methodFinder().filterByReturnType(Boolean::class.java).filterByParamCount(2).first().createHook {
+                before {
+                    it.result = true
+                }
+            }
 
             val macro2 = resultMethodMap["Macro2"]!!
             assert(macro2.isNotEmpty())
@@ -57,8 +60,10 @@ class RemoveMacroBlacklist : IXposedHookLoadPackage {
                 macro2Descriptor = macro2[1]
                 macroMethod = macro2Descriptor.getMethodInstance(lpparam.classLoader)
             }
-            macroMethod.hookBefore {
-                it.result = ArrayList<String>()
+            macroMethod.createHook {
+                before {
+                    it.result = ArrayList<String>()
+                }
             }
 
         }

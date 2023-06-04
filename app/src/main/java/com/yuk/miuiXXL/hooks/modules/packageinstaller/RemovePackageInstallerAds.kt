@@ -1,10 +1,9 @@
 package com.yuk.miuiXXL.hooks.modules.packageinstaller
 
-import com.github.kyuubiran.ezxhelper.utils.Log
-import com.github.kyuubiran.ezxhelper.utils.findAllMethods
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookAfter
-import com.github.kyuubiran.ezxhelper.utils.hookReturnConstant
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
+import com.github.kyuubiran.ezxhelper.Log
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.findClass
 import com.yuk.miuiXXL.utils.findClassOrNull
@@ -18,9 +17,11 @@ object RemovePackageInstallerAds : BaseHook() {
         val miuiSettingsCompatClass = "com.android.packageinstaller.compat.MiuiSettingsCompat".findClass()
 
         try {
-            findAllMethods(miuiSettingsCompatClass) {
-                name == "isPersonalizedAdEnabled" && returnType == Boolean::class.java
-            }.hookReturnConstant(false)
+            miuiSettingsCompatClass.methodFinder().filterByName("isPersonalizedAdEnabled").filterByReturnType(Boolean::class.java).toList().createHooks {
+                before {
+                    it.result = false
+                }
+            }
         } catch (t: Throwable) {
             Log.ex(t)
         }
@@ -30,10 +31,10 @@ object RemovePackageInstallerAds : BaseHook() {
             try {
                 val classIfExists = "com.miui.packageInstaller.ui.listcomponets.${letter}0".findClassOrNull()
                 classIfExists?.let {
-                    findMethod(it) {
-                        name == "a"
-                    }.hookAfter { hookParam ->
-                        hookParam.thisObject.setBooleanField("l", false)
+                    it.methodFinder().filterByName("a").first().createHook {
+                        after { hookParam ->
+                            hookParam.thisObject.setBooleanField("l", false)
+                        }
                     }
                 }
             } catch (t: Throwable) {

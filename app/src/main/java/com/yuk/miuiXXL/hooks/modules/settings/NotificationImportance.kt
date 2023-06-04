@@ -1,7 +1,7 @@
 package com.yuk.miuiXXL.hooks.modules.settings
 
 import android.app.NotificationChannel
-import com.github.kyuubiran.ezxhelper.init.InitFields
+import com.github.kyuubiran.ezxhelper.ClassLoaderProvider
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.callMethod
 import com.yuk.miuiXXL.utils.findClass
@@ -49,7 +49,7 @@ object NotificationImportance : BaseHook() {
                     }
                     true
                 }
-                val mImportanceListener: Any = Proxy.newProxyInstance(InitFields.ezXClassLoader, arrayOf(importanceListenerClass), handler)
+                val mImportanceListener: Any = Proxy.newProxyInstance(ClassLoaderProvider.classLoader, arrayOf(importanceListenerClass), handler)
                 pref.callMethod("setOnPreferenceChangeListener", mImportanceListener)
             }
         }

@@ -1,6 +1,6 @@
 package com.yuk.miuiXXL.hooks.modules.android.corepatch
 
-import com.github.kyuubiran.ezxhelper.utils.Log
+import com.github.kyuubiran.ezxhelper.Log
 import com.yuk.miuiXXL.utils.prefs
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge

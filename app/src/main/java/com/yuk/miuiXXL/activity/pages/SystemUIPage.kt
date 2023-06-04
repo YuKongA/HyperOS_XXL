@@ -39,14 +39,12 @@ class SystemUIPage : BasePage() {
             SwitchV("systemui_lockscreen_remove_camera", false)
         )
         TextSummaryWithSwitch(
-            TextSummaryV(
-                textId = R.string.systemui_disable_bluetooth_restrict, tipsId = R.string.systemui_disable_bluetooth_restrict_summary
-            ), SwitchV("systemui_disable_bluetooth_restrict", false)
+            TextSummaryV(textId = R.string.systemui_disable_bluetooth_restrict, tipsId = R.string.systemui_disable_bluetooth_restrict_summary),
+            SwitchV("systemui_disable_bluetooth_restrict", false)
         )
         TextSummaryWithSwitch(
-            TextSummaryV(
-                textId = R.string.systemui_wave_charge_animation, tipsId = R.string.systemui_wave_charge_animation_summary
-            ), SwitchV("systemui_wave_charge_animation", false)
+            TextSummaryV(textId = R.string.systemui_wave_charge_animation, tipsId = R.string.systemui_wave_charge_animation_summary),
+            SwitchV("systemui_wave_charge_animation", false)
         )
         TextSummaryWithSwitch(
             TextSummaryV(textId = R.string.systemui_use_new_hd, tipsId = R.string.systemui_use_new_summary),

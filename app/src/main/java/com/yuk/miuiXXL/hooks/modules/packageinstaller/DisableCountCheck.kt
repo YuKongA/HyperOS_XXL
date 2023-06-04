@@ -1,8 +1,8 @@
 package com.yuk.miuiXXL.hooks.modules.packageinstaller
 
-import com.github.kyuubiran.ezxhelper.utils.Log
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookReturnConstant
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.Log
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.findClass
 import com.yuk.miuiXXL.utils.getBoolean
@@ -14,9 +14,11 @@ object DisableCountCheck : BaseHook() {
         val riskControlRulesClass = "com.miui.packageInstaller.model.RiskControlRules".findClass()
 
         try {
-            findMethod(riskControlRulesClass) {
-                name == "getCurrentLevel"
-            }.hookReturnConstant(0)
+            riskControlRulesClass.methodFinder().filterByName("getCurrentLevel").first().createHook {
+                before {
+                    it.result = 0
+                }
+            }
         } catch (t: Throwable) {
             Log.ex(t)
         }

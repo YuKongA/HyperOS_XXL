@@ -1,12 +1,11 @@
 package com.yuk.miuiXXL.hooks.modules.thememanager
 
-import com.github.kyuubiran.ezxhelper.utils.findField
-import com.github.kyuubiran.ezxhelper.utils.getObject
-import com.github.kyuubiran.ezxhelper.utils.hookAfter
-import com.github.kyuubiran.ezxhelper.utils.hookBefore
-import com.github.kyuubiran.ezxhelper.utils.invokeMethod
-import com.github.kyuubiran.ezxhelper.utils.loadClass
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.finders.FieldFinder.`-Static`.fieldFinder
+import com.yuk.miuiXXL.utils.callMethod
 import com.yuk.miuiXXL.utils.getBoolean
+import com.yuk.miuiXXL.utils.getObjectField
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import io.luckypray.dexkit.DexKitBridge
@@ -36,24 +35,27 @@ class FuckValidateTheme2 : IXposedHookLoadPackage {
             assert(drmResult.size == 1)
             val drmResultDescriptor = drmResult.first()
             val drmResultMethod: Method = drmResultDescriptor.getMethodInstance(lpparam.classLoader)
-            drmResultMethod.hookAfter {
-                it.result = DrmManager.DrmResult.DRM_SUCCESS
+            drmResultMethod.createHook {
+                after {
+                    it.result = DrmManager.DrmResult.DRM_SUCCESS
+                }
             }
 
             val largeIcon = resultMap["LargeIcon"]!!
             assert(largeIcon.size == 1)
             val largeIconDescriptor = largeIcon.first()
             val largeIconMethod: Method = largeIconDescriptor.getMethodInstance(lpparam.classLoader)
-            largeIconMethod.hookBefore {
-                val resource = findField(it.thisObject.javaClass) {
-                    type == loadClass("com.android.thememanager.basemodule.resource.model.Resource", lpparam.classLoader)
+            largeIconMethod.createHook {
+                before {
+                    val resource = it.thisObject.javaClass.fieldFinder()
+                        .filterByType(loadClass("com.android.thememanager.basemodule.resource.model.Resource", lpparam.classLoader)).first()
+                    val productId = it.thisObject.getObjectField(resource.name)?.callMethod("getProductId").toString()
+                    val strPath = "/storage/emulated/0/Android/data/com.android.thememanager/files/MIUI/theme/.data/rights/theme/${productId}-largeicons.mra"
+                    val file = File(strPath)
+                    val fileParent = file.parentFile!!
+                    if (!fileParent.exists()) fileParent.mkdirs()
+                    file.createNewFile()
                 }
-                val productId = it.thisObject.getObject(resource.name).invokeMethod("getProductId").toString()
-                val strPath = "/storage/emulated/0/Android/data/com.android.thememanager/files/MIUI/theme/.data/rights/theme/${productId}-largeicons.mra"
-                val file = File(strPath)
-                val fileParent = file.parentFile!!
-                if (!fileParent.exists()) fileParent.mkdirs()
-                file.createNewFile()
             }
         }
     }

@@ -5,8 +5,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.Signature
-import com.github.kyuubiran.ezxhelper.utils.Log
-import com.yuk.miuiXXL.BuildConfig
+import com.github.kyuubiran.ezxhelper.Log
 import com.yuk.miuiXXL.utils.prefs
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.IXposedHookZygoteInit

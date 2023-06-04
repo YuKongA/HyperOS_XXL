@@ -2,13 +2,12 @@ package com.yuk.miuiXXL.hooks.modules.thememanager
 
 import android.view.View
 import android.widget.FrameLayout
-import com.github.kyuubiran.ezxhelper.utils.Log
-import com.github.kyuubiran.ezxhelper.utils.findAllMethods
-import com.github.kyuubiran.ezxhelper.utils.findConstructor
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookAfter
-import com.github.kyuubiran.ezxhelper.utils.hookReturnConstant
-import com.github.kyuubiran.ezxhelper.utils.loadClass
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
+import com.github.kyuubiran.ezxhelper.Log
+import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.getBoolean
 import miui.drm.DrmManager
@@ -18,23 +17,30 @@ object RemoveThemeManagerAds : BaseHook() {
 
         if (!getBoolean("thememanager_remove_ads", false)) return
         try {
-            findAllMethods(DrmManager::class.java) {
-                name == "isSupportAd"
-            }.hookReturnConstant(false)
+            DrmManager::class.java.methodFinder().filterByName("isSupportAd").toList().createHooks {
+                before {
+                    it.result = false
+                }
+            }
         } catch (t: Throwable) {
             Log.ex(t)
         }
         try {
-            findAllMethods(DrmManager::class.java) {
-                name == "setSupportAd"
-            }.hookReturnConstant(false)
+            DrmManager::class.java.methodFinder().filterByName("setSupportAd").toList().createHooks {
+                before {
+                    it.result = false
+                }
+            }
         } catch (t: Throwable) {
             Log.ex(t)
         }
         try {
-            findMethod("com.android.thememanager.basemodule.ad.model.AdInfoResponse") {
-                name == "isAdValid" && parameterCount == 1
-            }.hookReturnConstant(false)
+            loadClass("com.android.thememanager.basemodule.ad.model.AdInfoResponse").methodFinder().filterByName("isAdValid").filterByParamCount(1).first()
+                .createHook {
+                    before {
+                        it.result = false
+                    }
+                }
         } catch (t: Throwable) {
             Log.ex(t)
         }
@@ -45,14 +51,14 @@ object RemoveThemeManagerAds : BaseHook() {
 
     private fun hook(clazz: Class<*>) {
         try {
-            findConstructor(clazz) {
-                parameterTypes.size == 2
-            }.hookAfter {
-                if (it.args[0] != null) {
-                    val view = it.args[0] as View
-                    val params = FrameLayout.LayoutParams(0, 0)
-                    view.layoutParams = params
-                    view.visibility = View.GONE
+            clazz.constructorFinder().filterByParamCount(2).first().createHook {
+                after {
+                    if (it.args[0] != null) {
+                        val view = it.args[0] as View
+                        val params = FrameLayout.LayoutParams(0, 0)
+                        view.layoutParams = params
+                        view.visibility = View.GONE
+                    }
                 }
             }
         } catch (t: Throwable) {

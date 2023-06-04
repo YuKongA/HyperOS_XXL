@@ -1,11 +1,9 @@
 package com.yuk.miuiXXL.hooks.modules.android
 
-import com.github.kyuubiran.ezxhelper.utils.Log
-import com.github.kyuubiran.ezxhelper.utils.findAllMethods
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookBefore
-import com.github.kyuubiran.ezxhelper.utils.hookMethod
-import com.github.kyuubiran.ezxhelper.utils.unhookAll
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
+import com.github.kyuubiran.ezxhelper.Log
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.getBoolean
 import de.robv.android.xposed.XC_MethodHook
@@ -18,23 +16,18 @@ object FuckValidateTheme3 : BaseHook() {
         if (!getBoolean("thememanager_fuck_validate_theme", false)) return
         var hook: List<XC_MethodHook.Unhook>? = null
         try {
-            findMethod(ThemeReceiver::class.java) {
-                name == "validateTheme"
-            }.hookMethod {
+            ThemeReceiver::class.java.methodFinder().filterByName("validateTheme").first().createHook {
                 before {
-                    hook = findAllMethods(DrmManager::class.java) {
-                        name == "isLegal"
-                    }.hookBefore {
-                        it.result = DrmManager.DrmResult.DRM_SUCCESS
+                    hook = DrmManager::class.java.methodFinder().filterByName("isLegal").toList().createHooks {
+                        returnConstant(DrmManager.DrmResult.DRM_SUCCESS)
                     }
                 }
                 after {
-                    hook?.unhookAll()
+                    hook?.forEach { it.unhook() }
                 }
             }
         } catch (t: Throwable) {
             Log.ex(t)
         }
     }
-
 }

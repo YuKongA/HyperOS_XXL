@@ -6,82 +6,96 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
-import com.github.kyuubiran.ezxhelper.init.InitFields.moduleRes
+import com.github.kyuubiran.ezxhelper.ClassUtils.getStaticObjectOrNullAs
+import com.github.kyuubiran.ezxhelper.ClassUtils.invokeStaticMethodBestMatch
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.ClassUtils.setStaticObject
+import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
+import com.github.kyuubiran.ezxhelper.ObjectUtils.invokeMethodBestMatch
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.R
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.callMethod
-import com.yuk.miuiXXL.utils.callStaticMethod
-import com.yuk.miuiXXL.utils.findClass
 import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.getStaticObjectField
-import com.yuk.miuiXXL.utils.hookAfterAllMethods
-import com.yuk.miuiXXL.utils.hookBeforeMethod
-import com.yuk.miuiXXL.utils.new
-import com.yuk.miuiXXL.utils.setStaticObjectField
 
 object ShortcutAddSmallWindow : BaseHook() {
     override fun init() {
 
         if (!getBoolean("miuihome_shortcut_add_small_window", false)) return
-        val mViewDarkModeHelper = ("com.miui.home.launcher.util.ViewDarkModeHelper").findClass()
-        val mSystemShortcutMenu = ("com.miui.home.launcher.shortcuts.SystemShortcutMenu").findClass()
-        val mSystemShortcutMenuItem = ("com.miui.home.launcher.shortcuts.SystemShortcutMenuItem").findClass()
-        val mAppShortcutMenu = ("com.miui.home.launcher.shortcuts.AppShortcutMenu").findClass()
-        val mShortcutMenuItem = ("com.miui.home.launcher.shortcuts.ShortcutMenuItem").findClass()
-        val mAppDetailsShortcutMenuItem = ("com.miui.home.launcher.shortcuts.SystemShortcutMenuItem\$AppDetailsShortcutMenuItem").findClass()
-        val mActivityUtilsCompat = ("com.miui.launcher.utils.ActivityUtilsCompat").findClass()
+        val mViewDarkModeHelper = loadClass("com.miui.home.launcher.util.ViewDarkModeHelper")
+        val mSystemShortcutMenu = loadClass("com.miui.home.launcher.shortcuts.SystemShortcutMenu")
+        val mSystemShortcutMenuItem = loadClass("com.miui.home.launcher.shortcuts.SystemShortcutMenuItem")
+        val mAppShortcutMenu = loadClass("com.miui.home.launcher.shortcuts.AppShortcutMenu")
+        val mShortcutMenuItem = loadClass("com.miui.home.launcher.shortcuts.ShortcutMenuItem")
+        val mAppDetailsShortcutMenuItem = loadClass("com.miui.home.launcher.shortcuts.SystemShortcutMenuItem\$AppDetailsShortcutMenuItem")
+        val mActivityUtilsCompat = loadClass("com.miui.launcher.utils.ActivityUtilsCompat")
 
-        mViewDarkModeHelper.hookAfterAllMethods("onConfigurationChanged") {
-            mSystemShortcutMenuItem.callStaticMethod("createAllSystemShortcutMenuItems")
-        }
-
-        mShortcutMenuItem.hookAfterAllMethods("getShortTitle") {
-            if (it.result == "应用信息") {
-                it.result = "信息"
+        mViewDarkModeHelper.methodFinder().filterByName("onConfigurationChanged").toList().createHooks {
+            after {
+                invokeStaticMethodBestMatch(mSystemShortcutMenuItem, "createAllSystemShortcutMenuItems")
             }
         }
 
-        mAppDetailsShortcutMenuItem.hookBeforeMethod("lambda\$getOnClickListener$0", mAppDetailsShortcutMenuItem, View::class.java) {
-            val obj = it.args[0]
-            val view: View = it.args[1] as View
-            val mShortTitle = obj.callMethod("getShortTitle") as CharSequence
-            if (mShortTitle == moduleRes.getString(R.string.miuihome_shortcut_add_small_window_title)) {
-                it.result = null
-                val intent = Intent()
-                val mComponentName = obj.callMethod("getComponentName") as ComponentName
-                intent.action = "android.intent.action.MAIN"
-                intent.addCategory("android.intent.category.LAUNCHER")
-                intent.component = mComponentName
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                val callStaticMethod = mActivityUtilsCompat.callStaticMethod("makeFreeformActivityOptions", view.context, mComponentName.packageName)
-                if (callStaticMethod != null) {
-                    view.context.startActivity(intent, callStaticMethod.callMethod("toBundle") as Bundle)
+        mShortcutMenuItem.methodFinder().filterByName("getShortTitle").toList().createHooks {
+            after {
+                if (it.result == "应用信息") {
+                    it.result = "信息"
                 }
             }
         }
 
-        mSystemShortcutMenu.hookAfterAllMethods("getMaxShortcutItemCount") {
-            it.result = 5
+        mAppDetailsShortcutMenuItem.methodFinder().filterByName("getOnClickListener").toList().createHooks {
+            before {
+                val mShortTitle = invokeMethodBestMatch(it.thisObject, "getShortTitle") as CharSequence
+                if (mShortTitle == moduleRes.getString(R.string.miuihome_shortcut_add_small_window_title)) {
+                    it.result = View.OnClickListener { view ->
+                        val mComponentName = invokeMethodBestMatch(it.thisObject, "getComponentName") as ComponentName
+                        val intent = Intent()
+                        intent.action = "android.intent.action.MAIN"
+                        intent.addCategory("android.intent.category.LAUNCHER")
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        intent.component = mComponentName
+                        val makeFreeformActivityOptions =
+                            invokeStaticMethodBestMatch(mActivityUtilsCompat, "makeFreeformActivityOptions", null, view.context, mComponentName.packageName)
+                        if (makeFreeformActivityOptions != null) {
+                            view.context.startActivity(intent, invokeMethodBestMatch(makeFreeformActivityOptions, "toBundle") as Bundle)
+
+                        }
+                    }
+                }
+            }
         }
 
-        mAppShortcutMenu.hookAfterAllMethods("getMaxShortcutItemCount") {
-            it.result = 5
+        mSystemShortcutMenu.methodFinder().filterByName("getMaxShortcutItemCount").toList().createHooks {
+            after {
+                it.result = 5
+            }
         }
 
-        mSystemShortcutMenuItem.hookAfterAllMethods("createAllSystemShortcutMenuItems") {
-            val isDarkMode =
-                AndroidAppHelper.currentApplication().applicationContext.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
-            val mAllSystemShortcutMenuItems = mSystemShortcutMenuItem.getStaticObjectField("sAllSystemShortcutMenuItems") as Collection<Any>
-            val mSmallWindowInstance = mAppDetailsShortcutMenuItem.new()
-            mSmallWindowInstance.callMethod("setShortTitle", moduleRes.getString(R.string.miuihome_shortcut_add_small_window_title))
-            mSmallWindowInstance.callMethod(
-                "setIconDrawable",
-                if (isDarkMode) moduleRes.getDrawable(R.drawable.ic_miuihome_small_window_dark) else moduleRes.getDrawable(R.drawable.ic_miuihome_small_window_light)
-            )
-            val sAllSystemShortcutMenuItems = ArrayList<Any>()
-            sAllSystemShortcutMenuItems.add(mSmallWindowInstance)
-            sAllSystemShortcutMenuItems.addAll(mAllSystemShortcutMenuItems)
-            mSystemShortcutMenuItem.setStaticObjectField("sAllSystemShortcutMenuItems", sAllSystemShortcutMenuItems)
+        mAppShortcutMenu.methodFinder().filterByName("getMaxShortcutItemCount").toList().createHooks {
+            after {
+                it.result = 5
+            }
+        }
+
+        mSystemShortcutMenuItem.methodFinder().filterByName("createAllSystemShortcutMenuItems").toList().createHooks {
+            after {
+                val isDarkMode =
+                    AndroidAppHelper.currentApplication().applicationContext.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+                val mAllSystemShortcutMenuItems = getStaticObjectOrNullAs<Collection<Any>>(mSystemShortcutMenuItem, "sAllSystemShortcutMenuItems")
+                val mSmallWindowInstance = mAppDetailsShortcutMenuItem.newInstance()
+                invokeMethodBestMatch(mSmallWindowInstance, "setShortTitle", null, moduleRes.getString(R.string.miuihome_shortcut_add_small_window_title))
+                invokeMethodBestMatch(
+                    mSmallWindowInstance,
+                    "setIconDrawable",
+                    null,
+                    if (isDarkMode) moduleRes.getDrawable(R.drawable.ic_miuihome_small_window_dark) else moduleRes.getDrawable(R.drawable.ic_miuihome_small_window_light)
+                )
+                val sAllSystemShortcutMenuItems = ArrayList<Any>()
+                sAllSystemShortcutMenuItems.add(mSmallWindowInstance)
+                sAllSystemShortcutMenuItems.addAll(mAllSystemShortcutMenuItems!!)
+                setStaticObject(mSystemShortcutMenuItem, "sAllSystemShortcutMenuItems", sAllSystemShortcutMenuItems)
+            }
         }
     }
 

@@ -1,8 +1,9 @@
 package com.yuk.miuiXXL.hooks.modules.miuihome
 
 import android.view.View
-import com.github.kyuubiran.ezxhelper.utils.findMethod
-import com.github.kyuubiran.ezxhelper.utils.hookAfter
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.callMethodAs
 import com.yuk.miuiXXL.utils.findClass
@@ -14,19 +15,19 @@ object CategoryFeatures : BaseHook() {
     override fun init() {
 
         if (getBoolean("miuihome_hide_allapps_category_all", false)) {
+            val baseAllAppsCategoryListContainerClass = loadClass("com.miui.home.launcher.allapps.category.BaseAllAppsCategoryListContainer")
+            val allAppsCategoryListContainer = loadClass("com.miui.home.launcher.allapps.category.AllAppsCategoryListContainer")
             try {
-                findMethod("com.miui.home.launcher.allapps.category.BaseAllAppsCategoryListContainer") {
-                    name == "buildSortCategoryList"
-                }
+                baseAllAppsCategoryListContainerClass.methodFinder().filterByName("buildSortCategoryList").first()
             } catch (e: Exception) {
-                findMethod("com.miui.home.launcher.allapps.category.AllAppsCategoryListContainer") {
-                    name == "buildSortCategoryList"
-                }
-            }.hookAfter {
-                val list = it.result as ArrayList<*>
-                if (list.size > 1) {
-                    list.removeAt(0)
-                    it.result = list
+                allAppsCategoryListContainer.methodFinder().filterByName("buildSortCategoryList").first()
+            }.createHook {
+                after {
+                    val list = it.result as ArrayList<*>
+                    if (list.size > 1) {
+                        list.removeAt(0)
+                        it.result = list
+                    }
                 }
             }
         }

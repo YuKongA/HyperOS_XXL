@@ -1,33 +1,34 @@
 package com.yuk.miuiXXL.hooks.modules.thememanager
 
-import com.github.kyuubiran.ezxhelper.utils.Log
-import com.github.kyuubiran.ezxhelper.utils.findAllMethods
-import com.github.kyuubiran.ezxhelper.utils.hookAfter
-import com.github.kyuubiran.ezxhelper.utils.hookBefore
-import com.github.kyuubiran.ezxhelper.utils.putObject
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
+import com.github.kyuubiran.ezxhelper.Log
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.getBoolean
+import com.yuk.miuiXXL.utils.setObjectField
 
 object FuckValidateTheme1 : BaseHook() {
     override fun init() {
 
         if (!getBoolean("thememanager_fuck_validate_theme", false)) return
         try {
-            findAllMethods("com.android.thememanager.detail.theme.model.OnlineResourceDetail") {
-                name == "toResource"
-            }.hookAfter {
-                it.thisObject.putObject("bought", true)
+            loadClass("com.android.thememanager.detail.theme.model.OnlineResourceDetail").methodFinder().filterByName("toResource").toList().createHooks {
+                after {
+                    it.thisObject.setObjectField("bought", true)
+                }
             }
         } catch (t: Throwable) {
             Log.ex(t)
         }
 
         try {
-            findAllMethods("com.android.thememanager.basemodule.views.DiscountPriceView") {
-                parameterCount == 2 && parameterTypes[0] == Int::class.javaPrimitiveType && parameterTypes[1] == Int::class.javaPrimitiveType
-            }.hookBefore {
-                it.args[1] = 0
-            }
+            loadClass("com.android.thememanager.basemodule.views.DiscountPriceView").methodFinder().filterByParamCount(2).filterByParamTypes(Int::class.java)
+                .filterByParamTypes(Int::class.java).toList().createHooks {
+                    before {
+                        it.args[1] = 0
+                    }
+                }
         } catch (t: Throwable) {
             Log.ex(t)
         }

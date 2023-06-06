@@ -18,6 +18,7 @@ import com.yuk.miuiXXL.hooks.modules.miuihome.BlurWhenShowShortcutMenu
 import com.yuk.miuiXXL.hooks.modules.miuihome.CategoryFeatures
 import com.yuk.miuiXXL.hooks.modules.miuihome.DisableRecentViewWallpaperDarkening
 import com.yuk.miuiXXL.hooks.modules.miuihome.DoubleTapToSleep
+import com.yuk.miuiXXL.hooks.modules.miuihome.FuckValidateTheme5
 import com.yuk.miuiXXL.hooks.modules.miuihome.IconCellCount
 import com.yuk.miuiXXL.hooks.modules.miuihome.MinusOneOverlapMode
 import com.yuk.miuiXXL.hooks.modules.miuihome.RecentViewRemoveCardAnim
@@ -34,6 +35,7 @@ import com.yuk.miuiXXL.hooks.modules.packageinstaller.DisableCountCheck
 import com.yuk.miuiXXL.hooks.modules.packageinstaller.RemovePackageInstallerAds
 import com.yuk.miuiXXL.hooks.modules.packageinstaller.ShowMoreApkInfo
 import com.yuk.miuiXXL.hooks.modules.personalassistant.BlurWhenGotoMinusOne
+import com.yuk.miuiXXL.hooks.modules.personalassistant.FuckValidateTheme4
 import com.yuk.miuiXXL.hooks.modules.powerkeeper.DisableDynamicRefreshRate
 import com.yuk.miuiXXL.hooks.modules.securitycenter.RemoveMacroBlacklist
 import com.yuk.miuiXXL.hooks.modules.securitycenter.ShowBatteryTemperature
@@ -166,6 +168,7 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
                         UseCompleteBlur,
                         MinusOneOverlapMode,
                         IconCellCount,
+                        FuckValidateTheme5,
                     )
                 }
 
@@ -187,6 +190,7 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
                 "com.miui.personalassistant" -> {
                     initHooks(
                         BlurWhenGotoMinusOne,
+                        FuckValidateTheme4,
                     )
                 }
 

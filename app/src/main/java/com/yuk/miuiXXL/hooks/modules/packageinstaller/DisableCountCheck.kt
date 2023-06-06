@@ -15,9 +15,7 @@ object DisableCountCheck : BaseHook() {
 
         try {
             riskControlRulesClass.methodFinder().filterByName("getCurrentLevel").first().createHook {
-                before {
-                    it.result = 0
-                }
+                returnConstant(0)
             }
         } catch (t: Throwable) {
             Log.ex(t)

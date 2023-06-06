@@ -1,6 +1,7 @@
 package com.yuk.miuiXXL.hooks.modules.thememanager
 
 import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
@@ -21,14 +22,20 @@ object FuckValidateTheme1 : BaseHook() {
         } catch (t: Throwable) {
             Log.ex(t)
         }
-
         try {
-            loadClass("com.android.thememanager.basemodule.views.DiscountPriceView").methodFinder().filterByParamCount(2).filterByParamTypes(Int::class.java)
-                .filterByParamTypes(Int::class.java).toList().createHooks {
+            loadClass("com.android.thememanager.basemodule.views.DiscountPriceView").methodFinder().filterByParamCount(2)
+                .filterByParamTypes(Int::class.java, Int::class.java).filterByReturnType(Void.TYPE).toList().createHooks {
                     before {
                         it.args[1] = 0
                     }
                 }
+        } catch (t: Throwable) {
+            Log.ex(t)
+        }
+        try {
+            loadClass("com.miui.maml.widget.edit.MamlutilKt").methodFinder().filterByName("themeManagerSupportPaidWidget").first().createHook {
+                returnConstant(false)
+            }
         } catch (t: Throwable) {
             Log.ex(t)
         }

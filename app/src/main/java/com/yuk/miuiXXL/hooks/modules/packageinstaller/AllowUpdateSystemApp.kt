@@ -18,12 +18,9 @@ object AllowUpdateSystemApp : BaseHook() {
             try {
                 val classIfExists = "j2.${letter}".findClassOrNull()
                 classIfExists?.let {
-                    it.methodFinder().filterByParamCount(1).filterByParamTypes(ApplicationInfo::class.java).filterByReturnType(Boolean::class.java).first()
-                        .createHook {
-                            before { hookParam ->
-                                hookParam.result = false
-                            }
-                        }
+                    it.methodFinder().filterByParamCount(1).filterByParamTypes(ApplicationInfo::class.java, Boolean::class.java).first().createHook {
+                        returnConstant(false)
+                    }
                 }
             } catch (t: Throwable) {
                 letter++
@@ -31,9 +28,7 @@ object AllowUpdateSystemApp : BaseHook() {
         }
 
         try {
-            "android.os.SystemProperties".hookBeforeMethod(
-                "getBoolean", String::class.java, Boolean::class.java
-            ) {
+            "android.os.SystemProperties".hookBeforeMethod("getBoolean", String::class.java, Boolean::class.java) {
                 if (it.args[0] == "persist.sys.allow_sys_app_update") it.result = true
             }
         } catch (e: Throwable) {

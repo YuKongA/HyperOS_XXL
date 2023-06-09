@@ -20,9 +20,7 @@ object SetDeviceLevel : BaseHook() {
         } catch (e: Exception) {
             loadClass("miuix.animation.utils.DeviceUtils").methodFinder().filterByName("getQualcommCpuLevel").filterByParamCount(1)
         }.first().createHook {
-            before {
-                it.result = 2
-            }
+            returnConstant(2)
         }
         try {
             "com.miui.home.launcher.common.DeviceLevelUtils".hookBeforeMethod("getDeviceLevel") {
@@ -108,11 +106,24 @@ object SetDeviceLevel : BaseHook() {
             Log.ex(e)
         }
         try {
+            loadClass("com.miui.home.launcher.common.DeviceLevelUtils").methodFinder().filterByName("needMamlProgressIcon").first().createHook {
+                returnConstant(true)
+            }
+        } catch (e: Throwable) {
+            Log.ex(e)
+        }
+        try {
+            loadClass("com.miui.home.launcher.common.DeviceLevelUtils").methodFinder().filterByName("needRemoveDownloadAnimationDevice").first().createHook {
+                returnConstant(false)
+            }
+        } catch (e: Throwable) {
+            Log.ex(e)
+        }
+
+        try {
             if (atLeastAndroidT()) loadClass("com.miui.home.launcher.graphics.MonochromeUtils").methodFinder().filterByName("isSupportMonochrome").first()
                 .createHook {
-                    before {
-                        it.result = true
-                    }
+                    returnConstant(true)
                 }
         } catch (e: Throwable) {
             Log.ex(e)

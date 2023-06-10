@@ -99,10 +99,11 @@ object BlurWhenOpenFolder : BaseHook() {
                 "miuihome_use_complete_blur", false
             ))
         ) {
-            navStubViewClass.hookBeforeMethod("appTouchResolution", MotionEvent::class.java) {
+            navStubViewClass.hookBeforeMethod("updateDimLayerAlpha", Float::class.java) {
                 val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
-                if (isShouldBlur) {
-                    blurUtilsClass.callStaticMethod("fastBlurDirectly", 1.0f, mLauncher.window)
+                val value = 1 - it.args[0] as Float
+                if (value != 1f) {
+                    blurUtilsClass.callStaticMethod("fastBlurDirectly", value, mLauncher.window)
                 }
             }
         }

@@ -1,7 +1,6 @@
 package com.yuk.miuiXXL.hooks.modules.miuihome
 
 import android.app.Activity
-import android.view.MotionEvent
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
@@ -22,9 +21,12 @@ object UseCompleteBlur : BaseHook() {
         }
 
         if (getBoolean("miuihome_complete_blur_fix", false)) {
-            navStubViewClass.hookBeforeMethod("appTouchResolution", MotionEvent::class.java) {
+            navStubViewClass.hookBeforeMethod("updateDimLayerAlpha", Float::class.java) {
                 val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
-                blurUtilsClass.callStaticMethod("fastBlurDirectly", 1.0f, mLauncher.window)
+                val value = 1 - it.args[0] as Float
+                if (value != 1f) {
+                    blurUtilsClass.callStaticMethod("fastBlurDirectly", value, mLauncher.window)
+                }
             }
         }
     }

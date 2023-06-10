@@ -10,13 +10,13 @@ plugins {
 }
 
 android {
-    compileSdk = 33
-    buildToolsVersion = "33.0.2"
+    compileSdk = 34
+    buildToolsVersion = "34.0.0"
     namespace = "com.yuk.miuiXXL"
     defaultConfig {
         applicationId = namespace
         minSdk = 31
-        targetSdk = 33
+        targetSdk = 34
         versionCode = getVersionCode()
         versionName = "0.6." + getVersionName()
         ndk.abiFilters += "arm64-v8a"

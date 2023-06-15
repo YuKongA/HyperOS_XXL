@@ -29,8 +29,5 @@
     public static void throw*(...);
 }
 
--dontobfuscate
 -allowaccessmodification
 -overloadaggressively
-
--keepattributes RuntimeVisibleAnnotations

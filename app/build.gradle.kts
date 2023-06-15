@@ -38,6 +38,9 @@ android {
             }
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
         release {
             isShrinkResources = true

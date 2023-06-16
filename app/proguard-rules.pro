@@ -29,5 +29,7 @@
     public static void throw*(...);
 }
 
+-keep class miui.drm.** { *; }
+
 -allowaccessmodification
 -overloadaggressively

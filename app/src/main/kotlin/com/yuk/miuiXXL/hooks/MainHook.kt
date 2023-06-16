@@ -39,7 +39,7 @@ import com.yuk.miuiXXL.hooks.modules.securitycenter.ShowBatteryTemperature
 import com.yuk.miuiXXL.hooks.modules.securitycenter.SkipWarningWaitTime
 import com.yuk.miuiXXL.hooks.modules.settings.NotificationImportance
 import com.yuk.miuiXXL.hooks.modules.systemui.DisableBluetoothRestrict
-import com.yuk.miuiXXL.hooks.modules.systemui.LockScreenShowBatteryCV
+import com.yuk.miuiXXL.hooks.modules.systemui.LockScreenShowChargingInfo
 import com.yuk.miuiXXL.hooks.modules.systemui.LockScreenShowSeconds
 import com.yuk.miuiXXL.hooks.modules.systemui.RemoveLockScreenCamera
 import com.yuk.miuiXXL.hooks.modules.systemui.RemoveLockScreenMinus
@@ -107,7 +107,7 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
                 "com.android.systemui" -> {
                     initHooks(
                         StatusBarShowSeconds,
-                        LockScreenShowBatteryCV,
+                        LockScreenShowChargingInfo,
                         RemoveLockScreenMinus,
                         RemoveLockScreenCamera,
                         DisableBluetoothRestrict,

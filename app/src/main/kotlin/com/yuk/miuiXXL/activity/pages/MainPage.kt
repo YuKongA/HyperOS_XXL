@@ -21,17 +21,17 @@ import com.yuk.miuiXXL.utils.exec
 class MainPage : BasePage() {
     @SuppressLint("WorldReadableFiles")
     override fun onCreate() {
-        Page(activity.getDrawable(R.drawable.ic_android)!!, pageNameId = R.string.android, round = 8f, onClickListener = { showFragment("AndroidPage") })
+        Page(this.getDrawable(R.drawable.ic_android), pageNameId = R.string.android, round = 8f, onClickListener = { showFragment("AndroidPage") })
         Line()
-        Page(activity.getDrawable(if (atLeastAndroidT()) R.drawable.ic_systemui_13 else R.drawable.ic_systemui_12)!!, pageNameId = R.string.systemui, round = 8f, onClickListener = { showFragment("SystemUIPage") })
-        Page(activity.getDrawable(R.drawable.ic_settings)!!, pageNameId = R.string.settings, round = 8f, onClickListener = { showFragment("SettingsPage") })
-        Page(activity.getDrawable(R.drawable.ic_miuihome)!!, pageNameId = R.string.miuihome, round = 8f, onClickListener = { showFragment("MiuiHomePage") })
-        Page(activity.getDrawable(R.drawable.ic_personalassistant)!!, pageNameId = R.string.personalassistant, round = 8f, onClickListener = { showFragment("PersonalAssistantPage") })
-        Page(activity.getDrawable(R.drawable.ic_securitycenter)!!, pageNameId = R.string.securitycenter, round = 8f, onClickListener = { showFragment("SecurityCenterPage") })
-        Page(activity.getDrawable(R.drawable.ic_thememanager)!!, pageNameId = R.string.thememanager, round = 8f, onClickListener = { showFragment("ThemeManagerPage") })
-        Page(activity.getDrawable(R.drawable.ic_mediaeditor)!!, pageNameId = R.string.mediaeditor, round = 8f, onClickListener = { showFragment("MediaEditorPage") })
-        Page(activity.getDrawable(R.drawable.ic_powerkeeper)!!, pageNameId = R.string.powerkeeper, round = 8f, onClickListener = { showFragment("PowerKeeperPage") })
-        Page(activity.getDrawable(R.drawable.ic_packageinstaller)!!, pageNameId = R.string.packageinstaller, round = 8f, onClickListener = { showFragment("PackageInstallerPage") })
+        Page(this.getDrawable(R.drawable.ic_systemui), pageNameId = R.string.systemui, round = 8f, onClickListener = { showFragment("SystemUIPage") })
+        Page(this.getDrawable(R.drawable.ic_settings), pageNameId = R.string.settings, round = 8f, onClickListener = { showFragment("SettingsPage") })
+        Page(this.getDrawable(R.drawable.ic_miuihome), pageNameId = R.string.miuihome, round = 8f, onClickListener = { showFragment("MiuiHomePage") })
+        Page(this.getDrawable(R.drawable.ic_personalassistant), pageNameId = R.string.personalassistant, round = 8f, onClickListener = { showFragment("PersonalAssistantPage") })
+        Page(this.getDrawable(R.drawable.ic_securitycenter), pageNameId = R.string.securitycenter, round = 8f, onClickListener = { showFragment("SecurityCenterPage") })
+        Page(this.getDrawable(R.drawable.ic_thememanager), pageNameId = R.string.thememanager, round = 8f, onClickListener = { showFragment("ThemeManagerPage") })
+        Page(this.getDrawable(R.drawable.ic_mediaeditor), pageNameId = R.string.mediaeditor, round = 8f, onClickListener = { showFragment("MediaEditorPage") })
+        Page(this.getDrawable(R.drawable.ic_powerkeeper), pageNameId = R.string.powerkeeper, round = 8f, onClickListener = { showFragment("PowerKeeperPage") })
+        Page(this.getDrawable(R.drawable.ic_packageinstaller), pageNameId = R.string.packageinstaller, round = 8f, onClickListener = { showFragment("PackageInstallerPage") })
         Line()
         TextWithSwitch(TextV(textId = R.string.hide_desktop_icon), SwitchV("hide_desktop_icon", onClickListener = {
             val pm = MIUIActivity.activity.packageManager
@@ -40,9 +40,7 @@ class MainPage : BasePage() {
             } else {
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED
             }
-            pm.setComponentEnabledSetting(
-                ComponentName(MIUIActivity.activity, MainActivity::class.java.name + "Alias"), mComponentEnabledState, PackageManager.DONT_KILL_APP
-            )
+            pm.setComponentEnabledSetting(ComponentName(MIUIActivity.activity, MainActivity::class.java.name + "Alias"), mComponentEnabledState, PackageManager.DONT_KILL_APP)
         }))
         TextWithArrow(TextV(textId = R.string.backup, onClickListener = {
             BackupUtils.backup(activity, activity.createDeviceProtectedStorageContext().getSharedPreferences("MiuiXXL_Config", Context.MODE_WORLD_READABLE))

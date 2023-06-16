@@ -11,14 +11,14 @@ plugins {
 
 android {
     compileSdk = 34
-    buildToolsVersion = "34.0.0"
     namespace = "com.yuk.miuiXXL"
     defaultConfig {
         applicationId = namespace
-        minSdk = 31
+        minSdk = 33
         targetSdk = 34
         versionCode = getVersionCode()
-        versionName = "0.6." + getVersionName()
+        versionName = "0.7." + getVersionName()
+        //noinspection ChromeOsAbiSupport
         ndk.abiFilters += "arm64-v8a"
     }
     val properties = Properties()
@@ -38,44 +38,31 @@ android {
             }
         }
     }
-    buildFeatures {
-        buildConfig = true
-    }
     buildTypes {
         release {
             isShrinkResources = true
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro", "proguard-log.pro")
-            if (keystorePath != null) {
-                signingConfig = signingConfigs.getByName("release")
-            }
+            if (keystorePath != null) signingConfig = signingConfigs.getByName("release")
         }
         debug {
-            if (keystorePath != null) {
-                signingConfig = signingConfigs.getByName("release")
-            }
+            if (keystorePath != null) signingConfig = signingConfigs.getByName("release")
         }
     }
     androidResources {
-        additionalParameters("--allow-reserved-package-id", "--package-id", "0x45")
+        additionalParameters += arrayOf("--allow-reserved-package-id", "--package-id", "0x67")
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
-    }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
-    packagingOptions {
+    packaging {
         resources {
-            excludes += "/META-INF/**"
-            excludes += "/kotlin/**"
-            excludes += "/*.txt"
-            excludes += "/*.bin"
-            excludes += "/*.json"
+            excludes += "**"
         }
         dex {
             useLegacyPackaging = true
@@ -85,6 +72,9 @@ android {
                 (this as BaseVariantOutputImpl).outputFileName = "Miui_XXL-$versionName($versionCode)-$name.apk"
             }
         }
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 }
 

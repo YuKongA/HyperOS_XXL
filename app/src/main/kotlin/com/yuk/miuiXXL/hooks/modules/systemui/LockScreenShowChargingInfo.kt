@@ -30,6 +30,7 @@ object LockScreenShowChargingInfo : BaseHook() {
         loadClass("com.android.keyguard.charge.ChargeUtils").methodFinder().filterByName("getChargingHintText").filterByParamCount(3).first().createHook {
             after {
                 val text = (it.result as? String)?.replace("%", " %")?.replace("正在充电 ", "充电中 · ")?.replace("正在极速充电 ", "快充中 · ") ?: return@after
+                if (text.startsWith("预计可用")) return@after
                 it.result = text + getChargingInfo()
             }
         }

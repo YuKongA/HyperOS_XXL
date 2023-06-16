@@ -21,7 +21,6 @@
     <string name="restart_scope_finished">作用域重启完成</string>
 
     <string name="android">系统框架</string>
-    <string name="android_reboot">修改需要重启系统后生效</string>
     <string name="android_corepacth">核心破解</string>
     <string name="android_corepacth_downgr">允许降级安装应用</string>
     <string name="android_corepacth_downgr_summary">允许应用在安装新版本的情况下直接覆盖安装旧版本</string>
@@ -67,8 +66,6 @@
     <string name="miuihome_hide_allapps_category_all_summary">移除抽屉内应用分组的「全部」分页</string>
     <string name="miuihome_hide_allapps_category_paging_edit">移除「编辑」按钮</string>
     <string name="miuihome_hide_allapps_category_paging_edit_summary">移除抽屉内应用分页的「编辑」按钮</string>
-    <string name="miuihome_two_x_one_icon_rounded_corner_following">图标圆角跟随「1x2 &amp; 2x1」</string>
-    <string name="miuihome_two_x_one_icon_rounded_corner_following_summary">将 MIUI 脑抽设计的大圆角 2x1 &amp; 1x2 图标改为正常小圆角</string>
     <string name="miuihome_shortcut_add_small_window">快捷菜单添加小窗</string>
     <string name="miuihome_shortcut_add_small_window_summary">桌面图标长按快捷菜单位置添加快速打开小窗</string>
     <string name="miuihome_shortcut_add_small_window_title">小窗</string>
@@ -81,16 +78,12 @@
     <string name="miuihome_task_view_card_size_vertical">瀑布卡片大小</string>
     <string name="miuihome_task_view_card_size_horizontal1">平铺卡片大小「竖屏时」</string>
     <string name="miuihome_task_view_card_size_horizontal2">平铺卡片大小「横屏时」</string>
-    <string name="miuihome_shortcut_menu_blur">快捷菜单模糊</string>
-    <string name="miuihome_shortcut_menu_blur_summary">仍为半成品，目前优化了文件夹内触发的效果</string>
     <string name="miuihome_use_complete_blur">完整模糊</string>
     <string name="miuihome_use_complete_blur_summary">使用米米官方搞的半成品完整模糊功能</string>
     <string name="miuihome_complete_blur_fix">完整模糊补全</string>
     <string name="miuihome_complete_blur_fix_summary">补全从应用向上滑动时的模糊效果，这可能导致视觉闪烁和瞬时丢帧</string>
     <string name="miuihome_minus_one_overlap_mode">覆盖模式</string>
     <string name="miuihome_minus_one_overlap_mode_summary">配合「背景模糊」使用，该功能作用域为系统桌面</string>
-    <string name="miuihome_unlock_cell_count">解锁图标网格布局</string>
-    <string name="miuihome_unlock_cell_count_summary">无字模式解锁仍有问题</string>
 
     <string name="thememanager">主题壁纸</string>
     <string name="thememanager_remove_ads">去广告</string>
@@ -128,10 +121,6 @@
     <string name="securitycenter_show_battery_temperature">显示具体温度</string>
     <string name="securitycenter_show_battery_temperature_summary">省电与电池内电池页当前温度显示具体温度</string>
     <string name="securitycenter_remove_macro_blacklist">移除自动连招黑名单</string>
-
-    <string name="updater">系统更新</string>
-    <string name="updater_fuck_vab_update">移除更新验证</string>
-    <string name="updater_fuck_vab_update_summary">- 仅支持 <font color='#FF0000'><b>VAB</b></font> 机型，其余机型请不要开启\n- 无需内测试资格即可刷入完整内测包\n- 拥有权限的用户将无法接收更新，亦可用于屏蔽更新\n- 仅官方系统使用</string>
 
     <string name="settings">系统设置</string>
     <string name="settings_notification_importance">通知重要程度</string>

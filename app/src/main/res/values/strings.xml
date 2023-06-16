@@ -22,7 +22,6 @@
     <string name="restart_scope_summary">Are you sure to restart the scope application?</string>
 
     <string name="android">Framework</string>
-    <string name="android_reboot">Requires reboot system to take effect</string>
     <string name="android_corepacth">Core cracking</string>
     <string name="android_corepacth_UsePreSig">Always use the signature of the installed app when installing</string>
     <string name="android_corepacth_UsePreSig_summary">Not ordinary <font color="#FF0000"><b>dangerous</b></font>, Enable only when absolutely needed</string>
@@ -69,8 +68,6 @@
     <string name="miuihome_shortcut_add_small_window">Shortcut Menu Add Window</string>
     <string name="miuihome_shortcut_add_small_window_summary">Press and hold the desktop icon to add a quick open window</string>
     <string name="miuihome_shortcut_add_small_window_title">Small window</string>
-    <string name="miuihome_two_x_one_icon_rounded_corner_following">Icon fillet follows "1x2 &amp; 2x1"</string>
-    <string name="miuihome_two_x_one_icon_rounded_corner_following_summary">Change the large round corner 2x1&amp;1x2 icon designed by MIUI brain pumping to normal small round corner</string>
     <string name="miuihome_unlock_animation">Optimize unlock animation</string>
     <string name="miuihome_unlock_animation_summary">Optimize the transition effect from lock screen to desktop when unlocking</string>
     <string name="miuihome_blur_when_open_folder">Folder View Blur</string>
@@ -82,16 +79,12 @@
     <string name="miuihome_task_view_card_size_vertical">Thumbnail size for Vertically</string>
     <string name="miuihome_task_view_card_size_horizontal1">Thumbnail size for Horizontally-Vertical</string>
     <string name="miuihome_task_view_card_size_horizontal2">Thumbnail size for Horizontally-Horizontal</string>
-    <string name="miuihome_shortcut_menu_blur">Shortcut menu blur</string>
-    <string name="miuihome_shortcut_menu_blur_summary">It is still a semi-finished product, and the effect triggered in the folder has been optimized</string>
     <string name="miuihome_use_complete_blur">Complete blur</string>
     <string name="miuihome_use_complete_blur_summary">Use the official half-finished complete blur feature</string>
     <string name="miuihome_complete_blur_fix">Complete Blur Complement</string>
     <string name="miuihome_complete_blur_fix_summary">Complements blur when swiping up from the App, which may cause visual flicker</string>
     <string name="miuihome_minus_one_overlap_mode">Overlap Mode App Vault</string>
     <string name="miuihome_minus_one_overlap_mode_summary">Used in conjunction with minus one screen blur, and the system launcher need to be checked</string>
-    <string name="miuihome_unlock_cell_count">Unlock launcher icon grids</string>
-    <string name="miuihome_unlock_cell_count_summary">Unlock in no word mode still has issues</string>
 
     <string name="thememanager">Theme Manager</string>
     <string name="thememanager_fuck_validate_theme">Theme cracking</string>
@@ -129,10 +122,6 @@
     <string name="securitycenter_skip_warning_wait_time">Skip warning wait</string>
     <string name="securitycenter_skip_warning_wait_time_summary">Skip the waiting confirmation countdown time of most dangerous options</string>
     <string name="securitycenter_remove_macro_blacklist">Remove game macro blacklist</string>
-
-    <string name="updater">Updater</string>
-    <string name="updater_fuck_vab_update">Remove update validation</string>
-    <string name="updater_fuck_vab_update_summary">-Only <font color='#FF0000'><b>VAB</b></font> models are supported. Please do not turn on other models \n-No internal test qualification is required to brush into the complete internal test package \n-Users with permissions will not be able to receive updates and can also be used to mask updates \n-Only used by the official system</string>
 
     <string name="settings">Settings</string>
     <string name="settings_notification_importance">Notification importance</string>

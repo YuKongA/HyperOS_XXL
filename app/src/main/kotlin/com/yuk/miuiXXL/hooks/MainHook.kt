@@ -14,12 +14,10 @@ import com.yuk.miuiXXL.hooks.modules.mediaeditor.RemoveCropRestriction
 import com.yuk.miuiXXL.hooks.modules.miuihome.AlwaysShowStatusBarClock
 import com.yuk.miuiXXL.hooks.modules.miuihome.AnimDurationRatio
 import com.yuk.miuiXXL.hooks.modules.miuihome.BlurWhenOpenFolder
-import com.yuk.miuiXXL.hooks.modules.miuihome.BlurWhenShowShortcutMenu
 import com.yuk.miuiXXL.hooks.modules.miuihome.CategoryFeatures
 import com.yuk.miuiXXL.hooks.modules.miuihome.DisableRecentViewWallpaperDarkening
 import com.yuk.miuiXXL.hooks.modules.miuihome.DoubleTapToSleep
 import com.yuk.miuiXXL.hooks.modules.miuihome.FuckValidateTheme5
-import com.yuk.miuiXXL.hooks.modules.miuihome.IconCellCount
 import com.yuk.miuiXXL.hooks.modules.miuihome.MinusOneOverlapMode
 import com.yuk.miuiXXL.hooks.modules.miuihome.RecentViewRemoveCardAnim
 import com.yuk.miuiXXL.hooks.modules.miuihome.RemoveSmallWindowRestriction2
@@ -27,7 +25,6 @@ import com.yuk.miuiXXL.hooks.modules.miuihome.ScrollIconName
 import com.yuk.miuiXXL.hooks.modules.miuihome.SetDeviceLevel
 import com.yuk.miuiXXL.hooks.modules.miuihome.ShortcutAddSmallWindow
 import com.yuk.miuiXXL.hooks.modules.miuihome.TaskViewCardSize
-import com.yuk.miuiXXL.hooks.modules.miuihome.TwoXOneIconRoundedCornerFollowing
 import com.yuk.miuiXXL.hooks.modules.miuihome.UnlockAnim
 import com.yuk.miuiXXL.hooks.modules.miuihome.UseCompleteBlur
 import com.yuk.miuiXXL.hooks.modules.packageinstaller.AllowUpdateSystemApp
@@ -54,7 +51,6 @@ import com.yuk.miuiXXL.hooks.modules.systemui.WaveChargeAnim
 import com.yuk.miuiXXL.hooks.modules.thememanager.FuckValidateTheme1
 import com.yuk.miuiXXL.hooks.modules.thememanager.FuckValidateTheme2
 import com.yuk.miuiXXL.hooks.modules.thememanager.RemoveThemeManagerAds
-import com.yuk.miuiXXL.hooks.modules.updater.VABUpdate
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.IXposedHookZygoteInit
 import de.robv.android.xposed.callbacks.XC_LoadPackage
@@ -65,7 +61,6 @@ private val PACKAGE_NAME_HOOKED = setOf(
     "com.android.settings",
     "com.android.systemui",
     "com.android.thememanager",
-    "com.android.updater",
     "com.miui.gallery",
     "com.miui.guardprovider",
     "com.miui.home",
@@ -132,12 +127,6 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
                     )
                 }
 
-                "com.android.updater" -> {
-                    initHooks(
-                        VABUpdate,
-                    )
-                }
-
                 "com.miui.gallery" -> {
                     initHooks(
                         RemoveCropRestriction,
@@ -158,16 +147,13 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
                         DisableRecentViewWallpaperDarkening,
                         RecentViewRemoveCardAnim,
                         CategoryFeatures,
-                        TwoXOneIconRoundedCornerFollowing,
                         ShortcutAddSmallWindow,
                         RemoveSmallWindowRestriction2,
                         BlurWhenOpenFolder,
                         AlwaysShowStatusBarClock,
                         TaskViewCardSize,
-                        BlurWhenShowShortcutMenu,
                         UseCompleteBlur,
                         MinusOneOverlapMode,
-                        IconCellCount,
                         FuckValidateTheme5,
                     )
                 }

@@ -26,7 +26,6 @@ class MainPage : BasePage() {
         Page(activity.getDrawable(if (atLeastAndroidT()) R.drawable.ic_systemui_13 else R.drawable.ic_systemui_12)!!, pageNameId = R.string.systemui, round = 8f, onClickListener = { showFragment("SystemUIPage") })
         Page(activity.getDrawable(R.drawable.ic_settings)!!, pageNameId = R.string.settings, round = 8f, onClickListener = { showFragment("SettingsPage") })
         Page(activity.getDrawable(R.drawable.ic_miuihome)!!, pageNameId = R.string.miuihome, round = 8f, onClickListener = { showFragment("MiuiHomePage") })
-        Page(activity.getDrawable(R.drawable.ic_update)!!, pageNameId = R.string.updater, round = 8f, onClickListener = { showFragment("UpdaterPage") })
         Page(activity.getDrawable(R.drawable.ic_personalassistant)!!, pageNameId = R.string.personalassistant, round = 8f, onClickListener = { showFragment("PersonalAssistantPage") })
         Page(activity.getDrawable(R.drawable.ic_securitycenter)!!, pageNameId = R.string.securitycenter, round = 8f, onClickListener = { showFragment("SecurityCenterPage") })
         Page(activity.getDrawable(R.drawable.ic_thememanager)!!, pageNameId = R.string.thememanager, round = 8f, onClickListener = { showFragment("ThemeManagerPage") })
@@ -62,7 +61,6 @@ class MainPage : BasePage() {
                     val command = arrayOf(
                         "am force-stop com.android.thememanager",
                         "am force-stop com.android.settings",
-                        "am force-stop com.android.updater",
                         "am force-stop com.miui.gallery",
                         "am force-stop com.miui.guardprovider",
                         "am force-stop com.miui.home",

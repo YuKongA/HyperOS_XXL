@@ -22,6 +22,7 @@
     <string name="restart_scope_summary">Are you sure to restart the scope application?</string>
 
     <string name="android">Framework</string>
+    <string name="android_reboot">Requires reboot system to take effect</string>
     <string name="android_corepacth">Core cracking</string>
     <string name="android_corepacth_UsePreSig">Always use the signature of the installed app when installing</string>
     <string name="android_corepacth_UsePreSig_summary">Not ordinary <font color="#FF0000"><b>dangerous</b></font>, Enable only when absolutely needed</string>

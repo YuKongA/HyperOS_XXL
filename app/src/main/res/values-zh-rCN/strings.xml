@@ -21,6 +21,7 @@
     <string name="restart_scope_finished">作用域重启完成</string>
 
     <string name="android">系统框架</string>
+    <string name="android_reboot">修改需要重启系统后生效</string>
     <string name="android_corepacth">核心破解</string>
     <string name="android_corepacth_downgr">允许降级安装应用</string>
     <string name="android_corepacth_downgr_summary">允许应用在安装新版本的情况下直接覆盖安装旧版本</string>

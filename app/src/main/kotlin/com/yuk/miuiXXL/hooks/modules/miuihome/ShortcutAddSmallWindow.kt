@@ -38,9 +38,7 @@ object ShortcutAddSmallWindow : BaseHook() {
 
         mShortcutMenuItem.methodFinder().filterByName("getShortTitle").toList().createHooks {
             after {
-                if (it.result == "应用信息") {
-                    it.result = "信息"
-                }
+                if (it.result == "应用信息") it.result = "信息"
             }
         }
 
@@ -57,25 +55,18 @@ object ShortcutAddSmallWindow : BaseHook() {
                         intent.component = mComponentName
                         val makeFreeformActivityOptions =
                             invokeStaticMethodBestMatch(mActivityUtilsCompat, "makeFreeformActivityOptions", null, view.context, mComponentName.packageName)
-                        if (makeFreeformActivityOptions != null) {
-                            view.context.startActivity(intent, invokeMethodBestMatch(makeFreeformActivityOptions, "toBundle") as Bundle)
-
-                        }
+                        if (makeFreeformActivityOptions != null) view.context.startActivity(intent, invokeMethodBestMatch(makeFreeformActivityOptions, "toBundle") as Bundle)
                     }
                 }
             }
         }
 
         mSystemShortcutMenu.methodFinder().filterByName("getMaxShortcutItemCount").toList().createHooks {
-            after {
-                it.result = 5
-            }
+            returnConstant(5)
         }
 
         mAppShortcutMenu.methodFinder().filterByName("getMaxShortcutItemCount").toList().createHooks {
-            after {
-                it.result = 5
-            }
+            returnConstant(5)
         }
 
         mSystemShortcutMenuItem.methodFinder().filterByName("createAllSystemShortcutMenuItems").toList().createHooks {

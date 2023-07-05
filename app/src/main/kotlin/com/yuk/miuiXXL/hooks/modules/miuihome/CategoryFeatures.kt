@@ -2,6 +2,7 @@ package com.yuk.miuiXXL.hooks.modules.miuihome
 
 import android.view.View
 import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClassOrNull
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
@@ -15,10 +16,10 @@ object CategoryFeatures : BaseHook() {
     override fun init() {
 
         if (getBoolean("miuihome_hide_allapps_category_all", false)) {
-            val baseAllAppsCategoryListContainerClass = loadClass("com.miui.home.launcher.allapps.category.BaseAllAppsCategoryListContainer")
+            val baseAllAppsCategoryListContainerClass = loadClassOrNull("com.miui.home.launcher.allapps.category.BaseAllAppsCategoryListContainer")
             val allAppsCategoryListContainer = loadClass("com.miui.home.launcher.allapps.category.AllAppsCategoryListContainer")
             try {
-                baseAllAppsCategoryListContainerClass.methodFinder().filterByName("buildSortCategoryList").first()
+                baseAllAppsCategoryListContainerClass!!.methodFinder().filterByName("buildSortCategoryList").first()
             } catch (e: Exception) {
                 allAppsCategoryListContainer.methodFinder().filterByName("buildSortCategoryList").first()
             }.createHook {

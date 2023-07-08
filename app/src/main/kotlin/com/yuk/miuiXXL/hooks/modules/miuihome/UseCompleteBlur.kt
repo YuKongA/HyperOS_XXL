@@ -8,6 +8,7 @@ import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.callStaticMethod
 import com.yuk.miuiXXL.utils.findClass
 import com.yuk.miuiXXL.utils.getBoolean
+import com.yuk.miuiXXL.utils.getObjectField
 import com.yuk.miuiXXL.utils.hookBeforeMethod
 
 object UseCompleteBlur : BaseHook() {
@@ -22,11 +23,18 @@ object UseCompleteBlur : BaseHook() {
         }
 
         if (getBoolean("miuihome_complete_blur_fix", false)) {
-            navStubViewClass.hookBeforeMethod("appTouchResolution", MotionEvent::class.java) {
+            navStubViewClass.hookBeforeMethod("onPointerEvent", MotionEvent::class.java) {
                 val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
-                blurUtilsClass.callStaticMethod("fastBlurDirectly", 1.0f, mLauncher.window)
+                val motionEvent = it.args[0] as MotionEvent
+                val action = motionEvent.action
+                if (action == 2) Thread.currentThread().priority = 10
+                if (it.thisObject.getObjectField("mWindowMode") == 2 && action == 2) {
+                    blurUtilsClass.callStaticMethod("fastBlurDirectly", 1.0f, mLauncher.window)
+                }
             }
         }
     }
 
 }
+
+

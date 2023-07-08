@@ -21,7 +21,6 @@ object BlurWhenOpenFolder : BaseHook() {
         val launcherClass = "com.miui.home.launcher.Launcher".findClass()
         val blurUtilsClass = "com.miui.home.launcher.common.BlurUtils".findClass()
         val navStubViewClass = "com.miui.home.recents.NavStubView".findClass()
-        val cancelShortcutMenuReasonClass = "com.miui.home.launcher.shortcuts.CancelShortcutMenuReason".findClass()
         val applicationClass = "com.miui.home.launcher.Application".findClass()
         try {
             launcherClass.hookBeforeMethod("isShouldBlur") {
@@ -32,8 +31,8 @@ object BlurWhenOpenFolder : BaseHook() {
             }
         } catch (_: Exception) {
         }
-        var isShouldBlur = false
 
+        var isShouldBlur = false
 
         launcherClass.hookAfterMethod("openFolder", folderInfo, View::class.java) {
             val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
@@ -51,11 +50,6 @@ object BlurWhenOpenFolder : BaseHook() {
             val isInNormalEditing = mLauncher.callMethod("isInNormalEditing") as Boolean
             if (isInNormalEditing) blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
             else blurUtilsClass.callStaticMethod("fastBlur", 0.0f, mLauncher.window, true)
-        }
-
-        launcherClass.hookAfterMethod("cancelShortcutMenu", Int::class.java, cancelShortcutMenuReasonClass) {
-            val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
-            if (isShouldBlur) blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
         }
 
         launcherClass.hookBeforeMethod("onGesturePerformAppToHome") {
@@ -95,15 +89,14 @@ object BlurWhenOpenFolder : BaseHook() {
             if (isShouldBlur && blurRatio == 0.0f) it.result = null
         }
 
-        if ((getBoolean("miuihome_use_complete_blur", false) && !getBoolean("miuihome_complete_blur_fix", false)) || !(getBoolean(
-                "miuihome_use_complete_blur", false
-            ))
+        if ((getBoolean("miuihome_use_complete_blur", false) && !getBoolean("miuihome_complete_blur_fix", false)) || !(getBoolean("miuihome_use_complete_blur", false))
         ) {
-            navStubViewClass.hookBeforeMethod("appTouchResolution", MotionEvent::class.java) {
+            navStubViewClass.hookBeforeMethod("onPointerEvent", MotionEvent::class.java) {
                 val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
-                if (isShouldBlur) {
-                    blurUtilsClass.callStaticMethod("fastBlurDirectly", 1.0f, mLauncher.window)
-                }
+                val motionEvent = it.args[0] as MotionEvent
+                val action = motionEvent.action
+                if (action == 2) Thread.currentThread().priority = 10
+                if (action == 2 && isShouldBlur) blurUtilsClass.callStaticMethod("fastBlurDirectly", 1.0f, mLauncher.window)
             }
         }
     }

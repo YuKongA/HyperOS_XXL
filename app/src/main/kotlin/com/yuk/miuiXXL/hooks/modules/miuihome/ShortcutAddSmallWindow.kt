@@ -17,6 +17,7 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinde
 import com.yuk.miuiXXL.R
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.getBoolean
+import com.yuk.miuiXXL.utils.new
 
 object ShortcutAddSmallWindow : BaseHook() {
     override fun init() {
@@ -74,7 +75,7 @@ object ShortcutAddSmallWindow : BaseHook() {
                 val isDarkMode =
                     AndroidAppHelper.currentApplication().applicationContext.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
                 val mAllSystemShortcutMenuItems = getStaticObjectOrNullAs<Collection<Any>>(mSystemShortcutMenuItem, "sAllSystemShortcutMenuItems")
-                val mSmallWindowInstance = mAppDetailsShortcutMenuItem.newInstance()
+                val mSmallWindowInstance = mAppDetailsShortcutMenuItem.new()
                 invokeMethodBestMatch(mSmallWindowInstance, "setShortTitle", null, moduleRes.getString(R.string.miuihome_shortcut_add_small_window_title))
                 invokeMethodBestMatch(
                     mSmallWindowInstance,

@@ -11,9 +11,7 @@ object RemoveSmallWindowRestriction3 : BaseHook() {
 
         if (!getBoolean("android_remove_small_window_restriction", false)) return
         loadClass("com.android.systemui.statusbar.notification.NotificationSettingsManager").methodFinder().filterByName("canSlide").first().createHook {
-            before {
-                it.result = true
-            }
+            returnConstant(true)
         }
     }
 

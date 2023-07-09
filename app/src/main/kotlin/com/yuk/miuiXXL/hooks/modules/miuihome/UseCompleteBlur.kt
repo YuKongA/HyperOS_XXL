@@ -36,5 +36,3 @@ object UseCompleteBlur : BaseHook() {
     }
 
 }
-
-

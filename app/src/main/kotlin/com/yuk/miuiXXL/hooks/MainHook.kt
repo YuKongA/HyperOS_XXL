@@ -47,7 +47,6 @@ import com.yuk.miuiXXL.hooks.modules.systemui.RemoveSmallWindowRestriction3
 import com.yuk.miuiXXL.hooks.modules.systemui.ShowWifiStandard
 import com.yuk.miuiXXL.hooks.modules.systemui.StatusBarShowSeconds
 import com.yuk.miuiXXL.hooks.modules.systemui.UseNewHD
-import com.yuk.miuiXXL.hooks.modules.systemui.WaveChargeAnim
 import com.yuk.miuiXXL.hooks.modules.thememanager.FuckValidateTheme1
 import com.yuk.miuiXXL.hooks.modules.thememanager.FuckValidateTheme2
 import com.yuk.miuiXXL.hooks.modules.thememanager.RemoveThemeManagerAds
@@ -112,7 +111,6 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
                         RemoveLockScreenCamera,
                         DisableBluetoothRestrict,
                         RemoveSmallWindowRestriction3,
-                        WaveChargeAnim,
                         ShowWifiStandard,
                         LockScreenShowSeconds,
                         UseNewHD,

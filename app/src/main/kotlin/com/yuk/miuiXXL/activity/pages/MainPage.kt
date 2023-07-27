@@ -15,7 +15,6 @@ import cn.fkj233.ui.dialog.MIUIDialog
 import com.yuk.miuiXXL.R
 import com.yuk.miuiXXL.activity.MainActivity
 import com.yuk.miuiXXL.utils.BackupUtils
-import com.yuk.miuiXXL.utils.atLeastAndroidT
 import com.yuk.miuiXXL.utils.exec
 
 @BMMainPage("Miui XXL")

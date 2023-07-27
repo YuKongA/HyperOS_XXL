@@ -95,7 +95,6 @@ object BlurWhenOpenFolder : BaseHook() {
                 val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
                 val motionEvent = it.args[0] as MotionEvent
                 val action = motionEvent.action
-                if (action == 2) Thread.currentThread().priority = 10
                 if (action == 2 && isShouldBlur) blurUtilsClass.callStaticMethod("fastBlurDirectly", 1.0f, mLauncher.window)
             }
         }

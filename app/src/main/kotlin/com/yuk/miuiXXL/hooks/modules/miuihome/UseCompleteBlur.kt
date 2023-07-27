@@ -27,7 +27,6 @@ object UseCompleteBlur : BaseHook() {
                 val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
                 val motionEvent = it.args[0] as MotionEvent
                 val action = motionEvent.action
-                if (action == 2) Thread.currentThread().priority = 10
                 if (it.thisObject.getObjectField("mWindowMode") == 2 && action == 2) {
                     blurUtilsClass.callStaticMethod("fastBlurDirectly", 1.0f, mLauncher.window)
                 }

@@ -19,7 +19,7 @@ android {
         versionCode = getVersionCode()
         versionName = "0.7." + getVersionName()
         //noinspection ChromeOsAbiSupport
-        ndk.abiFilters += "arm64-v8a"
+        ndk.abiFilters += arrayOf("arm64-v8a")
     }
     val properties = Properties()
     runCatching { properties.load(project.rootProject.file("local.properties").inputStream()) }

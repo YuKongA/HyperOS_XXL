@@ -1,23 +1,23 @@
-@file:Suppress("UnstableApiUsage")
-
 import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import java.io.ByteArrayOutputStream
 import java.util.Properties
 
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id("com.android.application")
-    kotlin("android")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
 }
 
 android {
-    compileSdk = 34
     namespace = "com.yuk.miuiXXL"
+    compileSdk = 34
+
     defaultConfig {
         applicationId = namespace
         minSdk = 33
         targetSdk = 34
         versionCode = getVersionCode()
-        versionName = "0.7." + getVersionName()
+        versionName = "0.8." + getVersionName()
         //noinspection ChromeOsAbiSupport
         ndk.abiFilters += arrayOf("arm64-v8a")
     }
@@ -74,7 +74,7 @@ android {
         }
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = JavaVersion.VERSION_17.majorVersion
     }
 }
 
@@ -115,8 +115,8 @@ kotlin {
 }
 
 dependencies {
-    compileOnly("de.robv.android.xposed:api:82")
+    compileOnly(libs.xposed.api)
     implementation(project(":blockmiui"))
-    implementation("com.github.kyuubiran:EzXHelper:2.0.7")
-    implementation("org.luckypray:DexKit:1.1.8")
+    implementation(libs.ezXHelper)
+    implementation(libs.dexKit)
 }

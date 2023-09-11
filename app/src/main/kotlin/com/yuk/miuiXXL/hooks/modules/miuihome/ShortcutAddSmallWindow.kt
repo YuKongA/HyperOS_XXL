@@ -56,7 +56,10 @@ object ShortcutAddSmallWindow : BaseHook() {
                         intent.component = mComponentName
                         val makeFreeformActivityOptions =
                             invokeStaticMethodBestMatch(mActivityUtilsCompat, "makeFreeformActivityOptions", null, view.context, mComponentName.packageName)
-                        if (makeFreeformActivityOptions != null) view.context.startActivity(intent, invokeMethodBestMatch(makeFreeformActivityOptions, "toBundle") as Bundle)
+                        if (makeFreeformActivityOptions != null) view.context.startActivity(
+                            intent,
+                            invokeMethodBestMatch(makeFreeformActivityOptions, "toBundle") as Bundle
+                        )
                     }
                 }
             }

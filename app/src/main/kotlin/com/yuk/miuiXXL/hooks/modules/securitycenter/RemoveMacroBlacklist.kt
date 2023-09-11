@@ -37,9 +37,7 @@ class RemoveMacroBlacklist : IXposedHookLoadPackage {
             val macroDescriptor = macro.first()
             val macroClass: Class<*> = macroDescriptor.getClassInstance(lpparam.classLoader)
             macroClass.methodFinder().filterByReturnType(Boolean::class.java).filterByParamCount(1).first().createHook {
-                before {
-                    it.result = false
-                }
+                returnConstant(false)
             }
 
             val macro1 = resultClassMap["Macro1"]!!
@@ -47,9 +45,7 @@ class RemoveMacroBlacklist : IXposedHookLoadPackage {
             val macro1Descriptor = macro1.first()
             val macro1Class: Class<*> = macro1Descriptor.getClassInstance(lpparam.classLoader)
             macro1Class.methodFinder().filterByReturnType(Boolean::class.java).filterByParamCount(2).first().createHook {
-                before {
-                    it.result = true
-                }
+                returnConstant(true)
             }
 
             val macro2 = resultMethodMap["Macro2"]!!
@@ -61,9 +57,7 @@ class RemoveMacroBlacklist : IXposedHookLoadPackage {
                 macroMethod = macro2Descriptor.getMethodInstance(lpparam.classLoader)
             }
             macroMethod.createHook {
-                before {
-                    it.result = ArrayList<String>()
-                }
+                returnConstant(ArrayList<String>())
             }
 
         }

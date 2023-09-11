@@ -15,7 +15,7 @@ object AlwaysShowStatusBarClock : BaseHook() {
             workspaceClass.methodFinder().filterByName("isScreenHasClockGadget").first()
         } catch (e: Exception) {
             workspaceClass.methodFinder().filterByName("isScreenHasClockWidget").first()
-        } catch (e: Exception ) {
+        } catch (e: Exception) {
             workspaceClass.methodFinder().filterByName("isClockWidget").first()
         }.createHook {
             returnConstant(false)

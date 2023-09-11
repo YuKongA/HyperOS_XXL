@@ -18,18 +18,14 @@ object RemoveThemeManagerAds : BaseHook() {
         if (!getBoolean("thememanager_remove_ads", false)) return
         try {
             DrmManager::class.java.methodFinder().filterByName("isSupportAd").toList().createHooks {
-                before {
-                    it.result = false
-                }
+                returnConstant(false)
             }
         } catch (t: Throwable) {
             Log.ex(t)
         }
         try {
             DrmManager::class.java.methodFinder().filterByName("setSupportAd").toList().createHooks {
-                before {
-                    it.result = false
-                }
+                returnConstant(false)
             }
         } catch (t: Throwable) {
             Log.ex(t)
@@ -37,19 +33,17 @@ object RemoveThemeManagerAds : BaseHook() {
         try {
             loadClass("com.android.thememanager.basemodule.ad.model.AdInfoResponse").methodFinder().filterByName("isAdValid").filterByParamCount(1).first()
                 .createHook {
-                    before {
-                        it.result = false
-                    }
+                    returnConstant(false)
                 }
         } catch (t: Throwable) {
             Log.ex(t)
         }
-        hook(loadClass("com.android.thememanager.recommend.view.listview.viewholder.PureAdBannerViewHolder"))
-        hook(loadClass("com.android.thememanager.recommend.view.listview.viewholder.SelfFontItemAdViewHolder"))
-        hook(loadClass("com.android.thememanager.recommend.view.listview.viewholder.SelfRingtoneItemAdViewHolder"))
+
+        removeAds(loadClass("com.android.thememanager.recommend.view.listview.viewholder.SelfFontItemAdViewHolder"))
+        removeAds(loadClass("com.android.thememanager.recommend.view.listview.viewholder.SelfRingtoneItemAdViewHolder"))
     }
 
-    private fun hook(clazz: Class<*>) {
+    private fun removeAds(clazz: Class<*>) {
         try {
             clazz.constructorFinder().filterByParamCount(2).first().createHook {
                 after {

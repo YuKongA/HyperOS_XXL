@@ -1,6 +1,7 @@
 package com.yuk.miuiXXL.hooks.modules.personalassistant
 
 import android.content.res.Configuration
+import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.callMethod
 import com.yuk.miuiXXL.utils.findClass
@@ -10,7 +11,6 @@ import com.yuk.miuiXXL.utils.hookBeforeAllMethods
 import com.yuk.miuiXXL.utils.hookBeforeMethod
 import com.yuk.miuiXXL.utils.new
 import com.yuk.miuiXXL.utils.replaceMethod
-import com.yuk.miuiXXL.utils.setObjectField
 
 object BlurWhenGotoMinusOne : BaseHook() {
     override fun init() {
@@ -23,15 +23,15 @@ object BlurWhenGotoMinusOne : BaseHook() {
         }
         try {
             foldableDeviceAdapter.hookBeforeMethod("onEnter", Boolean::class.java) {
-                it.thisObject.setObjectField("mScreenSize", 3)
+                it.thisObject.objectHelper().setObject("mScreenSize", 3)
             }
         } catch (e: ClassNotFoundException) {
             foldableDeviceAdapter.hookBeforeMethod("onOpened") {
-                it.thisObject.setObjectField("mScreenSize", 3)
+                it.thisObject.objectHelper().setObject("mScreenSize", 3)
             }
         }
         foldableDeviceAdapter.hookBeforeMethod("onConfigurationChanged", Configuration::class.java) {
-            it.thisObject.setObjectField("mScreenSize", 3)
+            it.thisObject.objectHelper().setObject("mScreenSize", 3)
         }
         foldableDeviceAdapter.replaceMethod("onScroll", Float::class.java) {
             val f = it.args[0] as Float
@@ -39,9 +39,9 @@ object BlurWhenGotoMinusOne : BaseHook() {
             val mCurrentBlurRadius: Int = it.thisObject.getIntField("mCurrentBlurRadius")
             if (mCurrentBlurRadius != i) {
                 if (mCurrentBlurRadius <= 0 || i >= 0) {
-                    it.thisObject.setObjectField("mCurrentBlurRadius", i)
+                    it.thisObject.objectHelper().setObject("mCurrentBlurRadius", i)
                 } else {
-                    it.thisObject.setObjectField("mCurrentBlurRadius", 0)
+                    it.thisObject.objectHelper().setObject("mCurrentBlurRadius", 0)
                 }
                 it.thisObject.callMethod("blurOverlayWindow", mCurrentBlurRadius)
             }

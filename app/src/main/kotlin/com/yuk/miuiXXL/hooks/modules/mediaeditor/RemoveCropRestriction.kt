@@ -22,7 +22,8 @@ object RemoveCropRestriction : BaseHook() {
             var resizeDetectorCrop = 'a'
             for (i in 0..25) {
                 try {
-                    loadClass("com.miui.gallery.editor.photo.core.imports.obsoletes.Crop\$${resizeDetectorCrop}").methodFinder().filterByReturnType(Int::class.java)
+                    loadClass("com.miui.gallery.editor.photo.core.imports.obsoletes.Crop\$${resizeDetectorCrop}").methodFinder()
+                        .filterByReturnType(Int::class.java)
                         .filterByParamCount(0).first().createHook {
                             returnConstant(0)
                         }
@@ -39,7 +40,8 @@ object RemoveCropRestriction : BaseHook() {
             var resizeDetectorScreenCropView = 'a'
             for (i in 0..25) {
                 try {
-                    loadClass("com.miui.gallery.editor.photo.screen.crop.ScreenCropView\$${resizeDetectorScreenCropView}").methodFinder().filterByReturnType(Int::class.java)
+                    loadClass("com.miui.gallery.editor.photo.screen.crop.ScreenCropView\$${resizeDetectorScreenCropView}").methodFinder()
+                        .filterByReturnType(Int::class.java)
                         .filterByParamCount(0).first().createHook {
                             returnConstant(0)
                         }

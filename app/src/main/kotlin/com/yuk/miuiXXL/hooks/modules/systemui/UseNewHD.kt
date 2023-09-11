@@ -11,9 +11,7 @@ object UseNewHD : BaseHook() {
         if (!getBoolean("systemui_use_new_hd", false)) return
         runCatching {
             loadClass("com.android.systemui.statusbar.policy.HDController").methodFinder().filterByName("isVisible").first().createHook {
-                before {
-                    it.result = true
-                }
+                returnConstant(true)
             }
         }
 

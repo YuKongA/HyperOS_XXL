@@ -24,7 +24,7 @@ class SecurityCenterPage : BasePage() {
             SwitchV("securitycenter_show_battery_temperature", false)
         )
         TextWithSwitch(
-            TextV(textId = R.string.securitycenter_remove_macro_blacklist,),
+            TextV(textId = R.string.securitycenter_remove_macro_blacklist),
             SwitchV("securitycenter_remove_macro_blacklist", false)
         )
     }

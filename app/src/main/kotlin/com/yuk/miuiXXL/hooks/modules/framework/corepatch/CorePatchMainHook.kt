@@ -1,4 +1,4 @@
-package com.yuk.miuiXXL.hooks.modules.android.corepatch
+package com.yuk.miuiXXL.hooks.modules.framework.corepatch
 
 import android.os.Build
 import com.github.kyuubiran.ezxhelper.Log
@@ -12,6 +12,7 @@ class CorePatchMainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
         if ("android" == lpparam.packageName && lpparam.processName == "android") {
             Log.d("Current sdk version " + Build.VERSION.SDK_INT)
             when (Build.VERSION.SDK_INT) {
+                Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> CorePatchForU().handleLoadPackage(lpparam)
                 Build.VERSION_CODES.TIRAMISU -> CorePatchForT().handleLoadPackage(lpparam)
                 Build.VERSION_CODES.S_V2 -> CorePatchForS().handleLoadPackage(lpparam)
                 Build.VERSION_CODES.S -> CorePatchForS().handleLoadPackage(lpparam)
@@ -25,6 +26,7 @@ class CorePatchMainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
         if (startupParam.startsSystemServer) {
             Log.d("Current sdk version " + Build.VERSION.SDK_INT)
             when (Build.VERSION.SDK_INT) {
+                Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> CorePatchForU().initZygote(startupParam)
                 Build.VERSION_CODES.TIRAMISU -> CorePatchForT().initZygote(startupParam)
                 Build.VERSION_CODES.S_V2 -> CorePatchForS().initZygote(startupParam)
                 Build.VERSION_CODES.S -> CorePatchForS().initZygote(startupParam)

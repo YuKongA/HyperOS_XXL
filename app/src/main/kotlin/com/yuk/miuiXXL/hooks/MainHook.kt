@@ -4,11 +4,11 @@ import com.github.kyuubiran.ezxhelper.EzXHelper
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.LogExtensions.logexIfThrow
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.hooks.modules.android.FuckValidateTheme3
-import com.yuk.miuiXXL.hooks.modules.android.MaxWallpaperScale
-import com.yuk.miuiXXL.hooks.modules.android.RemoveScreenshotRestriction
-import com.yuk.miuiXXL.hooks.modules.android.RemoveSmallWindowRestriction1
-import com.yuk.miuiXXL.hooks.modules.android.corepatch.CorePatchMainHook
+import com.yuk.miuiXXL.hooks.modules.framework.FuckValidateTheme3
+import com.yuk.miuiXXL.hooks.modules.framework.MaxWallpaperScale
+import com.yuk.miuiXXL.hooks.modules.framework.RemoveScreenshotRestriction
+import com.yuk.miuiXXL.hooks.modules.framework.RemoveSmallWindowRestriction1
+import com.yuk.miuiXXL.hooks.modules.framework.corepatch.CorePatchMainHook
 import com.yuk.miuiXXL.hooks.modules.guardprovider.AntiDefraudAppManager
 import com.yuk.miuiXXL.hooks.modules.mediaeditor.RemoveCropRestriction
 import com.yuk.miuiXXL.hooks.modules.miuihome.AlwaysShowStatusBarClock

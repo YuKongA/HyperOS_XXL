@@ -1,4 +1,4 @@
-package com.yuk.miuiXXL.hooks.modules.android.corepatch
+package com.yuk.miuiXXL.hooks.modules.framework.corepatch
 
 import android.app.AndroidAppHelper
 import android.content.pm.ApplicationInfo
@@ -21,7 +21,7 @@ import java.security.cert.Certificate
 import java.security.cert.X509Certificate
 import java.util.zip.ZipEntry
 
-open class CorePatchForR : XposedHelper(), IXposedHookLoadPackage, IXposedHookZygoteInit {
+open class CorePatchForR : CorePatchHelper(), IXposedHookLoadPackage, IXposedHookZygoteInit {
     override fun handleLoadPackage(loadPackageParam: LoadPackageParam) {
         // 允许降级
         findAndHookMethod(

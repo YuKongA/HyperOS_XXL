@@ -1,4 +1,4 @@
-package com.yuk.miuiXXL.hooks.modules.android
+package com.yuk.miuiXXL.hooks.modules.framework
 
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks

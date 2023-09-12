@@ -1,4 +1,4 @@
-package com.yuk.miuiXXL.hooks.modules.android.corepatch
+package com.yuk.miuiXXL.hooks.modules.framework.corepatch
 
 import com.github.kyuubiran.ezxhelper.Log
 import com.yuk.miuiXXL.utils.prefs
@@ -7,7 +7,7 @@ import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 
-class CorePatchForT : CorePatchForS() {
+open class CorePatchForT : CorePatchForS() {
     override fun handleLoadPackage(loadPackageParam: LoadPackageParam) {
         super.handleLoadPackage(loadPackageParam)
         // 允许降级

@@ -2,7 +2,6 @@ package com.yuk.miuiXXL.hooks.modules.packageinstaller
 
 import android.content.pm.ApplicationInfo
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
-import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClassOrNull
@@ -31,8 +30,7 @@ object AllowUpdateSystemApp : BaseHook() {
             "android.os.SystemProperties".hookBeforeMethod("getBoolean", String::class.java, Boolean::class.java) {
                 if (it.args[0] == "persist.sys.allow_sys_app_update") it.result = true
             }
-        } catch (e: Throwable) {
-            Log.ex(e)
+        } catch (_: Exception) {
         }
     }
 

@@ -18,7 +18,6 @@ import com.github.kyuubiran.ezxhelper.ObjectUtils.invokeMethodBestMatch
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
-import de.robv.android.xposed.XposedHelpers.ClassNotFoundError
 import java.io.BufferedReader
 import java.io.FileReader
 import kotlin.math.abs
@@ -72,7 +71,7 @@ object LockScreenShowChargingInfo : BaseHook() {
                     (it.thisObject as TextView).context.registerReceiver(screenOnOffReceiver, filter)
                 }
             }
-        } catch (_: ClassNotFoundError) {
+        } catch (_: Exception) {
         }
     }
 

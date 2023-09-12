@@ -8,7 +8,6 @@ import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinde
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.KotlinXposedHelper.getObjectField
 import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
-import de.robv.android.xposed.XposedHelpers.ClassNotFoundError
 
 object RemoveLockScreenCamera : BaseHook() {
     override fun init() {
@@ -20,7 +19,7 @@ object RemoveLockScreenCamera : BaseHook() {
                     (it.thisObject.getObjectField("mRightAffordanceViewLayout") as LinearLayout).visibility = View.GONE
                 }
             }
-        } catch (_: ClassNotFoundError) {
+        } catch (_: Exception) {
         }
         loadClass("com.android.keyguard.KeyguardMoveRightController").methodFinder().filterByName("onTouchMove").filterByParamCount(2).first().createHook {
             returnConstant(false)

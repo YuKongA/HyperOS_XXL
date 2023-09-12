@@ -6,7 +6,6 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.github.kyuubiran.ezxhelper.Log
 import com.yuk.miuiXXL.hooks.modules.BaseHook
 import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethod
 import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClass
@@ -69,8 +68,7 @@ object ScrollIconName : BaseHook() {
                     mTitleScrolling(mTitle)
                 }
             }
-        } catch (e: Throwable) {
-            Log.ex(e)
+        } catch (_: Exception) {
         }
     }
 

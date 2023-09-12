@@ -19,9 +19,9 @@ object RecentViewRemoveCardAnim : BaseHook() {
 
         if (!getBoolean("miuihome_recentview_remove_card_animation", false)) return
         "com.miui.home.recents.views.SwipeHelperForRecents".hookAfterMethod("onTouchEvent", MotionEvent::class.java) {
-            val mCurrView = it.thisObject.objectHelper().getObjectOrNullAs<View?>("mCurrView")
+            val mCurrView = it.thisObject.objectHelper().getObjectOrNullUntilSuperclassAs<View>("mCurrView")
             if (mCurrView != null) {
-                mCurrView.alpha = 1f
+                mCurrView.alpha *= 0.9f + 0.1f
                 mCurrView.scaleX = 1f
                 mCurrView.scaleY = 1f
             }
@@ -31,9 +31,9 @@ object RecentViewRemoveCardAnim : BaseHook() {
             val view = it.args[0] as View
             val getScreenHeight = "com.miui.home.launcher.DeviceConfig".findClass().callStaticMethod("getScreenHeight") as Int
             val ofFloat = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, view.translationY, -getScreenHeight * 1.1484375f)
-            val physicBasedInterpolator = "com.miui.home.launcher.anim.PhysicBasedInterpolator".findClass().new(0.9f, 0.78f)
-            ofFloat.interpolator = physicBasedInterpolator as TimeInterpolator
-            ofFloat.duration = 400
+            val physicBasedInterpolator = "com.miui.home.launcher.anim.PhysicBasedInterpolator".findClass().new(0.72f, 0.72f) as TimeInterpolator
+            ofFloat.interpolator = physicBasedInterpolator
+            ofFloat.duration = 450L
             return@replaceMethod ofFloat
         }
 
@@ -46,7 +46,8 @@ object RecentViewRemoveCardAnim : BaseHook() {
             val f3: Float = mTaskViewHeight!! * mCurScale!!
             val i = if (f2 > 0.0f) 1 else if (f2 == 0.0f) 0 else -1
             val afterFrictionValue: Float = it.thisObject.callMethod("afterFrictionValue", f, asScreenHeightWhenDismiss) as Float
-            if (i < 0) it.thisObject.objectHelper().setObject("mCurTransY", (mTaskViewHeight / 2.0f + afterFrictionValue * 2) - (f3 / 2.0f))
+            if (i < 0) it.thisObject.objectHelper().setObject("mCurTransY", (mTaskViewHeight / 2f + afterFrictionValue * 2f) - (f3 / 2f))
+            it.thisObject.objectHelper().setObject("mCurAlpha", it.thisObject.objectHelper().getObjectOrNull("mCurAlpha") as Float * 0.9f + 0.1f)
         }
     }
 

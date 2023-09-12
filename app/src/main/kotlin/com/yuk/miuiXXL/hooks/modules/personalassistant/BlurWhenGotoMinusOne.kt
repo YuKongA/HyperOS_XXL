@@ -3,14 +3,14 @@ package com.yuk.miuiXXL.hooks.modules.personalassistant
 import android.content.res.Configuration
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.callMethod
-import com.yuk.miuiXXL.utils.findClass
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.getIntField
-import com.yuk.miuiXXL.utils.hookBeforeAllMethods
-import com.yuk.miuiXXL.utils.hookBeforeMethod
-import com.yuk.miuiXXL.utils.new
-import com.yuk.miuiXXL.utils.replaceMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClass
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.getIntField
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookBeforeAllMethods
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookBeforeMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.new
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.replaceMethod
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object BlurWhenGotoMinusOne : BaseHook() {
     override fun init() {

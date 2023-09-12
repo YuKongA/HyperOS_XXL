@@ -5,7 +5,7 @@ import com.github.kyuubiran.ezxhelper.ClassUtils.loadClassOrNull
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.getBoolean
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object RemoveCropRestriction : BaseHook() {
     override fun init() {

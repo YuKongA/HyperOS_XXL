@@ -1,8 +1,8 @@
 package com.yuk.miuiXXL.hooks.modules.powerkeeper
 
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.hookBeforeMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookBeforeMethod
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object DisableDynamicRefreshRate : BaseHook() {
     override fun init() {

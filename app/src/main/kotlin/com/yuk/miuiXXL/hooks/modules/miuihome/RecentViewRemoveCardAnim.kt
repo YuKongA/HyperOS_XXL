@@ -4,23 +4,22 @@ import android.animation.ObjectAnimator
 import android.animation.TimeInterpolator
 import android.view.MotionEvent
 import android.view.View
+import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.callMethod
-import com.yuk.miuiXXL.utils.callStaticMethod
-import com.yuk.miuiXXL.utils.findClass
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.getObjectField
-import com.yuk.miuiXXL.utils.hookAfterMethod
-import com.yuk.miuiXXL.utils.new
-import com.yuk.miuiXXL.utils.replaceMethod
-import com.yuk.miuiXXL.utils.setObjectField
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callStaticMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClass
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookAfterMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.new
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.replaceMethod
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object RecentViewRemoveCardAnim : BaseHook() {
     override fun init() {
 
         if (!getBoolean("miuihome_recentview_remove_card_animation", false)) return
         "com.miui.home.recents.views.SwipeHelperForRecents".hookAfterMethod("onTouchEvent", MotionEvent::class.java) {
-            val mCurrView = it.thisObject.getObjectField("mCurrView") as View?
+            val mCurrView = it.thisObject.objectHelper().getObjectOrNullAs<View?>("mCurrView")
             if (mCurrView != null) {
                 mCurrView.alpha = 1f
                 mCurrView.scaleX = 1f
@@ -42,12 +41,12 @@ object RecentViewRemoveCardAnim : BaseHook() {
             val f = it.args[0] as Float
             val asScreenHeightWhenDismiss = "com.miui.home.recents.views.VerticalSwipe".findClass().callStaticMethod("getAsScreenHeightWhenDismiss") as Int
             val f2 = f / asScreenHeightWhenDismiss
-            val mTaskViewHeight = it.thisObject.getObjectField("mTaskViewHeight") as Float
-            val mCurScale = it.thisObject.getObjectField("mCurScale") as Float
-            val f3: Float = mTaskViewHeight * mCurScale
+            val mTaskViewHeight = it.thisObject.objectHelper().getObjectOrNullAs<Float>("mTaskViewHeight")
+            val mCurScale = it.thisObject.objectHelper().getObjectOrNullAs<Float>("mCurScale")
+            val f3: Float = mTaskViewHeight!! * mCurScale!!
             val i = if (f2 > 0.0f) 1 else if (f2 == 0.0f) 0 else -1
             val afterFrictionValue: Float = it.thisObject.callMethod("afterFrictionValue", f, asScreenHeightWhenDismiss) as Float
-            if (i < 0) it.thisObject.setObjectField("mCurTransY", (mTaskViewHeight / 2.0f + afterFrictionValue * 2) - (f3 / 2.0f))
+            if (i < 0) it.thisObject.objectHelper().setObject("mCurTransY", (mTaskViewHeight / 2.0f + afterFrictionValue * 2) - (f3 / 2.0f))
         }
     }
 

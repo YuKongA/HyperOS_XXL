@@ -10,7 +10,7 @@ import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.getBoolean
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 import java.lang.reflect.Method
 import java.text.SimpleDateFormat
 import java.util.Calendar

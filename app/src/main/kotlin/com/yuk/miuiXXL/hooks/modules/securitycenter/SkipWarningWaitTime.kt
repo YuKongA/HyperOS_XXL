@@ -2,8 +2,8 @@ package com.yuk.miuiXXL.hooks.modules.securitycenter
 
 import android.widget.TextView
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.hookBeforeMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookBeforeMethod
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object SkipWarningWaitTime : BaseHook() {
     override fun init() {

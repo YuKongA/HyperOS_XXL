@@ -4,9 +4,10 @@ import android.view.View
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.callMethodOrNullAs
-import com.yuk.miuiXXL.utils.findClassOrNull
-import com.yuk.miuiXXL.utils.getBoolean
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethodOrNullAs
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClassOrNull
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
+import de.robv.android.xposed.XposedHelpers.ClassNotFoundError
 
 object RemovePackageInstallerAds : BaseHook() {
     override fun init() {
@@ -19,7 +20,7 @@ object RemovePackageInstallerAds : BaseHook() {
             miuiSettingsCompatClass!!.methodFinder().filterByName("isPersonalizedAdEnabled").filterByReturnType(Boolean::class.java).toList().createHooks {
                 returnConstant(false)
             }
-        } catch (t: Throwable) {
+        } catch (_: ClassNotFoundError) {
         }
         try {
             mSafeModeTipViewObjectClass!!.methodFinder().filterByParamTypes(mSafeModeTipViewObjectViewHolderClass).toList().createHooks {
@@ -27,7 +28,7 @@ object RemovePackageInstallerAds : BaseHook() {
                     it.args[0].callMethodOrNullAs<View>("getClContentView")?.visibility = View.GONE
                 }
             }
-        } catch (t: Throwable) {
+        } catch (_: ClassNotFoundError) {
         }
     }
 

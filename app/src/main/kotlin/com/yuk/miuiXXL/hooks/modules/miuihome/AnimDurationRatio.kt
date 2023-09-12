@@ -4,8 +4,8 @@ import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.getInt
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
+import com.yuk.miuiXXL.utils.XSharedPreferences.getInt
 
 object AnimDurationRatio : BaseHook() {
     override fun init() {

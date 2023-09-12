@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.github.kyuubiran.ezxhelper.Log
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.callMethod
-import com.yuk.miuiXXL.utils.findClass
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.getObjectField
-import com.yuk.miuiXXL.utils.hookAfterMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClass
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.getObjectField
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookAfterMethod
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object ScrollIconName : BaseHook() {
     @SuppressLint("DiscouragedApi")

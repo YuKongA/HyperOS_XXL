@@ -8,11 +8,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.getObjectFieldAs
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 import de.robv.android.xposed.XC_MethodHook
 import java.lang.reflect.Method
 import java.text.SimpleDateFormat
@@ -67,7 +67,7 @@ object LockScreenShowSeconds : BaseHook() {
     }
 
     private fun updateTime(it: XC_MethodHook.MethodHookParam, isVertical: Boolean) {
-        val textV = it.thisObject.getObjectFieldAs<TextView>("mTimeText")
+        val textV = it.thisObject.objectHelper().getObjectOrNullAs<TextView>("mTimeText")!!
         val c: Context = textV.context
         val is24 = Settings.System.getString(c.contentResolver, Settings.System.TIME_12_24) == "24"
         nowTime = Calendar.getInstance().time

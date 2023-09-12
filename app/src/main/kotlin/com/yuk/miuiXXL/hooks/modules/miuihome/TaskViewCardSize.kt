@@ -2,12 +2,12 @@ package com.yuk.miuiXXL.hooks.modules.miuihome
 
 import android.graphics.RectF
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.callMethod
-import com.yuk.miuiXXL.utils.callStaticMethod
-import com.yuk.miuiXXL.utils.findClass
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.getInt
-import com.yuk.miuiXXL.utils.hookAfterMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callStaticMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClass
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookAfterMethod
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
+import com.yuk.miuiXXL.utils.XSharedPreferences.getInt
 
 object TaskViewCardSize : BaseHook() {
     override fun init() {

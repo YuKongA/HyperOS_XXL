@@ -9,7 +9,7 @@ import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.getBoolean
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 import miui.drm.DrmManager
 
 object RemoveThemeManagerAds : BaseHook() {

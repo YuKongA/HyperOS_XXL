@@ -6,11 +6,11 @@ import com.github.kyuubiran.ezxhelper.ClassUtils.loadClassOrNull
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.callMethodAs
-import com.yuk.miuiXXL.utils.findClass
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.getObjectFieldAs
-import com.yuk.miuiXXL.utils.hookAfterMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethodAs
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClass
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.getObjectFieldAs
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookAfterMethod
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object CategoryFeatures : BaseHook() {
     override fun init() {

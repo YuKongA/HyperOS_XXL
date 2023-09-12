@@ -1,16 +1,17 @@
 package com.yuk.miuiXXL.hooks.modules.systemui
 
-import android.content.Context
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.hookBeforeMethod
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object DisableBluetoothRestrict : BaseHook() {
     override fun init() {
 
         if (!getBoolean("systemui_disable_bluetooth_restrict", false)) return
-        "com.android.settingslib.bluetooth.LocalBluetoothAdapter".hookBeforeMethod("isSupportBluetoothRestrict", Context::class.java) {
-            it.result = false
+        loadClass("com.android.settingslib.bluetooth.LocalBluetoothAdapter").methodFinder().filterByName("isSupportBluetoothRestrict").filterByParamCount(1).first().createHook {
+            returnConstant(false)
         }
     }
 

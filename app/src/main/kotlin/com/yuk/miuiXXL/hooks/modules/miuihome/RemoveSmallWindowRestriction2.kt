@@ -9,7 +9,7 @@ import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.ObjectUtils.getObjectOrNullAs
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.getBoolean
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object RemoveSmallWindowRestriction2 : BaseHook() {
     override fun init() {

@@ -6,7 +6,7 @@ import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.getFloat
+import com.yuk.miuiXXL.utils.XSharedPreferences.getFloat
 
 object MaxWallpaperScale : BaseHook() {
     override fun init() {

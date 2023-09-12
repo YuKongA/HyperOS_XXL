@@ -11,10 +11,10 @@ import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
 import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.callMethod
-import com.yuk.miuiXXL.utils.callMethodAs
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.getObjectField
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethodAs
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.getObjectField
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 import de.robv.android.xposed.XposedHelpers
 
 object DoubleTapToSleep : BaseHook() {

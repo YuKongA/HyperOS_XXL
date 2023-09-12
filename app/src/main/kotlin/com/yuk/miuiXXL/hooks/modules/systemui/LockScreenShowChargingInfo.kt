@@ -17,7 +17,8 @@ import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
 import com.github.kyuubiran.ezxhelper.ObjectUtils.invokeMethodBestMatch
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.getBoolean
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
+import de.robv.android.xposed.XposedHelpers.ClassNotFoundError
 import java.io.BufferedReader
 import java.io.FileReader
 import kotlin.math.abs
@@ -34,44 +35,44 @@ object LockScreenShowChargingInfo : BaseHook() {
                 it.result = text + getChargingInfo()
             }
         }
+        try {
 
-        loadClass("com.android.systemui.statusbar.phone.KeyguardIndicationTextView").constructors.createHooks {
-            after {
-                (it.thisObject as TextView).isSingleLine = false
-                val screenOnOffReceiver = object : BroadcastReceiver() {
-                    val keyguardIndicationController = invokeStaticMethodBestMatch(
-                        loadClass("com.android.systemui.Dependency"),
-                        "get",
-                        null,
-                        loadClass("com.android.systemui.statusbar.KeyguardIndicationController")
-                    )
-                    val handler = Handler((it.thisObject as TextView).context.mainLooper)
-                    val runnable = object : Runnable {
-                        override fun run() {
-                            if (keyguardIndicationController != null) {
-                                invokeMethodBestMatch(keyguardIndicationController, "updatePowerIndication")
+            loadClass("com.android.systemui.statusbar.phone.KeyguardIndicationTextView").constructors.createHooks {
+                after {
+                    (it.thisObject as TextView).isSingleLine = false
+                    val screenOnOffReceiver = object : BroadcastReceiver() {
+                        val keyguardIndicationController = invokeStaticMethodBestMatch(
+                            loadClass("com.android.systemui.Dependency"), "get", null, loadClass("com.android.systemui.statusbar.KeyguardIndicationController")
+                        )
+                        val handler = Handler((it.thisObject as TextView).context.mainLooper)
+                        val runnable = object : Runnable {
+                            override fun run() {
+                                if (keyguardIndicationController != null) {
+                                    invokeMethodBestMatch(keyguardIndicationController, "updatePowerIndication")
+                                }
+                                handler.postDelayed(this, 1000)
                             }
-                            handler.postDelayed(this, 1000)
+                        }
+
+                        init {
+                            if (((it.thisObject as TextView).context.getSystemService(Context.POWER_SERVICE) as PowerManager).isInteractive) handler.post(runnable)
+                        }
+
+                        override fun onReceive(context: Context, intent: Intent) {
+                            when (intent.action) {
+                                Intent.ACTION_SCREEN_ON -> handler.post(runnable)
+                                Intent.ACTION_SCREEN_OFF -> handler.removeCallbacks(runnable)
+                            }
                         }
                     }
-
-                    init {
-                        if (((it.thisObject as TextView).context.getSystemService(Context.POWER_SERVICE) as PowerManager).isInteractive) handler.post(runnable)
+                    val filter = IntentFilter().apply {
+                        addAction(Intent.ACTION_SCREEN_ON)
+                        addAction(Intent.ACTION_SCREEN_OFF)
                     }
-
-                    override fun onReceive(context: Context, intent: Intent) {
-                        when (intent.action) {
-                            Intent.ACTION_SCREEN_ON -> handler.post(runnable)
-                            Intent.ACTION_SCREEN_OFF -> handler.removeCallbacks(runnable)
-                        }
-                    }
+                    (it.thisObject as TextView).context.registerReceiver(screenOnOffReceiver, filter)
                 }
-                val filter = IntentFilter().apply {
-                    addAction(Intent.ACTION_SCREEN_ON)
-                    addAction(Intent.ACTION_SCREEN_OFF)
-                }
-                (it.thisObject as TextView).context.registerReceiver(screenOnOffReceiver, filter)
             }
+        } catch (_: ClassNotFoundError) {
         }
     }
 

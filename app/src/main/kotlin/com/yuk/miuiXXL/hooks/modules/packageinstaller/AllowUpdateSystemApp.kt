@@ -5,9 +5,9 @@ import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.findClassOrNull
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.hookBeforeMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClassOrNull
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookBeforeMethod
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object AllowUpdateSystemApp : BaseHook() {
     override fun init() {

@@ -2,6 +2,7 @@ package com.yuk.miuiXXL.hooks.modules.framework.corepatch
 
 import com.yuk.miuiXXL.BuildConfig
 import de.robv.android.xposed.XC_MethodHook
+import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 
@@ -63,5 +64,7 @@ open class CorePatchHelper {
             }
             return null
         }
+
+        fun prefs() = XSharedPreferences(BuildConfig.APPLICATION_ID, "MiuiXXL_Config")
     }
 }

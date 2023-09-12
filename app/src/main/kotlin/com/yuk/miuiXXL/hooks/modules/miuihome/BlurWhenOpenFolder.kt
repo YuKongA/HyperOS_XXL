@@ -4,14 +4,14 @@ import android.app.Activity
 import android.view.MotionEvent
 import android.view.View
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.callMethod
-import com.yuk.miuiXXL.utils.callStaticMethod
-import com.yuk.miuiXXL.utils.findClass
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.hookAfterAllMethods
-import com.yuk.miuiXXL.utils.hookAfterMethod
-import com.yuk.miuiXXL.utils.hookBeforeAllMethods
-import com.yuk.miuiXXL.utils.hookBeforeMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callStaticMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClass
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookAfterAllMethods
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookAfterMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookBeforeAllMethods
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookBeforeMethod
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object BlurWhenOpenFolder : BaseHook() {
     override fun init() {

@@ -4,11 +4,11 @@ import android.app.NotificationChannel
 import com.github.kyuubiran.ezxhelper.ClassLoaderProvider
 import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.callMethod
-import com.yuk.miuiXXL.utils.findClass
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.hookAfterMethod
-import com.yuk.miuiXXL.utils.hookBeforeAllMethods
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClass
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookAfterMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookBeforeAllMethods
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Proxy
 

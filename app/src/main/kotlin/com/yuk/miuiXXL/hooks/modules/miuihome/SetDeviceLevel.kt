@@ -5,11 +5,10 @@ import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.Log
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.atLeastAndroidT
-import com.yuk.miuiXXL.utils.findClass
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.hookBeforeMethod
-import com.yuk.miuiXXL.utils.replaceMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClass
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookBeforeMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.replaceMethod
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object SetDeviceLevel : BaseHook() {
     override fun init() {
@@ -121,10 +120,9 @@ object SetDeviceLevel : BaseHook() {
         }
 
         try {
-            if (atLeastAndroidT()) loadClass("com.miui.home.launcher.graphics.MonochromeUtils").methodFinder().filterByName("isSupportMonochrome").first()
-                .createHook {
-                    returnConstant(true)
-                }
+            loadClass("com.miui.home.launcher.graphics.MonochromeUtils").methodFinder().filterByName("isSupportMonochrome").first().createHook {
+                returnConstant(true)
+            }
         } catch (e: Throwable) {
             Log.ex(e)
         }

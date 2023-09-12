@@ -2,25 +2,31 @@ package com.yuk.miuiXXL.hooks.modules.systemui
 
 import android.view.View
 import android.widget.LinearLayout
+import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
+import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
+import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.getObjectField
-import com.yuk.miuiXXL.utils.hookAfterMethod
-import com.yuk.miuiXXL.utils.hookBeforeMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.getObjectField
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
+import de.robv.android.xposed.XposedHelpers.ClassNotFoundError
 
 object RemoveLockScreenCamera : BaseHook() {
     override fun init() {
 
         if (!getBoolean("systemui_lockscreen_remove_camera", false)) return
-        "com.android.systemui.statusbar.phone.KeyguardBottomAreaView".hookAfterMethod("onFinishInflate") {
-            (it.thisObject.getObjectField("mRightAffordanceViewLayout") as LinearLayout).visibility = View.GONE
+        try {
+            loadClass("com.android.systemui.statusbar.phone.KeyguardBottomAreaView").methodFinder().filterByName("onFinishInflate").first().createHook {
+                after {
+                    (it.thisObject.getObjectField("mRightAffordanceViewLayout") as LinearLayout).visibility = View.GONE
+                }
+            }
+        } catch (_: ClassNotFoundError) {
         }
-        "com.android.keyguard.KeyguardMoveRightController".hookBeforeMethod("onTouchMove", Float::class.java, Float::class.java) {
-            it.result = false
+        loadClass("com.android.keyguard.KeyguardMoveRightController").methodFinder().filterByName("onTouchMove").filterByParamCount(2).first().createHook {
+            returnConstant(false)
         }
-        "com.android.keyguard.KeyguardMoveRightController".hookBeforeMethod("reset") {
-            it.result = null
-
+        loadClass("com.android.keyguard.KeyguardMoveRightController").methodFinder().filterByName("reset").first().createHook {
+            returnConstant(null)
         }
     }
 

@@ -15,11 +15,11 @@ import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
 import com.github.kyuubiran.ezxhelper.Log
 import com.yuk.miuiXXL.R
 import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.callMethod
-import com.yuk.miuiXXL.utils.callMethodOrNull
-import com.yuk.miuiXXL.utils.findClassOrNull
-import com.yuk.miuiXXL.utils.getBoolean
-import com.yuk.miuiXXL.utils.hookAfterMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethod
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethodOrNull
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClassOrNull
+import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookAfterMethod
+import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 import de.robv.android.xposed.XposedHelpers
 import java.io.File
 import java.lang.reflect.Method

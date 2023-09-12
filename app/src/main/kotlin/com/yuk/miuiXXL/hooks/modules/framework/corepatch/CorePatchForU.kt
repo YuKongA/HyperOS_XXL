@@ -4,10 +4,8 @@ import com.yuk.miuiXXL.utils.prefs
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
-import java.lang.reflect.InvocationTargetException
 
 class CorePatchForU : CorePatchForT() {
-    @Throws(IllegalAccessException::class, InvocationTargetException::class, InstantiationException::class)
     override fun handleLoadPackage(loadPackageParam: LoadPackageParam) {
         super.handleLoadPackage(loadPackageParam)
         findAndHookMethod(
@@ -32,7 +30,7 @@ class CorePatchForU : CorePatchForT() {
                         if (param.result == false) {
                             val pPname = XposedHelpers.callMethod(param.args[1], "getPackageName") as String
                             if (pPname.contentEquals(param.args[0] as String)) {
-                                param.setResult(true)
+                                param.result = true
                             }
                         }
                     }
@@ -46,7 +44,7 @@ class CorePatchForU : CorePatchForT() {
             object : XC_MethodHook() {
                 override fun afterHookedMethod(param: MethodHookParam) {
                     if (prefs().getBoolean("authcreak", true)) {
-                        param.setResult(null)
+                        param.result = null
                     }
                 }
             })

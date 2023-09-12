@@ -10,28 +10,22 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 class CorePatchMainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
     override fun handleLoadPackage(lpparam: LoadPackageParam) {
         if ("android" == lpparam.packageName && lpparam.processName == "android") {
-            Log.d("Current sdk version " + Build.VERSION.SDK_INT)
+            Log.d("CorePatch: Current sdk version " + Build.VERSION.SDK_INT)
             when (Build.VERSION.SDK_INT) {
                 Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> CorePatchForU().handleLoadPackage(lpparam)
                 Build.VERSION_CODES.TIRAMISU -> CorePatchForT().handleLoadPackage(lpparam)
-                Build.VERSION_CODES.S_V2 -> CorePatchForS().handleLoadPackage(lpparam)
-                Build.VERSION_CODES.S -> CorePatchForS().handleLoadPackage(lpparam)
-                Build.VERSION_CODES.R -> CorePatchForR().handleLoadPackage(lpparam)
-                else -> Log.ex("Warning: Unsupported Version of Android " + Build.VERSION.SDK_INT)
+                else -> Log.ex("CorePatch: Warning: Unsupported Version of Android " + Build.VERSION.SDK_INT)
             }
         }
     }
 
     override fun initZygote(startupParam: StartupParam) {
         if (startupParam.startsSystemServer) {
-            Log.d("Current sdk version " + Build.VERSION.SDK_INT)
+            Log.d("CorePatch: Current sdk version " + Build.VERSION.SDK_INT)
             when (Build.VERSION.SDK_INT) {
                 Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> CorePatchForU().initZygote(startupParam)
                 Build.VERSION_CODES.TIRAMISU -> CorePatchForT().initZygote(startupParam)
-                Build.VERSION_CODES.S_V2 -> CorePatchForS().initZygote(startupParam)
-                Build.VERSION_CODES.S -> CorePatchForS().initZygote(startupParam)
-                Build.VERSION_CODES.R -> CorePatchForR().initZygote(startupParam)
-                else -> Log.ex("Warning: Unsupported Version of Android " + Build.VERSION.SDK_INT)
+                else -> Log.ex("CorePatch: Warning: Unsupported Version of Android " + Build.VERSION.SDK_INT)
             }
         }
     }

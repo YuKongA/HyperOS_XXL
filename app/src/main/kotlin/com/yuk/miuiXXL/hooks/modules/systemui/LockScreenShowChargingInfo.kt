@@ -17,9 +17,9 @@ import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
 import com.github.kyuubiran.ezxhelper.ObjectUtils.invokeMethodBestMatch
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
+import com.yuk.miuiXXL.utils.AppUtils.getBatteryTemperature
+import com.yuk.miuiXXL.utils.AppUtils.getBatteryVoltage
 import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
-import java.io.BufferedReader
-import java.io.FileReader
 import kotlin.math.abs
 
 object LockScreenShowChargingInfo : BaseHook() {
@@ -35,7 +35,6 @@ object LockScreenShowChargingInfo : BaseHook() {
             }
         }
         try {
-
             loadClass("com.android.systemui.statusbar.phone.KeyguardIndicationTextView").constructors.createHooks {
                 after {
                     (it.thisObject as TextView).isSingleLine = false
@@ -78,14 +77,10 @@ object LockScreenShowChargingInfo : BaseHook() {
     private fun getChargingInfo(): String {
         val batteryManager = AndroidAppHelper.currentApplication().getSystemService(Context.BATTERY_SERVICE) as BatteryManager
         val current = abs(batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000.0)
-        val voltage = readDoubleFromFile("/sys/class/power_supply/battery/voltage_now")?.div(1000000.0) ?: 0.0
-        val temperature = readDoubleFromFile("/sys/class/power_supply/battery/temp")?.div(10.0) ?: 0.0
+        val voltage = getBatteryVoltage()
+        val temperature = getBatteryTemperature()
         val watt = current / 1000 * voltage
         return String.format(" · %.1f ℃\n%.0f mA · %.1f V · %.1f W", temperature, current, voltage, watt)
     }
-
-    private fun String.readFile(): String? = kotlin.runCatching { BufferedReader(FileReader(this)).use { it.readLine() } }.getOrNull()
-
-    private fun readDoubleFromFile(filePath: String): Double? = filePath.readFile()?.toDoubleOrNull()
 
 }

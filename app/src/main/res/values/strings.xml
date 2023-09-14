@@ -117,12 +117,14 @@
     <string name="systemui_statusbar_show_seconds_summary">The time of the position of the status bar is displayed in seconds, excluding the notification bar and the control center</string>
     <string name="systemui_disable_bluetooth_restrict">Disable Bluetooth Restrict</string>
     <string name="systemui_disable_bluetooth_restrict_summary">Disable MIUI copying Apple\'s temporarily disable Bluetooth</string>
-    <string name="systemui_use_new_hd">Force to use new HD icon</string>
-    <string name="systemui_use_new_summary">A recent system version is required, some models may not have been updated</string>
+    <string name="systemui_force_use_new_hd">Force to use new HD icon</string>
+    <string name="systemui_force_use_new_hd_summary">A recent system version is required, some models may not have been updated</string>
     <string name="systemui_show_wifi_standard">Show Wifi Standard</string>
     <string name="systemui_show_wifi_standard_summary">WIFI icon shows the Wi-Fi protocol</string>
     <string name="systemui_lockscreen_show_seconds">Time in seconds on Lock screen</string>
     <string name="systemui_lockscreen_show_seconds_summary">The time of the position of the lock screen is displayed in seconds</string>
+    <string name="systemui_statusbar_show_charge_info">Show Charge Related Info</string>
+    <string name="systemui_statusbar_show_charge_info_summary">Only shown when charging</string>
 
     <string name="powerkeeper">Power and Performance</string>
     <string name="powerkeeper_disable_dynamic_refresh_rate">Lock refresh rate</string>

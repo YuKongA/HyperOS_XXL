@@ -1,11 +1,15 @@
 package com.yuk.miuiXXL.utils
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.IntentFilter
 import android.os.Build
 import com.yuk.miuiXXL.BuildConfig
 import de.robv.android.xposed.XSharedPreferences
 import java.io.BufferedReader
 import java.io.DataOutputStream
+import java.io.FileReader
 import java.io.IOException
 import java.io.InputStreamReader
 
@@ -81,6 +85,17 @@ object AppUtils {
             stringBuilder.append("\n")
         }
         return stringBuilder.toString()
+    }
+
+    private fun String.readFile(): String? = kotlin.runCatching { BufferedReader(FileReader(this)).use { it.readLine() } }.getOrNull()
+
+    fun readDoubleFromFile(filePath: String): Double? = filePath.readFile()?.toDoubleOrNull()
+
+    fun getBatteryTemperature(): Double {
+        return readDoubleFromFile("/sys/class/power_supply/battery/temp")?.div(10.0) ?: 0.0
+    }
+    fun getBatteryVoltage(): Double {
+        return readDoubleFromFile("/sys/class/power_supply/battery/voltage_now")?.div(1000000.0) ?: 0.0
     }
 
 }

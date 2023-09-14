@@ -1,9 +1,12 @@
 package com.yuk.miuiXXL.activity.pages
 
+import android.view.View
+import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.activity.annotation.BMPage
 import cn.fkj233.ui.activity.data.BasePage
 import cn.fkj233.ui.activity.view.SwitchV
 import cn.fkj233.ui.activity.view.TextSummaryV
+import cn.fkj233.ui.activity.view.TextV
 import com.yuk.miuiXXL.R
 
 @BMPage("SystemUIPage", hideMenu = false)
@@ -43,8 +46,15 @@ class SystemUIPage : BasePage() {
             SwitchV("systemui_disable_bluetooth_restrict", false)
         )
         TextSummaryWithSwitch(
-            TextSummaryV(textId = R.string.systemui_use_new_hd, tipsId = R.string.systemui_use_new_summary),
-            SwitchV("systemui_use_new_hd", false)
+            TextSummaryV(textId = R.string.systemui_force_use_new_hd, tipsId = R.string.systemui_force_use_new_hd_summary),
+            SwitchV("systemui_force_use_new_hd", false)
+        )
+        val chargeInfoBinding = GetDataBinding({ MIUIActivity.safeSP.getBoolean("systemui_statusbar_show_charge_info", false) }) { view, flags, data ->
+            if (flags == 1) view.visibility = if (data as Boolean) View.VISIBLE else View.GONE
+        }
+        TextSummaryWithSwitch(
+            TextSummaryV(textId = R.string.systemui_statusbar_show_charge_info, tipsId = R.string.systemui_statusbar_show_charge_info_summary),
+            SwitchV("systemui_statusbar_show_charge_info", false, dataBindingSend = chargeInfoBinding.bindingSend)
         )
     }
 

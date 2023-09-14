@@ -8,12 +8,12 @@ import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 
 object UseNewHD : BaseHook() {
     override fun init() {
-        if (!getBoolean("systemui_use_new_hd", false)) return
+        if (!getBoolean("systemui_force_use_new_hd", false)) return
         runCatching {
             loadClass("com.android.systemui.statusbar.policy.HDController").methodFinder().filterByName("isVisible").first().createHook {
                 returnConstant(true)
             }
         }
-
     }
+
 }

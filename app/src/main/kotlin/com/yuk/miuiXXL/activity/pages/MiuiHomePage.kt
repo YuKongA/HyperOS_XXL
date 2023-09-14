@@ -78,12 +78,12 @@ class MiuiHomePage : BasePage() {
             if (flags == 1) view.visibility = if (data as Boolean) View.VISIBLE else View.GONE
         }
         TextSummaryWithSwitch(
-            TextSummaryV(textId = R.string.miuihome_anim_ratio_binding, tipsId = R.string.miuihome_anim_ratio_binding_summary),
-            SwitchV("miuihome_anim_ratio_binding", dataBindingSend = animRatioBinding.bindingSend)
-        )
-        TextSummaryWithSwitch(
             TextSummaryV(textId = R.string.miuihome_show_real_memory, tipsId = R.string.miuihome_show_real_memory_summary),
             SwitchV("miuihome_show_real_memory", false)
+        )
+        TextSummaryWithSwitch(
+            TextSummaryV(textId = R.string.miuihome_anim_ratio_binding, tipsId = R.string.miuihome_anim_ratio_binding_summary),
+            SwitchV("miuihome_anim_ratio_binding", dataBindingSend = animRatioBinding.bindingSend)
         )
         TextSummaryWithSeekBar(
             TextSummaryV(textId = R.string.miuihome_anim_ratio, tipsId = R.string.miuihome_anim_ratio_summary),

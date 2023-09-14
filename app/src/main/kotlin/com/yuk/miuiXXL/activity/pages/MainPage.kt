@@ -54,12 +54,13 @@ class MainPage : BasePage() {
             MIUIDialog(activity) {
                 setTitle(R.string.tips)
                 setMessage(R.string.reset_module_summary)
-                setLButton(R.string.done) {
+                setLButton(R.string.cancel) {
+                    dismiss()
+                }
+                setRButton(R.string.done) {
                     activity.getSharedPreferences(perfFileName(), Activity.MODE_WORLD_READABLE).edit().clear().apply()
                     Toast.makeText(activity, activity.getString(R.string.reset_module_finished), Toast.LENGTH_LONG).show()
                 }
-                setRButton(R.string.cancel)
-                finally { dismiss() }
             }.show()
         })
         TextWithArrow(TextV(textId = R.string.restart_scope) {

@@ -1,5 +1,6 @@
 package com.yuk.miuiXXL.hooks.modules.framework.corepatch
 
+import com.yuk.miuiXXL.utils.AppUtils.prefs
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam

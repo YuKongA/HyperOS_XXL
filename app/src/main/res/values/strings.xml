@@ -8,15 +8,26 @@
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
 
-    <string name="backup">Backup Module Settings</string>
-    <string name="recovery">Recovery Module Settings</string>
+    <string name="backup">Backup Module Configs</string>
+    <string name="backup_failed">Backup module configs failed</string>
+    <string name="backup_finished">Backup module configs successfully</string>
+
+    <string name="recovery">Recovery Module Configs</string>
+    <string name="recovery_failed">Recovery module configs failed</string>
+    <string name="recovery_finished">Recovery module configs successfully</string>
+
+    <string name="reset_module">Reset Module Configs</string>
+    <string name="reset_module_finished">Reset module configs successfully</string>
+    <string name="reset_module_summary">Are you sure you want to reset the module configs?</string>
 
     <string name="def">Default: </string>
     <string name="current">Current: </string>
     <string name="scope">Scope: </string>
 
+
     <string name="reboot_system">Reboot System</string>
-    <string name="reboot_system_summary">Are you sure to reboot the system?</string>
+    <string name="reboot_system_summary">Are you sure you want to restart your system?</string>
+
     <string name="restart_scope">Restart Scope</string>
     <string name="restart_scope_finished">Scope application restart completed</string>
     <string name="restart_scope_summary">Are you sure to restart the scope application?</string>

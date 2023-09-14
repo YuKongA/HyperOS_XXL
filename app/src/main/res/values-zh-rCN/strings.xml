@@ -7,8 +7,17 @@
     <string name="done">确定</string>
     <string name="cancel">取消</string>
 
-    <string name="backup">备份模块设置</string>
-    <string name="recovery">恢复模块设置</string>
+    <string name="backup">备份模块配置</string>
+    <string name="backup_failed">备份模块配置失败</string>
+    <string name="backup_finished">备份模块配置成功</string>
+
+    <string name="recovery">恢复模块配置</string>
+    <string name="recovery_failed">恢复模块配置失败</string>
+    <string name="recovery_finished">恢复模块配置成功</string>
+
+    <string name="reset_module">重置模块配置</string>
+    <string name="reset_module_finished">重置模块配置成功</string>
+    <string name="reset_module_summary">确定要重置模块配置么？</string>
 
     <string name="def">默认：</string>
     <string name="current">当前：</string>
@@ -16,6 +25,7 @@
 
     <string name="reboot_system">重启系统</string>
     <string name="reboot_system_summary">确定要重启系统么？</string>
+
     <string name="restart_scope">重启作用域</string>
     <string name="restart_scope_summary">确定要重启全部作用域么？</string>
     <string name="restart_scope_finished">作用域重启完成</string>

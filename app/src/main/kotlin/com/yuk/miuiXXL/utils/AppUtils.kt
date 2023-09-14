@@ -2,12 +2,19 @@ package com.yuk.miuiXXL.utils
 
 import android.annotation.SuppressLint
 import android.os.Build
+import com.yuk.miuiXXL.BuildConfig
+import de.robv.android.xposed.XSharedPreferences
 import java.io.BufferedReader
 import java.io.DataOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
 
 object AppUtils {
+
+    fun perfFileName() = "MiuiXXL_Config"
+
+    fun prefs() = XSharedPreferences(BuildConfig.APPLICATION_ID, perfFileName())
+
     @SuppressLint("PrivateApi")
     @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     fun getProp(mKey: String): String =

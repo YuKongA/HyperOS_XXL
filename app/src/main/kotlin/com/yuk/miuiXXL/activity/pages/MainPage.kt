@@ -1,6 +1,7 @@
 package com.yuk.miuiXXL.activity.pages
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
@@ -15,14 +16,14 @@ import cn.fkj233.ui.dialog.MIUIDialog
 import com.yuk.miuiXXL.R
 import com.yuk.miuiXXL.activity.MainActivity
 import com.yuk.miuiXXL.utils.AppUtils.exec
+import com.yuk.miuiXXL.utils.AppUtils.perfFileName
 import com.yuk.miuiXXL.utils.BackupUtils
 
 @BMMainPage("Miui XXL")
 class MainPage : BasePage() {
     @SuppressLint("WorldReadableFiles")
     override fun onCreate() {
-        Page(
-            this.getDrawable(R.drawable.ic_android),
+        Page(this.getDrawable(R.drawable.ic_android),
             TextSummaryV(textId = R.string.android, tipsId = R.string.android_reboot),
             round = 8f,
             onClickListener = { showFragment("AndroidPage") })
@@ -30,8 +31,7 @@ class MainPage : BasePage() {
         Page(this.getDrawable(R.drawable.ic_systemui), TextSummaryV(textId = R.string.systemui), round = 8f, onClickListener = { showFragment("SystemUIPage") })
         Page(this.getDrawable(R.drawable.ic_settings), TextSummaryV(textId = R.string.settings), round = 8f, onClickListener = { showFragment("SettingsPage") })
         Page(this.getDrawable(R.drawable.ic_miuihome), TextSummaryV(textId = R.string.miuihome), round = 8f, onClickListener = { showFragment("MiuiHomePage") })
-        Page(
-            this.getDrawable(R.drawable.ic_personalassistant),
+        Page(this.getDrawable(R.drawable.ic_personalassistant),
             TextSummaryV(textId = R.string.personalassistant),
             round = 8f,
             onClickListener = { showFragment("PersonalAssistantPage") })
@@ -39,8 +39,7 @@ class MainPage : BasePage() {
         Page(this.getDrawable(R.drawable.ic_thememanager), TextSummaryV(textId = R.string.thememanager), round = 8f, onClickListener = { showFragment("ThemeManagerPage") })
         Page(this.getDrawable(R.drawable.ic_mediaeditor), TextSummaryV(textId = R.string.mediaeditor), round = 8f, onClickListener = { showFragment("MediaEditorPage") })
         Page(this.getDrawable(R.drawable.ic_powerkeeper), TextSummaryV(textId = R.string.powerkeeper), round = 8f, onClickListener = { showFragment("PowerKeeperPage") })
-        Page(
-            this.getDrawable(R.drawable.ic_packageinstaller),
+        Page(this.getDrawable(R.drawable.ic_packageinstaller),
             TextSummaryV(textId = R.string.packageinstaller),
             round = 8f,
             onClickListener = { showFragment("PackageInstallerPage") })
@@ -55,11 +54,23 @@ class MainPage : BasePage() {
             pm.setComponentEnabledSetting(ComponentName(MIUIActivity.activity, MainActivity::class.java.name + "Alias"), mComponentEnabledState, PackageManager.DONT_KILL_APP)
         }))
         TextWithArrow(TextV(textId = R.string.backup, onClickListener = {
-            BackupUtils.backup(activity, activity.createDeviceProtectedStorageContext().getSharedPreferences("MiuiXXL_Config", Context.MODE_WORLD_READABLE))
+            BackupUtils.backup(activity, activity.createDeviceProtectedStorageContext().getSharedPreferences(perfFileName(), Context.MODE_WORLD_READABLE))
         }))
         TextWithArrow(TextV(textId = R.string.recovery, onClickListener = {
-            BackupUtils.recovery(activity, activity.createDeviceProtectedStorageContext().getSharedPreferences("MiuiXXL_Config", Context.MODE_WORLD_READABLE))
+            BackupUtils.recovery(activity, activity.createDeviceProtectedStorageContext().getSharedPreferences(perfFileName(), Context.MODE_WORLD_READABLE))
         }))
+        TextWithArrow(TextV(textId = R.string.reset_module) {
+            MIUIDialog(activity) {
+                setTitle(R.string.tips)
+                setMessage(R.string.reset_module_summary)
+                setLButton(R.string.done) {
+                    activity.getSharedPreferences(perfFileName(), Activity.MODE_WORLD_READABLE).edit().clear().apply()
+                    Toast.makeText(activity, activity.getString(R.string.reset_module_finished), Toast.LENGTH_LONG).show()
+                }
+                setRButton(R.string.cancel)
+                finally { dismiss() }
+            }.show()
+        })
         TextWithArrow(TextV(textId = R.string.restart_scope) {
             MIUIDialog(activity) {
                 setTitle(R.string.tips)

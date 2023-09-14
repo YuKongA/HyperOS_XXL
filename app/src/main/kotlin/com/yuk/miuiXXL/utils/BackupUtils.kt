@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.widget.Toast
+import com.yuk.miuiXXL.R
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -82,9 +83,9 @@ object BackupUtils {
                 }
             }
             edit.apply()
-            Toast.makeText(activity, "Load successfully", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, activity.getText(R.string.recovery_finished), Toast.LENGTH_LONG).show()
         } catch (e: Throwable) {
-            Toast.makeText(activity, "Load failed\n$e", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "${activity.getText(R.string.recovery_failed)}/n$e", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -104,9 +105,9 @@ object BackupUtils {
                     close()
                 }
             }
-            Toast.makeText(activity, "Save successfully", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, activity.getText(R.string.backup_finished), Toast.LENGTH_LONG).show()
         } catch (e: Throwable) {
-            Toast.makeText(activity, "Save failed\n$e", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "${activity.getText(R.string.backup_failed)}/n$e", Toast.LENGTH_LONG).show()
         }
     }
 

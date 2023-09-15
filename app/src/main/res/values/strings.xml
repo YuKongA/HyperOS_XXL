@@ -123,7 +123,7 @@
     <string name="systemui_show_wifi_standard_summary">WIFI icon shows the Wi-Fi protocol</string>
     <string name="systemui_lockscreen_show_seconds">Time in seconds on Lock screen</string>
     <string name="systemui_lockscreen_show_seconds_summary">The time of the position of the lock screen is displayed in seconds</string>
-    <string name="systemui_statusbar_show_charge_info">Show Charge Related Info</string>
+    <string name="systemui_statusbar_show_charge_info">Show Charge Related Info in Status Bar</string>
     <string name="systemui_statusbar_show_charge_info_summary">Only shown when charging</string>
 
     <string name="powerkeeper">Power and Performance</string>

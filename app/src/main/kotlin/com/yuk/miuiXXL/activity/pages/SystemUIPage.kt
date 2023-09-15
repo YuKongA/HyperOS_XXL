@@ -22,6 +22,10 @@ class SystemUIPage : BasePage() {
             SwitchV("systemui_show_wifi_standard", false)
         )
         TextSummaryWithSwitch(
+            TextSummaryV(textId = R.string.systemui_statusbar_show_charge_info, tipsId = R.string.systemui_statusbar_show_charge_info_summary),
+            SwitchV("systemui_statusbar_show_charge_info", false)
+        )
+        TextSummaryWithSwitch(
             TextSummaryV(textId = R.string.systemui_lockscreen_show_current, tipsId = R.string.systemui_lockscreen_show_current_summary),
             SwitchV("systemui_lockscreen_show_current", false)
         )
@@ -48,13 +52,6 @@ class SystemUIPage : BasePage() {
         TextSummaryWithSwitch(
             TextSummaryV(textId = R.string.systemui_force_use_new_hd, tipsId = R.string.systemui_force_use_new_hd_summary),
             SwitchV("systemui_force_use_new_hd", false)
-        )
-        val chargeInfoBinding = GetDataBinding({ MIUIActivity.safeSP.getBoolean("systemui_statusbar_show_charge_info", false) }) { view, flags, data ->
-            if (flags == 1) view.visibility = if (data as Boolean) View.VISIBLE else View.GONE
-        }
-        TextSummaryWithSwitch(
-            TextSummaryV(textId = R.string.systemui_statusbar_show_charge_info, tipsId = R.string.systemui_statusbar_show_charge_info_summary),
-            SwitchV("systemui_statusbar_show_charge_info", false, dataBindingSend = chargeInfoBinding.bindingSend)
         )
     }
 

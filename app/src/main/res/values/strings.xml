@@ -113,18 +113,18 @@
     <string name="systemui_lockscreen_remove_minus_summary">Remove the icon at the lower left corner of the lock screen and the negative screen function</string>
     <string name="systemui_lockscreen_show_current">Lock screen shows charging current</string>
     <string name="systemui_lockscreen_show_current_summary">Instantaneous current is displayed at the bottom of the lock screen during charging</string>
-    <string name="systemui_statusbar_show_seconds">Time in seconds on Status bar</string>
+    <string name="systemui_statusbar_show_seconds">Time in seconds in Status bar</string>
     <string name="systemui_statusbar_show_seconds_summary">The time of the position of the status bar is displayed in seconds, excluding the notification bar and the control center</string>
     <string name="systemui_disable_bluetooth_restrict">Disable Bluetooth Restrict</string>
     <string name="systemui_disable_bluetooth_restrict_summary">Disable MIUI copying Apple\'s temporarily disable Bluetooth</string>
-    <string name="systemui_force_use_new_hd">Force to use new HD icon</string>
+    <string name="systemui_force_use_new_hd">Force to use new HD icon in Status Bar</string>
     <string name="systemui_force_use_new_hd_summary">A recent system version is required, some models may not have been updated</string>
-    <string name="systemui_show_wifi_standard">Show Wifi Standard</string>
+    <string name="systemui_show_wifi_standard">Show Wifi Standard in Status Bar</string>
     <string name="systemui_show_wifi_standard_summary">WIFI icon shows the Wi-Fi protocol</string>
     <string name="systemui_lockscreen_show_seconds">Time in seconds on Lock screen</string>
     <string name="systemui_lockscreen_show_seconds_summary">The time of the position of the lock screen is displayed in seconds</string>
     <string name="systemui_statusbar_show_charge_info">Show Charge Related Info in Status Bar</string>
-    <string name="systemui_statusbar_show_charge_info_summary">Only shown when charging</string>
+    <string name="systemui_statusbar_show_charge_info_summary">Displayed only when charging, current info is for reference only</string>
 
     <string name="powerkeeper">Power and Performance</string>
     <string name="powerkeeper_disable_dynamic_refresh_rate">Lock refresh rate</string>

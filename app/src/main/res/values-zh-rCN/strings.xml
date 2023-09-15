@@ -115,14 +115,14 @@
     <string name="systemui_lockscreen_remove_camera_summary">移除锁屏界面右下角图标及相机功能</string>
     <string name="systemui_disable_bluetooth_restrict">禁用蓝牙临时关闭</string>
     <string name="systemui_disable_bluetooth_restrict_summary">禁用米米对标苹果的「蓝牙临时关闭」功能</string>
-    <string name="systemui_force_use_new_hd">强制使用新 HD 图标</string>
+    <string name="systemui_force_use_new_hd">状态栏强制使用新 HD 图标</string>
     <string name="systemui_force_use_new_hd_summary">需要较新的系统版本，部分机型可能至今未进版</string>
-    <string name="systemui_show_wifi_standard">显示 WiFi 角标</string>
-    <string name="systemui_show_wifi_standard_summary">WiFi 图标右下角显示当前 Wi-Fi 协议</string>
+    <string name="systemui_show_wifi_standard">状态栏显示 WiFi 角标</string>
+    <string name="systemui_show_wifi_standard_summary">WiFi 图标右下角显示当前 WiFi 标准</string>
     <string name="systemui_lockscreen_show_seconds">锁屏时间显秒</string>
     <string name="systemui_lockscreen_show_seconds_summary">锁屏界面的时间以秒为单位显示</string>
     <string name="systemui_statusbar_show_charge_info">状态栏显示充电相关信息</string>
-    <string name="systemui_statusbar_show_charge_info_summary">仅在充电时显示</string>
+    <string name="systemui_statusbar_show_charge_info_summary">仅在充电时显示，电流信息仅供参考</string>
 
     <string name="powerkeeper">电量和性能</string>
     <string name="powerkeeper_disable_dynamic_refresh_rate">锁定刷新率</string>

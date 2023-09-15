@@ -1,8 +1,10 @@
 package com.yuk.miuiXXL.hooks.modules.systemui
 
 import android.annotation.SuppressLint
+import android.app.KeyguardManager
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Context.KEYGUARD_SERVICE
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Configuration
@@ -61,7 +63,6 @@ object StatusBarShowChargeInfo : BaseHook() {
                 }
                 val filter = IntentFilter().apply {
                     addAction(Intent.ACTION_BATTERY_CHANGED)
-                    addAction(Intent.ACTION_BATTERY_OKAY)
                 }
                 context!!.registerReceiver(BatteryReceiver(textview!!), filter)
                 mStatusBarLeftContainer.addView(textview, 4)
@@ -125,20 +126,18 @@ object StatusBarShowChargeInfo : BaseHook() {
             }
         }
 
-        init {
-            if ((textView.context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager).isCharging) {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == Intent.ACTION_BATTERY_CHANGED) {
                 handler.post(runnable)
             }
-        }
-
-        override fun onReceive(context: Context, intent: Intent) {
-            when (intent.action) {
-                Intent.ACTION_BATTERY_CHANGED -> handler.post(runnable)
-                Intent.ACTION_BATTERY_OKAY -> handler.removeCallbacks(runnable)
-            }
             val status = intent.getIntExtra("status", 0)
+            if (status == BatteryManager.BATTERY_STATUS_DISCHARGING) {
+                handler.removeCallbacks(runnable)
+            }
+            val mKeyguardManager = context.getSystemService(KEYGUARD_SERVICE) as KeyguardManager
+            val isInLockScreen: Boolean = mKeyguardManager.inKeyguardRestrictedInputMode()
             if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
-                if (textView.alpha != 0.0f) {
+                if (textView.alpha != 0.0f && !isInLockScreen) {
                     sleep(1000)
                     textView.visibility = View.VISIBLE
                 }

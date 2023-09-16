@@ -19,6 +19,7 @@ import com.github.kyuubiran.ezxhelper.ClassUtils.loadClass
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
+import com.yuk.miuiXXL.utils.AppUtils.getBatteryTemperature
 import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClassOrNull
 import com.yuk.miuiXXL.utils.KotlinXposedHelper.getObjectFieldAs
 import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
@@ -35,7 +36,7 @@ object ShowBatteryTemperature : BaseHook() {
             loadClass("com.miui.powercenter.a").methodFinder().filterByParamCount(1).filterByReturnType(String::class.java).filterStatic().first()
         }.createHook {
             after {
-                it.result = getBatteryTemperature(it.args[0] as Context).toString()
+                it.result = getBatteryTemperature().toInt().toString()
             }
         }
 
@@ -128,7 +129,4 @@ object ShowBatteryTemperature : BaseHook() {
         }
     }
 
-    private fun getBatteryTemperature(context: Context): Int {
-        return context.registerReceiver(null as BroadcastReceiver?, IntentFilter("android.intent.action.BATTERY_CHANGED"))!!.getIntExtra("temperature", 0) / 10
-    }
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.IntentFilter
+import android.os.BatteryManager
 import android.os.Build
 import com.yuk.miuiXXL.BuildConfig
 import de.robv.android.xposed.XSharedPreferences
@@ -12,6 +13,7 @@ import java.io.DataOutputStream
 import java.io.FileReader
 import java.io.IOException
 import java.io.InputStreamReader
+import kotlin.math.abs
 
 object AppUtils {
 
@@ -89,7 +91,7 @@ object AppUtils {
 
     private fun String.readFile(): String? = kotlin.runCatching { BufferedReader(FileReader(this)).use { it.readLine() } }.getOrNull()
 
-    fun readDoubleFromFile(filePath: String): Double? = filePath.readFile()?.toDoubleOrNull()
+    private fun readDoubleFromFile(filePath: String): Double? = filePath.readFile()?.toDoubleOrNull()
 
     fun getBatteryTemperature(): Double {
         return readDoubleFromFile("/sys/class/power_supply/battery/temp")?.div(10.0) ?: 0.0
@@ -98,4 +100,8 @@ object AppUtils {
         return readDoubleFromFile("/sys/class/power_supply/battery/voltage_now")?.div(1000000.0) ?: 0.0
     }
 
+    fun getBatteryCurrent(context:Context): Double {
+        val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+       return abs(batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000 / 1000.0)
+    }
 }

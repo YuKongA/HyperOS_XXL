@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.BatteryManager
 import android.os.Handler
 import android.os.PowerManager
 import android.widget.TextView
@@ -17,10 +16,10 @@ import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHooks
 import com.github.kyuubiran.ezxhelper.ObjectUtils.invokeMethodBestMatch
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
+import com.yuk.miuiXXL.utils.AppUtils.getBatteryCurrent
 import com.yuk.miuiXXL.utils.AppUtils.getBatteryTemperature
 import com.yuk.miuiXXL.utils.AppUtils.getBatteryVoltage
 import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
-import kotlin.math.abs
 
 object LockScreenShowChargingInfo : BaseHook() {
     @SuppressLint("SetTextI18n")
@@ -75,8 +74,7 @@ object LockScreenShowChargingInfo : BaseHook() {
     }
 
     private fun getChargingInfo(): String {
-        val batteryManager = AndroidAppHelper.currentApplication().getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-        val current = abs(batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000.0)
+        val current = getBatteryCurrent(AndroidAppHelper.currentApplication()) * 1000
         val voltage = getBatteryVoltage()
         val temperature = getBatteryTemperature()
         val watt = current / 1000 * voltage

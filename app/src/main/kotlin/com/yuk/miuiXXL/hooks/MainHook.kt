@@ -46,7 +46,7 @@ import com.yuk.miuiXXL.hooks.modules.systemui.RemoveLockScreenCamera
 import com.yuk.miuiXXL.hooks.modules.systemui.RemoveLockScreenMinus
 import com.yuk.miuiXXL.hooks.modules.systemui.RemoveSmallWindowRestriction3
 import com.yuk.miuiXXL.hooks.modules.systemui.ShowWifiStandard
-import com.yuk.miuiXXL.hooks.modules.systemui.StatusBarShowChargeInfo
+import com.yuk.miuiXXL.hooks.modules.systemui.StatusBarShowChargingInfo
 import com.yuk.miuiXXL.hooks.modules.systemui.StatusBarShowSeconds
 import com.yuk.miuiXXL.hooks.modules.systemui.UseNewHD
 import com.yuk.miuiXXL.hooks.modules.thememanager.FuckValidateTheme1
@@ -116,7 +116,7 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
                         ShowWifiStandard,
                         LockScreenShowSeconds,
                         UseNewHD,
-                        StatusBarShowChargeInfo,
+                        StatusBarShowChargingInfo,
                     )
                 }
 

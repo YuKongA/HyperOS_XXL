@@ -22,26 +22,25 @@ import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
 import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
 import com.yuk.miuiXXL.hooks.modules.BaseHook
+import com.yuk.miuiXXL.utils.AppUtils.getBatteryCurrent
 import com.yuk.miuiXXL.utils.AppUtils.getBatteryTemperature
 import com.yuk.miuiXXL.utils.KotlinXposedHelper.callMethodAs
 import com.yuk.miuiXXL.utils.KotlinXposedHelper.getObjectFieldAs
 import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
-import java.lang.Thread.sleep
-import kotlin.math.abs
 
-object StatusBarShowChargeInfo : BaseHook() {
+object StatusBarShowChargingInfo : BaseHook() {
 
     @SuppressLint("SetTextI18n")
     override fun init() {
 
-        var textview: TextView? = null
+        var textView: TextView? = null
         var context: Context? = null
 
         if (!getBoolean("systemui_statusbar_show_charge_info", false)) return
         loadClass("com.android.systemui.statusbar.phone.DarkIconDispatcherImpl").methodFinder().filterByName("applyIconTint").first().createHook {
             after {
                 val color = it.thisObject.getObjectFieldAs<Int>("mIconTint")
-                if (textview != null) textview!!.setTextColor(color)
+                if (textView != null) textView!!.setTextColor(color)
             }
         }
 
@@ -54,9 +53,9 @@ object StatusBarShowChargeInfo : BaseHook() {
             after {
                 val mStatusBarLeftContainer = it.thisObject.getObjectFieldAs<LinearLayout>("mStatusBarLeftContainer")
                 val mView = mStatusBarLeftContainer.getChildAt(1) as View
-                textview = TextView(context!!).apply {
+                textView = TextView(context!!).apply {
                     setTextSize(TypedValue.COMPLEX_UNIT_DIP, 7.6f)
-                    typeface = Typeface.create(null, 600, false)
+                    typeface = Typeface.create(null, 800, false)
                     isSingleLine = false
                     setLineSpacing(0f, 0.7f)
                     layoutParams = mView.layoutParams
@@ -64,17 +63,17 @@ object StatusBarShowChargeInfo : BaseHook() {
                 val filter = IntentFilter().apply {
                     addAction(Intent.ACTION_BATTERY_CHANGED)
                 }
-                context!!.registerReceiver(BatteryReceiver(textview!!), filter)
-                mStatusBarLeftContainer.addView(textview, 4)
+                context!!.registerReceiver(BatteryReceiver(textView!!), filter)
+                mStatusBarLeftContainer.addView(textView, 4)
             }
         }
         loadClass("com.android.systemui.statusbar.phone.MiuiCollapsedStatusBarFragment").methodFinder().filterByName("showClock").first().createHook {
             after {
                 val batteryBroadcast = context!!.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.getIntExtra("status", 0)
                 if (it.args[0] as Boolean && batteryBroadcast == BatteryManager.BATTERY_STATUS_CHARGING) {
-                    textview!!.visibility = View.VISIBLE
+                    textView!!.visibility = View.VISIBLE
                     val interpolator: Interpolator = PathInterpolator(0.4f, 0.0f, 1.0f, 1.0f)
-                    textview!!.animate()?.alpha(1.0f)?.setDuration(250L)?.setInterpolator(interpolator)
+                    textView!!.animate()?.alpha(1.0f)?.setDuration(250L)?.setInterpolator(interpolator)
                 }
             }
         }
@@ -82,67 +81,68 @@ object StatusBarShowChargeInfo : BaseHook() {
             after {
                 if (it.args[0] as Boolean) {
                     val interpolator: Interpolator = PathInterpolator(0.0f, 0.0f, 0.8f, 1.0f)
-                    textview!!.animate()?.alpha(0.0f)?.setDuration(160L)?.setInterpolator(interpolator).also { animator ->
+                    textView!!.animate()?.alpha(0.0f)?.setDuration(160L)?.setInterpolator(interpolator).also { animator ->
                         animator?.withEndAction {
-                            textview!!.visibility = View.GONE
+                            textView!!.visibility = View.GONE
                         }
                     }
                 }
             }
         }
-        loadClass("com.android.systemui.statusbar.phone.MiuiCollapsedStatusBarFragment").methodFinder().filterByName("updateNotificationIconAreaAndCallChip").first().createHook {
-            after {
-                val clockHiddenMode = it.thisObject.callMethodAs<Int>("clockHiddenMode")
-                if (it.args[0] != 0) {
-                    if (clockHiddenMode == 4 || textview!!.alpha == 0.0f) {
-                        textview!!.visibility = View.GONE
-                    }
-                } else {
-                    val batteryBroadcast = context!!.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.getIntExtra("status", 0)
-                    if (batteryBroadcast == BatteryManager.BATTERY_STATUS_CHARGING) {
-                        textview!!.visibility = View.VISIBLE
+        loadClass("com.android.systemui.statusbar.phone.MiuiCollapsedStatusBarFragment").methodFinder().filterByName("updateNotificationIconAreaAndCallChip")
+            .first().createHook {
+                after {
+                    val clockHiddenMode = it.thisObject.callMethodAs<Int>("clockHiddenMode")
+                    if (it.args[0] != 0) {
+                        if (clockHiddenMode == 4 || textView!!.alpha == 0.0f) {
+                            textView!!.visibility = View.GONE
+                        }
+                    } else {
+                        val batteryBroadcast = context!!.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.getIntExtra("status", 0)
+                        if (batteryBroadcast == BatteryManager.BATTERY_STATUS_CHARGING) {
+                            textView!!.alpha = 1.0f
+                            textView!!.visibility = View.VISIBLE
+                        }
                     }
                 }
             }
-        }
     }
 
     class BatteryReceiver(private val textView: TextView) : BroadcastReceiver() {
 
         val handler = Handler(textView.context.mainLooper)
+
         private val runnable = object : Runnable {
             @SuppressLint("SetTextI18n")
             override fun run() {
                 val temperature = getBatteryTemperature()
-                val batteryManager = textView.context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-                val current = abs(batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000 / 1000.0)
+                val current = getBatteryCurrent(textView.context)
                 textView.text = "${"%.2f".format(current)}A\n${"%.1f".format(temperature)}℃"
                 if (textView.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
                     textView.setPadding(5, 14, 0, 0)
-                } else {
+                } else if (textView.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     textView.setPadding(5, 20, 0, 0)
                 }
-                handler.postDelayed(this, 1000)
+                handler.postDelayed(this, 1500)
             }
         }
 
         override fun onReceive(context: Context, intent: Intent) {
-            if (intent.action == Intent.ACTION_BATTERY_CHANGED) {
-                handler.post(runnable)
-            }
             val status = intent.getIntExtra("status", 0)
-            if (status == BatteryManager.BATTERY_STATUS_DISCHARGING) {
-                handler.removeCallbacks(runnable)
-            }
-            val mKeyguardManager = context.getSystemService(KEYGUARD_SERVICE) as KeyguardManager
+            val mKeyguardManager = textView.context.getSystemService(KEYGUARD_SERVICE) as KeyguardManager
             val isInLockScreen: Boolean = mKeyguardManager.inKeyguardRestrictedInputMode()
             if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
                 if (textView.alpha != 0.0f && !isInLockScreen) {
-                    sleep(1000)
                     textView.visibility = View.VISIBLE
                 }
             } else {
                 textView.visibility = View.GONE
+            }
+            if (status == BatteryManager.BATTERY_STATUS_CHARGING && !isInLockScreen && textView.alpha != 0.0f) {
+                handler.post(runnable)
+            }
+            if (status == BatteryManager.BATTERY_STATUS_DISCHARGING || isInLockScreen) {
+                handler.removeCallbacks(runnable)
             }
         }
     }

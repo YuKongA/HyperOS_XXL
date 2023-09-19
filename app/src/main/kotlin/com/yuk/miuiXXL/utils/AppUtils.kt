@@ -43,7 +43,7 @@ object AppUtils {
         else -> "?"
     }
 
-    fun checkAndroidVersion(): String = getProp("ro.build.version.release")
+    fun checkAndroidVersion(): String = Build.VERSION.RELEASE
 
     fun exec(command: String): String {
         var process: Process? = null

@@ -19,7 +19,7 @@ object MaxWallpaperScale : BaseHook() {
                 it.thisObject.objectHelper().setObject("mMaxWallpaperScale", value)
             }
         }
-        wallpaperControllerClass.constructors.createHooks {
+        wallpaperControllerClass.declaredConstructors.createHooks {
             after {
                 it.thisObject.objectHelper().setObject("mMaxWallpaperScale", value)
             }

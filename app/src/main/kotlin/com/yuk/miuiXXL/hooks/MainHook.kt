@@ -167,9 +167,9 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
                 }
 
                 "com.miui.packageinstaller" -> {
+                    AllowUpdateSystemApp().handleLoadPackage(lpparam)
                     initHooks(
                         RemovePackageInstallerAds,
-                        AllowUpdateSystemApp,
                         ShowMoreApkInfo,
                         DisableCountCheck,
                     )

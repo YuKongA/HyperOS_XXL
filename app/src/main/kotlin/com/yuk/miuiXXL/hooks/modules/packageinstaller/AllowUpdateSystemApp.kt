@@ -2,36 +2,33 @@ package com.yuk.miuiXXL.hooks.modules.packageinstaller
 
 import android.content.pm.ApplicationInfo
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
-import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
-import com.yuk.miuiXXL.hooks.modules.BaseHook
-import com.yuk.miuiXXL.utils.KotlinXposedHelper.findClassOrNull
-import com.yuk.miuiXXL.utils.KotlinXposedHelper.hookBeforeMethod
 import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
+import de.robv.android.xposed.IXposedHookLoadPackage
+import de.robv.android.xposed.XposedBridge
+import de.robv.android.xposed.callbacks.XC_LoadPackage
+import org.luckypray.dexkit.DexKitBridge
+import java.lang.reflect.Method
+import java.lang.reflect.Modifier
 
-object AllowUpdateSystemApp : BaseHook() {
-    override fun init() {
+class AllowUpdateSystemApp : IXposedHookLoadPackage {
 
+    override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if (!getBoolean("packageinstaller_allow_update_system_app", false)) return
-        var letter = 'a'
-        for (i in 0..25) {
-            try {
-                val classIfExists = "j2.${letter}".findClassOrNull()
-                classIfExists?.let {
-                    it.methodFinder().filterByParamCount(1).filterByParamTypes(ApplicationInfo::class.java, Boolean::class.java).first().createHook {
-                        returnConstant(false)
-                    }
-                }
-            } catch (t: Throwable) {
-                letter++
+        System.loadLibrary("dexkit")
+        val bridge = DexKitBridge.create(lpparam.appInfo.sourceDir) ?: throw NullPointerException("DexKitBridge.create() failed")
+        bridge.findMethod {
+            matcher {
+                modifiers = Modifier.PUBLIC or Modifier.STATIC
+                paramTypes = listOf("android.content.pm.ApplicationInfo")
+                returnType = "boolean"
+            }
+        }.forEach {
+            XposedBridge.log(it.name)
+            it.getMethodInstance(lpparam.classLoader).createHook {
+                returnConstant(false)
             }
         }
-
-        try {
-            "android.os.SystemProperties".hookBeforeMethod("getBoolean", String::class.java, Boolean::class.java) {
-                if (it.args[0] == "persist.sys.allow_sys_app_update") it.result = true
-            }
-        } catch (_: Exception) {
-        }
+        bridge.close()
     }
 
 }

@@ -1,13 +1,11 @@
 package com.yuk.miuiXXL.hooks.modules.packageinstaller
 
-import android.content.pm.ApplicationInfo
 import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
 import com.yuk.miuiXXL.utils.XSharedPreferences.getBoolean
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import org.luckypray.dexkit.DexKitBridge
-import java.lang.reflect.Method
 import java.lang.reflect.Modifier
 
 class AllowUpdateSystemApp : IXposedHookLoadPackage {

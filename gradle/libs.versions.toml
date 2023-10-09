@@ -1,6 +1,6 @@
 [versions]
 agp = "8.1.2"
-dexKit = "2.0.0-rc4"
+dexKit = "2.0.0-rc5"
 ezXHelper = "2.0.7"
 xposed-api = "82"
 kotlin = "1.9.10"

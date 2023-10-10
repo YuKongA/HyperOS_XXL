@@ -17,7 +17,7 @@ android {
         minSdk = 33
         targetSdk = 34
         versionCode = getVersionCode()
-        versionName = "0.8." + getVersionName()
+        versionName = "1.0" + "-" + getVersionName()
         //noinspection ChromeOsAbiSupport
         ndk.abiFilters += arrayOf("arm64-v8a")
     }

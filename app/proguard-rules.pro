@@ -20,7 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.yuk.miuiXXL.hooks.MainHook {
+-keep class com.yuk.hyperOS_XXL.hooks.MainHook {
     <init>();
 }
 
@@ -28,8 +28,6 @@
     public static void check*(...);
     public static void throw*(...);
 }
-
--keep class miui.drm.** { *; }
 
 -allowaccessmodification
 -overloadaggressively

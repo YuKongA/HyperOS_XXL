@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Miui XXL</string>
+    <string name="app_name" translatable="false">HyperOS XXL</string>
     <string name="xposed_description">Self-use chowder</string>
     <string name="tips">Tips</string>
     <string name="not_support">The module is not activated. Please activate the module and try again</string>
@@ -101,8 +101,6 @@
     <string name="miuihome_show_real_memory_summary">Hacking fake MIUI memory display, need to turn on "Show memory status" in Home screen Settings</string>
 
     <string name="thememanager">Theme Manager</string>
-    <string name="thememanager_fuck_validate_theme">Theme cracking</string>
-    <string name="thememanager_fuck_validate_theme_summary">Third-party themes and fonts are allowed to be applied, and the system framework need to be checked and restarted at the same time.</string>
     <string name="thememanager_remove_ads">Remove Ads</string>
     <string name="thememanager_remove_ads_summary">Guess the ads in your favorite will be displayed as blank cards, and the ads in the rest will be completely removed</string>
 
@@ -117,8 +115,6 @@
     <string name="systemui_statusbar_show_seconds_summary">The time of the position of the status bar is displayed in seconds, excluding the notification bar and the control center</string>
     <string name="systemui_disable_bluetooth_restrict">Disable Bluetooth Restrict</string>
     <string name="systemui_disable_bluetooth_restrict_summary">Disable MIUI copying Apple\'s temporarily disable Bluetooth</string>
-    <string name="systemui_force_use_new_hd">Force to use new HD icon in Status Bar</string>
-    <string name="systemui_force_use_new_hd_summary">A recent system version is required, some models may not have been updated</string>
     <string name="systemui_show_wifi_standard">Show Wifi Standard in Status Bar</string>
     <string name="systemui_show_wifi_standard_summary">WIFI icon shows the Wi-Fi protocol</string>
     <string name="systemui_lockscreen_show_seconds">Time in seconds on Lock screen</string>
@@ -143,7 +139,6 @@
 
     <string name="personalassistant">App Vault</string>
     <string name="personalassistant_minus_one_blur">Minus One Screen Blur</string>
-    <string name="personalassistant_minus_one_blur_summary">MediaTek devices are only recommended to be enabled on Android 13, non-Android 13 MediaTek devices often have a black screen when dynamically adjusting the blur radius</string>
 
     <string name="packageinstaller">Package Installer</string>
     <string name="packageinstaller_allow_update_system_app">Allow update system apps</string>

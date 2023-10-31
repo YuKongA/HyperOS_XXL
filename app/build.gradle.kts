@@ -9,12 +9,12 @@ plugins {
 }
 
 android {
-    namespace = "com.yuk.miuiXXL"
+    namespace = "com.yuk.HyperOS_XXL"
     compileSdk = 34
 
     defaultConfig {
         applicationId = namespace
-        minSdk = 33
+        minSdk = 34
         targetSdk = 34
         versionCode = getVersionCode()
         versionName = "1.0" + "-" + getVersionName()
@@ -50,7 +50,7 @@ android {
         }
     }
     androidResources {
-        additionalParameters += arrayOf("--allow-reserved-package-id", "--package-id", "0x67")
+        additionalParameters += arrayOf("--allow-reserved-package-id", "--package-id", "0x52")
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -62,7 +62,7 @@ android {
         }
         applicationVariants.all {
             outputs.all {
-                (this as BaseVariantOutputImpl).outputFileName = "Miui_XXL-$versionName($versionCode)-$name.apk"
+                (this as BaseVariantOutputImpl).outputFileName = "HyperOS_XXL-$versionName($versionCode)-$name.apk"
             }
         }
     }

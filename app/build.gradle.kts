@@ -2,10 +2,9 @@ import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import java.io.ByteArrayOutputStream
 import java.util.Properties
 
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
+    autowire(libs.plugins.com.android.application)
+    autowire(libs.plugins.org.jetbrains.kotlin.android)
 }
 
 android {
@@ -108,8 +107,8 @@ kotlin {
 }
 
 dependencies {
-    compileOnly(libs.xposed.api)
-    implementation(project(":blockmiui"))
-    implementation(libs.ezXHelper)
-    implementation(libs.dexKit)
+    compileOnly(de.robv.android.xposed.api)
+    implementation(com.github.kyuubiran.ezXHelper)
+    implementation(org.luckypray.dexkit)
+    implementation(projects.blockmiui)
 }

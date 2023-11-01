@@ -92,7 +92,7 @@ object BlurWhenOpenFolder : BaseHook() {
             if (isShouldBlur && blurRatio == 0.0f) it.result = null
         }
 
-        if ((getBoolean("miuihome_use_complete_blur", false) && !getBoolean("miuihome_complete_blur_fix", false)) || !(getBoolean("miuihome_use_complete_blur", false))) {
+        if (!getBoolean("miuihome_use_complete_blur", false)) {
             navStubViewClass.hookBeforeMethod("onPointerEvent", MotionEvent::class.java) {
                 val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
                 val motionEvent = it.args[0] as MotionEvent

@@ -72,10 +72,7 @@
     <string name="miuihome_highend_device">Remove device restrictions</string>
     <string name="miuihome_highend_device_summary">It will be recognized as high-end by default. Remove some logs at the same time.</string>
     <string name="miuihome_recentview_remove_card_animation">Modify the card marking animation</string>
-    <string name="miuihome_recentview_remove_card_animation_summary">Modify the animation effect of the horizontal recent task removal card</string>
-    <string name="miuihome_recentwiew_wallpaper_darkening">Disable wallpaper dimming</string>
-    <string name="miuihome_recentwiew_wallpaper_darkening_summary">This will disable the effect that the wallpaper will gradually brighten from dimming when going in and out of the recent task</string>
-    <string name="miuihome_scroll_icon_name">Scroll app name</string>
+    <string name="miuihome_recentview_remove_card_animation_summary">Modify the animation effect of the horizontal recent task removal card</string><string name="miuihome_scroll_icon_name">Scroll app name</string>
     <string name="miuihome_scroll_icon_name_summary">The application name that is too long will be scrolled and displayed without any new line</string>
     <string name="miuihome_shortcut_add_small_window">Shortcut Menu Add Window</string>
     <string name="miuihome_shortcut_add_small_window_summary">Press and hold the desktop icon to add a quick open window</string>
@@ -93,8 +90,6 @@
     <string name="miuihome_task_view_card_size_horizontal2">Thumbnail size for Horizontally-Horizontal</string>
     <string name="miuihome_use_complete_blur">Complete blur</string>
     <string name="miuihome_use_complete_blur_summary">Use the official half-finished complete blur feature</string>
-    <string name="miuihome_complete_blur_fix">Complete Blur Complement</string>
-    <string name="miuihome_complete_blur_fix_summary">Complements blur when swiping up from the App, which may cause visual flicker</string>
     <string name="miuihome_minus_one_overlap_mode">Overlap Mode App Vault</string>
     <string name="miuihome_minus_one_overlap_mode_summary">Used in conjunction with minus one screen blur, and the system launcher need to be checked</string>
     <string name="miuihome_show_real_memory">Show Real Memory Info</string>
@@ -105,22 +100,8 @@
     <string name="thememanager_remove_ads_summary">Guess the ads in your favorite will be displayed as blank cards, and the ads in the rest will be completely removed</string>
 
     <string name="systemui">SystemUI</string>
-    <string name="systemui_lockscreen_remove_camera">Remove lock screen camera</string>
-    <string name="systemui_lockscreen_remove_camera_summary">Remove the icon and camera function in the lower right corner of the lock screen interface</string>
-    <string name="systemui_lockscreen_remove_minus">Remove the lock screen minus one screen</string>
-    <string name="systemui_lockscreen_remove_minus_summary">Remove the icon at the lower left corner of the lock screen and the negative screen function</string>
-    <string name="systemui_lockscreen_show_current">Lock screen shows charging current</string>
-    <string name="systemui_lockscreen_show_current_summary">Instantaneous current is displayed at the bottom of the lock screen during charging</string>
     <string name="systemui_statusbar_show_seconds">Time in seconds in Status bar</string>
     <string name="systemui_statusbar_show_seconds_summary">The time of the position of the status bar is displayed in seconds, excluding the notification bar and the control center</string>
-    <string name="systemui_disable_bluetooth_restrict">Disable Bluetooth Restrict</string>
-    <string name="systemui_disable_bluetooth_restrict_summary">Disable MIUI copying Apple\'s temporarily disable Bluetooth</string>
-    <string name="systemui_show_wifi_standard">Show Wifi Standard in Status Bar</string>
-    <string name="systemui_show_wifi_standard_summary">WIFI icon shows the Wi-Fi protocol</string>
-    <string name="systemui_lockscreen_show_seconds">Time in seconds on Lock screen</string>
-    <string name="systemui_lockscreen_show_seconds_summary">The time of the position of the lock screen is displayed in seconds</string>
-    <string name="systemui_statusbar_show_charge_info">Show Charge Related Info in Status Bar</string>
-    <string name="systemui_statusbar_show_charge_info_summary">Displayed only when charging, current info is for reference only</string>
 
     <string name="powerkeeper">Power and Performance</string>
     <string name="powerkeeper_disable_dynamic_refresh_rate">Lock refresh rate</string>

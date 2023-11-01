@@ -34,17 +34,8 @@ class MiuiHomePage : BasePage() {
             SwitchV("miuihome_use_complete_blur", false, dataBindingSend = blurBinding.bindingSend)
         )
         TextSummaryWithSwitch(
-            TextSummaryV(textId = R.string.miuihome_complete_blur_fix, tipsId = R.string.miuihome_complete_blur_fix_summary),
-            SwitchV("miuihome_complete_blur_fix", false),
-            dataBindingRecv = blurBinding.binding.getRecv(1)
-        )
-        TextSummaryWithSwitch(
             TextSummaryV(textId = R.string.miuihome_highend_device, tipsId = R.string.miuihome_highend_device_summary),
             SwitchV("miuihome_highend_device", false)
-        )
-        TextSummaryWithSwitch(
-            TextSummaryV(textId = R.string.miuihome_recentwiew_wallpaper_darkening, tipsId = R.string.miuihome_recentwiew_wallpaper_darkening_summary),
-            SwitchV("miuihome_recentwiew_wallpaper_darkening", false)
         )
         TextSummaryWithSwitch(
             TextSummaryV(textId = R.string.miuihome_unlock_animation, tipsId = R.string.miuihome_unlock_animation_summary),

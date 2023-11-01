@@ -67,8 +67,6 @@
     <string name="miuihome_anim_ratio_summary">生效于打开关闭应用程序时的过渡动画速度</string>
     <string name="miuihome_anim_ratio_recent">过渡动画速度「进出后台」</string>
     <string name="miuihome_anim_ratio_recent_summary">生效于进出最近任务时的过渡动画速度</string>
-    <string name="miuihome_recentwiew_wallpaper_darkening">禁用壁纸压暗效果</string>
-    <string name="miuihome_recentwiew_wallpaper_darkening_summary">这将禁用上滑至最近任务时壁纸从压暗逐渐变亮的效果</string>
     <string name="miuihome_recentview_remove_card_animation">修改划卡动画</string>
     <string name="miuihome_recentview_remove_card_animation_summary">修改最近任务横向排布时移除卡片的动画效果</string>
     <string name="miuihome_unlock_animation">优化解锁动画</string>
@@ -91,8 +89,6 @@
     <string name="miuihome_task_view_card_size_horizontal2">平铺卡片大小「横屏时」</string>
     <string name="miuihome_use_complete_blur">完整模糊</string>
     <string name="miuihome_use_complete_blur_summary">使用米米官方搞的半成品完整模糊功能</string>
-    <string name="miuihome_complete_blur_fix">完整模糊补全</string>
-    <string name="miuihome_complete_blur_fix_summary">补全从应用向上滑动时的模糊效果，这可能导致视觉闪烁和瞬时丢帧</string>
     <string name="miuihome_minus_one_overlap_mode">覆盖模式</string>
     <string name="miuihome_minus_one_overlap_mode_summary">配合「背景模糊」使用，该功能作用域为系统桌面</string>
     <string name="miuihome_show_real_memory">显示真实内存使用情况</string>
@@ -105,20 +101,6 @@
     <string name="systemui">系统界面</string>
     <string name="systemui_statusbar_show_seconds">状态栏时间显秒</string>
     <string name="systemui_statusbar_show_seconds_summary">状态栏位置的时间以秒为单位显示，不包括通知栏及控制中心</string>
-    <string name="systemui_lockscreen_show_current">锁屏显示充电电流</string>
-    <string name="systemui_lockscreen_show_current_summary">充电时锁屏界面底部显示瞬间电流</string>
-    <string name="systemui_lockscreen_remove_minus">移除锁屏负一屏</string>
-    <string name="systemui_lockscreen_remove_minus_summary">移除锁屏界面左下角图标及负一屏功能</string>
-    <string name="systemui_lockscreen_remove_camera">移除锁屏相机</string>
-    <string name="systemui_lockscreen_remove_camera_summary">移除锁屏界面右下角图标及相机功能</string>
-    <string name="systemui_disable_bluetooth_restrict">禁用蓝牙临时关闭</string>
-    <string name="systemui_disable_bluetooth_restrict_summary">禁用米米对标苹果的「蓝牙临时关闭」功能</string>
-    <string name="systemui_show_wifi_standard">状态栏显示 WiFi 角标</string>
-    <string name="systemui_show_wifi_standard_summary">WiFi 图标右下角显示当前 WiFi 标准</string>
-    <string name="systemui_lockscreen_show_seconds">锁屏时间显秒</string>
-    <string name="systemui_lockscreen_show_seconds_summary">锁屏界面的时间以秒为单位显示</string>
-    <string name="systemui_statusbar_show_charge_info">状态栏显示充电相关信息</string>
-    <string name="systemui_statusbar_show_charge_info_summary">仅在充电时显示，电流信息仅供参考</string>
 
     <string name="powerkeeper">电量和性能</string>
     <string name="powerkeeper_disable_dynamic_refresh_rate">锁定刷新率</string>

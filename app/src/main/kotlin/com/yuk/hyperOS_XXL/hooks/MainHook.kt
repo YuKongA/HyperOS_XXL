@@ -14,7 +14,6 @@ import com.yuk.hyperOS_XXL.hooks.modules.miuihome.AlwaysShowStatusBarClock
 import com.yuk.hyperOS_XXL.hooks.modules.miuihome.AnimDurationRatio
 import com.yuk.hyperOS_XXL.hooks.modules.miuihome.BlurWhenOpenFolder
 import com.yuk.hyperOS_XXL.hooks.modules.miuihome.CategoryFeatures
-import com.yuk.hyperOS_XXL.hooks.modules.miuihome.DisableRecentViewWallpaperDarkening
 import com.yuk.hyperOS_XXL.hooks.modules.miuihome.DoubleTapToSleep
 import com.yuk.hyperOS_XXL.hooks.modules.miuihome.MinusOneOverlapMode
 import com.yuk.hyperOS_XXL.hooks.modules.miuihome.RecentViewRemoveCardAnim
@@ -36,14 +35,6 @@ import com.yuk.hyperOS_XXL.hooks.modules.securitycenter.RemoveMacroBlacklist
 import com.yuk.hyperOS_XXL.hooks.modules.securitycenter.ShowBatteryTemperature
 import com.yuk.hyperOS_XXL.hooks.modules.securitycenter.SkipWarningWaitTime
 import com.yuk.hyperOS_XXL.hooks.modules.settings.NotificationImportance
-import com.yuk.hyperOS_XXL.hooks.modules.systemui.DisableBluetoothRestrict
-import com.yuk.hyperOS_XXL.hooks.modules.systemui.LockScreenShowChargingInfo
-import com.yuk.hyperOS_XXL.hooks.modules.systemui.LockScreenShowSeconds
-import com.yuk.hyperOS_XXL.hooks.modules.systemui.RemoveLockScreenCamera
-import com.yuk.hyperOS_XXL.hooks.modules.systemui.RemoveLockScreenMinus
-import com.yuk.hyperOS_XXL.hooks.modules.systemui.RemoveSmallWindowRestriction3
-import com.yuk.hyperOS_XXL.hooks.modules.systemui.ShowWifiStandard
-import com.yuk.hyperOS_XXL.hooks.modules.systemui.StatusBarShowChargingInfo
 import com.yuk.hyperOS_XXL.hooks.modules.systemui.StatusBarShowSeconds
 import com.yuk.hyperOS_XXL.hooks.modules.thememanager.RemoveThemeManagerAds
 import de.robv.android.xposed.IXposedHookLoadPackage
@@ -100,14 +91,6 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
                 "com.android.systemui" -> {
                     initHooks(
                         StatusBarShowSeconds,
-                        LockScreenShowChargingInfo,
-                        RemoveLockScreenMinus,
-                        RemoveLockScreenCamera,
-                        DisableBluetoothRestrict,
-                        RemoveSmallWindowRestriction3,
-                        ShowWifiStandard,
-                        LockScreenShowSeconds,
-                        StatusBarShowChargingInfo,
                     )
                 }
 
@@ -134,7 +117,6 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
                         ScrollIconName,
                         AnimDurationRatio,
                         UnlockAnim,
-                        DisableRecentViewWallpaperDarkening,
                         RecentViewRemoveCardAnim,
                         CategoryFeatures,
                         ShortcutAddSmallWindow,

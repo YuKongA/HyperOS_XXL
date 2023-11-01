@@ -26,7 +26,7 @@ object StatusBarShowSeconds : BaseHook() {
         try {
             var c: Context? = null
             try {
-                loadClass("com.android.systemui.statusbar.views.MiuiStatusBarClock").constructorFinder().filterByParamCount(3).first().createHook {
+                loadClass("com.android.systemui.statusbar.views.MiuiClock").constructorFinder().filterByParamCount(3).first().createHook {
                     after {
                         try {
                             c = it.args[0] as Context
@@ -54,7 +54,7 @@ object StatusBarShowSeconds : BaseHook() {
             } catch (_: Exception) {
             }
             try {
-                loadClass("com.android.systemui.statusbar.views.MiuiStatusBarClock").methodFinder().filterByName("updateTime").first().createHook {
+                loadClass("com.android.systemui.statusbar.views.MiuiClock").methodFinder().filterByName("updateTime").first().createHook {
                     after {
                         try {
                             val textV = it.thisObject as TextView?

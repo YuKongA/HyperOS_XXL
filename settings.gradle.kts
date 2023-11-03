@@ -10,7 +10,7 @@ pluginManagement {
 }
 
 plugins {
-    id("com.highcapable.sweetdependency") version "1.0.2"
+    id("com.highcapable.sweetdependency") version "1.0.3"
 }
 
 rootProject.name = ("HyperOS_XXL")

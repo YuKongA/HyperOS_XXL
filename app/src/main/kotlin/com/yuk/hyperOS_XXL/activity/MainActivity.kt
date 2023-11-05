@@ -2,7 +2,9 @@ package com.yuk.hyperOS_XXL.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import cn.fkj233.ui.activity.MIUIActivity
 import cn.fkj233.ui.dialog.MIUIDialog
 import com.yuk.HyperOS_XXL.R
@@ -17,6 +19,7 @@ import com.yuk.hyperOS_XXL.activity.pages.SecurityCenterPage
 import com.yuk.hyperOS_XXL.activity.pages.SettingsPage
 import com.yuk.hyperOS_XXL.activity.pages.SystemUIPage
 import com.yuk.hyperOS_XXL.activity.pages.ThemeManagerPage
+import com.yuk.hyperOS_XXL.utils.AppUtils.isDarkMode
 import com.yuk.hyperOS_XXL.utils.AppUtils.perfFileName
 import com.yuk.hyperOS_XXL.utils.BackupUtils
 import kotlin.system.exitProcess
@@ -24,6 +27,9 @@ import kotlin.system.exitProcess
 class MainActivity : MIUIActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         checkLSPosed()
+        window.decorView.layoutDirection = resources.configuration.layoutDirection
+        window.statusBarColor = if (isDarkMode(this.applicationContext)) Color.parseColor("#000000") else Color.parseColor("#FFFFFF")
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         super.onCreate(savedInstanceState)
     }
 

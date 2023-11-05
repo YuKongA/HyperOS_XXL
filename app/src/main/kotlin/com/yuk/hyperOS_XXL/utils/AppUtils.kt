@@ -2,8 +2,8 @@ package com.yuk.hyperOS_XXL.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Configuration
 import android.os.BatteryManager
-import android.os.Build
 import com.yuk.HyperOS_XXL.BuildConfig
 import de.robv.android.xposed.XSharedPreferences
 import java.io.BufferedReader
@@ -21,13 +21,11 @@ object AppUtils {
 
     @SuppressLint("PrivateApi")
     @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    fun getProp(mKey: String): String =
-        Class.forName("android.os.SystemProperties").getMethod("get", String::class.java).invoke(Class.forName("android.os.SystemProperties"), mKey).toString()
+    fun getProp(mKey: String): String = Class.forName("android.os.SystemProperties").getMethod("get", String::class.java).invoke(Class.forName("android.os.SystemProperties"), mKey).toString()
 
     @SuppressLint("PrivateApi")
-    fun getProp(mKey: String, defaultValue: Boolean): Boolean =
-        Class.forName("android.os.SystemProperties").getMethod("getBoolean", String::class.java, Boolean::class.javaPrimitiveType)
-            .invoke(Class.forName("android.os.SystemProperties"), mKey, defaultValue) as Boolean
+    fun getProp(mKey: String, defaultValue: Boolean): Boolean = Class.forName("android.os.SystemProperties").getMethod("getBoolean", String::class.java, Boolean::class.javaPrimitiveType)
+        .invoke(Class.forName("android.os.SystemProperties"), mKey, defaultValue) as Boolean
 
     fun exec(command: String): String {
         var process: Process? = null
@@ -80,12 +78,16 @@ object AppUtils {
     fun getBatteryTemperature(): Double {
         return readDoubleFromFile("/sys/class/power_supply/battery/temp")?.div(10.0) ?: 0.0
     }
+
     fun getBatteryVoltage(): Double {
         return readDoubleFromFile("/sys/class/power_supply/battery/voltage_now")?.div(1000000.0) ?: 0.0
     }
 
-    fun getBatteryCurrent(context:Context): Double {
+    fun getBatteryCurrent(context: Context): Double {
         val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-       return abs(batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000 / 1000.0)
+        return abs(batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW) / 1000 / 1000.0)
     }
+
+    fun isDarkMode(context: Context): Boolean = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+
 }

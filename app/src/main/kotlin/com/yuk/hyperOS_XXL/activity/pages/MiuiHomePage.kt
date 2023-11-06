@@ -50,6 +50,10 @@ class MiuiHomePage : BasePage() {
             SwitchV("miuihome_blur_when_open_folder", false)
         )
         TextSummaryWithSwitch(
+            TextSummaryV(textId = R.string.miuihome_add_dock_blur, tipsId = R.string.miuihome_add_dock_blur_summary),
+            SwitchV("miuihome_add_dock_blur", false)
+        )
+        TextSummaryWithSwitch(
             TextSummaryV(textId = R.string.miuihome_hide_allapps_category_all, tipsId = R.string.miuihome_hide_allapps_category_all_summary),
             SwitchV("miuihome_hide_allapps_category_all", false)
         )

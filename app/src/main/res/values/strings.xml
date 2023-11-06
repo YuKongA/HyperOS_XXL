@@ -94,6 +94,8 @@
     <string name="miuihome_minus_one_overlap_mode_summary">Used in conjunction with minus one screen blur, and the system launcher need to be checked</string>
     <string name="miuihome_show_real_memory">Show Real Memory Info</string>
     <string name="miuihome_show_real_memory_summary">Hacking fake MIUI memory display, need to turn on "Show memory status" in Home screen Settings</string>
+    <string name="miuihome_add_dock_blur">Add Dock Blur</string>
+    <string name="miuihome_add_dock_blur_summary">WIP</string>
 
     <string name="thememanager">Theme Manager</string>
     <string name="thememanager_remove_ads">Remove Ads</string>

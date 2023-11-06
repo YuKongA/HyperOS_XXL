@@ -14,6 +14,7 @@ import com.yuk.hyperOS_XXL.hooks.modules.miuihome.AlwaysShowStatusBarClock
 import com.yuk.hyperOS_XXL.hooks.modules.miuihome.AnimDurationRatio
 import com.yuk.hyperOS_XXL.hooks.modules.miuihome.BlurWhenOpenFolder
 import com.yuk.hyperOS_XXL.hooks.modules.miuihome.CategoryFeatures
+import com.yuk.hyperOS_XXL.hooks.modules.miuihome.DockBlur
 import com.yuk.hyperOS_XXL.hooks.modules.miuihome.DoubleTapToSleep
 import com.yuk.hyperOS_XXL.hooks.modules.miuihome.MinusOneOverlapMode
 import com.yuk.hyperOS_XXL.hooks.modules.miuihome.RecentViewRemoveCardAnim
@@ -127,6 +128,7 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
                         UseCompleteBlur,
                         MinusOneOverlapMode,
                         ShowRealMemory,
+                        DockBlur
                     )
                 }
 

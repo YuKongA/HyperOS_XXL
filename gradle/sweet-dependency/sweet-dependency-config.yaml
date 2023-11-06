@@ -34,3 +34,6 @@ libraries:
   org.luckypray:
     dexkit:
       version: 2.0.0-rc7
+  org.lsposed.hiddenapibypass:
+    hiddenapibypass:
+      version: 4.3

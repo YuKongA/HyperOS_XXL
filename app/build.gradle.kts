@@ -110,5 +110,6 @@ dependencies {
     compileOnly(de.robv.android.xposed.api)
     implementation(com.github.kyuubiran.ezXHelper)
     implementation(org.luckypray.dexkit)
+    implementation(org.lsposed.hiddenapibypass.hiddenapibypass)
     implementation(projects.blockmiui)
 }

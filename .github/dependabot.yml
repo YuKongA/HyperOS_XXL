@@ -9,6 +9,9 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    registries:
+      - maven-google
+      - gralde-plugin
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -19,3 +22,12 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+
+
+registries:
+  maven-google:
+    type: maven-repository
+    url: "https://dl.google.com/dl/android/maven2/"
+  gralde-plugin:
+    type: maven-repository
+    url: "https://plugins.gradle.org/m2/"

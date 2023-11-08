@@ -1,16 +1,21 @@
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+@file:Suppress("UnstableApiUsage")
 
 pluginManagement {
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
-        maven("https://api.xposed.info/")
     }
 }
 
-plugins {
-    id("com.highcapable.sweetdependency") version "1.0.3"
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        maven("https://api.xposed.info/")
+    }
 }
 
 rootProject.name = ("HyperOS_XXL")

@@ -2,9 +2,10 @@ import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import java.io.ByteArrayOutputStream
 import java.util.Properties
 
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    autowire(libs.plugins.com.android.application)
-    autowire(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
 }
 
 android {
@@ -67,6 +68,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.majorVersion
+        freeCompilerArgs = listOf(
+            "-Xno-param-assertions",
+            "-Xno-call-assertions",
+            "-Xno-receiver-assertions",
+            "-language-version=2.0",
+        )
     }
 }
 
@@ -98,18 +105,10 @@ fun getVersionName(): String {
     return getGitDescribe()
 }
 
-kotlin {
-    sourceSets.all {
-        languageSettings {
-            languageVersion = "2.0"
-        }
-    }
-}
-
 dependencies {
-    compileOnly(de.robv.android.xposed.api)
-    implementation(com.github.kyuubiran.ezXHelper)
-    implementation(org.luckypray.dexkit)
-    implementation(org.lsposed.hiddenapibypass.hiddenapibypass)
-    implementation(projects.blockmiui)
+    compileOnly(libs.xposed.api)
+    implementation(project(":blockmiui"))
+    implementation(libs.ezXHelper)
+    implementation(libs.dexKit)
+    implementation(libs.hiddenapibypass)
 }

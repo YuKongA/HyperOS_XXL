@@ -94,7 +94,7 @@
     <string name="miuihome_show_real_memory">显示真实内存使用情况</string>
     <string name="miuihome_show_real_memory_summary">在最近任务中显示真实内存使用情况，需在桌面设置中开启“显示内存信息”</string>
     <string name="miuihome_add_dock_blur">添加 Dock 模糊</string>
-    <string name="miuihome_add_dock_blur_summary">未完成，建议关闭负一屏使用</string>
+    <string name="miuihome_add_dock_blur_summary">未完成，缺解锁动画</string>
 
     <string name="thememanager">主题壁纸</string>
     <string name="thememanager_remove_ads">去广告</string>

@@ -3,7 +3,7 @@ agp = "8.1.4"
 dexKit = "2.0.0-rc8"
 ezXHelper = "2.0.8"
 xposed-api = "82"
-kotlin = "1.9.20"
+kotlin = "1.9.21"
 hiddenapibypass = "4.3"
 
 [libraries]

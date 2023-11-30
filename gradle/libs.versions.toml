@@ -1,5 +1,5 @@
 [versions]
-agp = "8.1.4"
+agp = "8.2.0"
 dexKit = "2.0.0-rc9"
 ezXHelper = "2.0.8"
 xposed-api = "82"

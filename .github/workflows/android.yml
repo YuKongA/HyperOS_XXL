@@ -52,13 +52,13 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
       - name: Upload Release APK
-        uses: actions/upload-artifact@v4.0.0
+        uses: actions/upload-artifact@v4.2.0
         with:
           name: HyperOS_XXL-Release
           path: "app/build/outputs/apk/release/*.apk"
 
       - name: Upload Debug APK
-        uses: actions/upload-artifact@v4.0.0
+        uses: actions/upload-artifact@v4.2.0
         with:
           name: HyperOS_XXL-Debug
           path: "app/build/outputs/apk/debug/*.apk"
